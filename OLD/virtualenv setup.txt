@@ -1,0 +1,35 @@
+These assume you're running windows, specifically, only tested on my machine (python 2.7 32bit, installed on 64bit windows :P) . Contact Dave for halp if it doesn't work, but no promises.
+
+
+! Step #1:
+	Install virtualenv 
+easy_install virtualenv
+
+! Step #2:
+	Create the Virtual Enviornment
+virtualenv SamuraiJam --no-site-packages
+
+! Step #3:
+	CD to SamuraiJam
+cd SamuraiJam
+
+! Step #4:
+	Activate VirtualEnv
+cd Scripts; activate.bat
+
+! Step #5:
+	Install Yolk (This is optional, but lets you check if everything is working!)
+pip install yolk
+
+! Step #6:
+	JANK HAX: Set your registry to fake the virtualenv
+elevate.cmd set_virtualenv_python.bat
+
+! Step #7
+	Download and install PyGame via the msi found at: http://pygame.org/ftp/pygame-1.9.2a0.win32-py2.7.msi
+(Click the installer), install from registry (You've haxed that to work!)
+
+! Step #8
+	Download and install NumPy 1.6.1 via http://sourceforge.net/projects/numpy/files/NumPy/1.6.1/numpy-1.6.1-win32-superpack-python2.7.exe/download
+(Click the installer), it will detect the correct directory thanks to hax
+
