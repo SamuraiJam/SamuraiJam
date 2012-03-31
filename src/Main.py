@@ -58,7 +58,7 @@ class SamuraiJamMain:
         spawnList = getSpawnList()
         
         pygame.mixer.music.load("guitar.ogg")
-        pygame.mixer.music.play(loops=0, start=0.0)
+        pygame.mixer.music.play(0, 0.0)
         while 1:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
