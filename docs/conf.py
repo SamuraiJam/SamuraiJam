@@ -22,8 +22,6 @@ sys.path.insert(0, os.path.abspath(os.path.join('..', 'src')))
 
 print "Dave's testing lines:"
 print sys.path
-import samuraijam
-print samuraijam
 
 # -- General configuration -----------------------------------------------------
 
