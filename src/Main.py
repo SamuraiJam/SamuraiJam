@@ -24,9 +24,9 @@ class SamuraiJamMain:
         pygame.init()
         
         """Joystick"""
-        self.joy=pygame.joystick.Joystick(0)
-        self.joy.init()
-        self.numbutton = self.joy.get_numbuttons()
+        #self.joy=pygame.joystick.Joystick(0)
+        #self.joy.init()
+        #self.numbutton = self.joy.get_numbuttons()
         
         """Set the window Size"""
         self.width = width
@@ -38,10 +38,11 @@ class SamuraiJamMain:
         """create the status bar"""
         statusBarHeight = int(float(height)*0.1)
         self.statusBar = StatusBar(surface=self.screen,color=(200, 200, 200),width=width,height=statusBarHeight,x=0,y=0)
+        
         """Create the game field (with guitar string paths)"""
         self.boardHeight = height - statusBarHeight
-        self.guitarStrings = [height*0.15, height*0.35, height*0.55, height*0.75, height*0.95]
-        self.gameboard = Gameboard(surface=self.screen, width=width, height=self.boardHeight, guitarStrings=self.guitarStrings)
+        self.guitarStringPaths = [height*0.15, height*0.30, height*0.45, height*0.60, height*0.75, height*0.90]
+        self.gameboard = Gameboard(surface=self.screen, width=width, height=self.boardHeight, guitarStrings=self.guitarStringPaths)
         
         #draw background
         pygame.display.flip()
@@ -80,19 +81,23 @@ class SamuraiJamMain:
             while spawnList[0][0] <= self.totalTime:
                 monster = spawnList[0][1]
                 if monster[0] != 0:
-                    self.enemy_sprites.add(Enemy(self.velocity,self.width,self.guitarStrings[0]))
+                    self.enemy_sprites.add(Enemy(self.velocity,self.width,self.guitarStringPaths[0]))
                 if monster[1] != 0:
-                    self.enemy_sprites.add(Enemy(self.velocity,self.width,self.guitarStrings[1]))
+                    self.enemy_sprites.add(Enemy(self.velocity,self.width,self.guitarStringPaths[1]))
                 if monster[2] != 0:
-                    self.enemy_sprites.add(Enemy(self.velocity,self.width,self.guitarStrings[2]))
+                    self.enemy_sprites.add(Enemy(self.velocity,self.width,self.guitarStringPaths[2]))
                 if monster[3] != 0:
-                    self.enemy_sprites.add(Enemy(self.velocity,self.width,self.guitarStrings[3]))
+                    self.enemy_sprites.add(Enemy(self.velocity,self.width,self.guitarStringPaths[3]))
                 if monster[4] != 0:
-                    self.enemy_sprites.add(Enemy(self.velocity,self.width,self.guitarStrings[4]))
+                    self.enemy_sprites.add(Enemy(self.velocity,self.width,self.guitarStringPaths[4]))
                 #self.enemy_sprites.add(Enemy(self.velocity,self.width,monster))
                 del spawnList[0]
             #print self.clock.get_time()
             #self.screen.blit(self.gameboard, (self.width,self.boardHeight))
+            #self.screen.fill([0,0,0])
+            for b in self.gameboard.paths:
+                #b.update(time, 150)
+                self.screen.blit(b.image, b.rect)
             self.samurai_sprites.clear(self.screen,self.fillBlack)
             self.enemy_sprites.clear(self.screen,self.fillBlack)
             self.samurai_sprites.update()
@@ -118,10 +123,10 @@ class SamuraiJamMain:
       
     def LoadSprites(self):
         """Load the sprites that we need"""
-        self.samurai = Samurai(self.guitarStrings)
+        self.samurai = Samurai(self.guitarStringPaths)
         self.samurai_sprites = pygame.sprite.RenderPlain((self.samurai))
         
-        self.enemy = Enemy(self.velocity,self.width, self.guitarStrings[2])
+        self.enemy = Enemy(self.velocity,self.width, self.guitarStringPaths[2])
         self.enemy_sprites = pygame.sprite.RenderPlain((self.enemy))
         
                     

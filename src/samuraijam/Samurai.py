@@ -18,7 +18,7 @@ class Samurai(pygame.sprite.Sprite):
     def __init__(self, guitarStrings):
         pygame.sprite.Sprite.__init__(self) 
         self.image, self.rect = load_image('CTS-sprite.gif',-1)
-        self.guitarStrings = guitarStrings
+        self.guitarStringPaths = guitarStrings
         self.rect.move_ip(0,guitarStrings[2])
         self.curString = 2
     
@@ -34,5 +34,5 @@ class Samurai(pygame.sprite.Sprite):
             #self.update()
     
     def update(self):
-        #self.rect.move_ip(0,self.guitarStrings[self.curString])
-        self.rect.topleft = (0,self.guitarStrings[self.curString])
+        #self.rect.move_ip(0,self.guitarStringPaths[self.curString])
+        self.rect.topleft = (0,self.guitarStringPaths[self.curString])
