@@ -6,6 +6,7 @@ Created on Mar 31, 2012
 
 import pygame
 import sys
+from samuraijam.Control.HAL import HAL
 
 """Initialize PyGame"""
 pygame.init()
@@ -13,25 +14,31 @@ pygame.init()
 """Joystick"""
 joy = pygame.joystick.Joystick(0)
 joy.init()
-numbutton = joy.get_numbuttons()
-numaxis = joy.get_numaxes()
-numhat = joy.get_numhats()
+
+buttonMap = {0 : HAL.GREEN, 1 : HAL.RED, 2 : HAL.BLUE, 3 : HAL.YELLOW, 4 : HAL.ORANGE, 6 : HAL.BACK, 7 : HAL.START}
+axisMap = {4 : HAL.WHAMMY, 2 : HAL.EFFECT, 3 : HAL.TILT}
+hatMap = {0 : HAL.STRUM}
+
+axisDefault = {4 : -1.0}
+hatDefault = {}
+
+hal9000 = HAL(buttonMap, axisMap, hatMap, axisDefault, hatDefault)
 
 while 1:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
             sys.exit()
         elif event.type == pygame.JOYBUTTONDOWN:
-            for iB in range(0, numbutton):
-                if(joy.get_button(iB)):
-                    print "\n\n~~~Button down: {0}\n\n".format(iB)
-                    
+            guitarState = hal9000.parseButton(joy)
+            for key, value in guitarState.iteritems():
+                print "{0} is {1}".format(key, value)
         elif event.type == pygame.JOYAXISMOTION:
-            for iA in range(0, numaxis):
-                if(joy.get_axis(iA) != 0.0):
-                    print "\n\n@@@Axis #{0} now reads {1}".format(iA, joy.get_axis(iA))
-                    
+            guitarState = hal9000.parseAxis(joy)
+            for key, value in guitarState.iteritems():
+                print "{0} is {1}".format(key, value)
         elif event.type == pygame.JOYHATMOTION:
-            for iH in range(0, numhat):
-                if(joy.get_hat(iH) != 0.0):
-                    print "\n\n###Hat #{0} now reads {1}".format(iH, joy.get_hat(iH))
+            guitarState = hal9000.parseHat(joy)
+            for key, value in guitarState.iteritems():
+                print "{0} is {1}".format(key, value)
+            
+                
