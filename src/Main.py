@@ -17,7 +17,7 @@ class SamuraiJamMain:
     """The Main PyMan Class - This class handles the main 
     initialization and creating of the Game."""
     
-    def __init__(self, width=1000,height=500):
+    def __init__(self, width=1100,height=600):
         self.velocity = 10
         
         """Initialize PyGame"""
@@ -41,8 +41,8 @@ class SamuraiJamMain:
         
         """Create the game field (with guitar string paths)"""
         self.boardHeight = height - statusBarHeight
-        self.guitarStringPaths = [height*0.15, height*0.30, height*0.45, height*0.60, height*0.75, height*0.90]
-        self.gameboard = Gameboard(surface=self.screen, width=width, height=self.boardHeight, guitarStrings=self.guitarStringPaths)
+        self.guitarStringPaths = [height*0.20, height*0.30, height*0.40, height*0.50, height*0.60, height*0.70]
+        self.gameboard = OldGameboard(surface=self.screen, width=width, height=self.boardHeight, guitarStrings=self.guitarStringPaths)
         
         #draw background
         pygame.display.flip()
