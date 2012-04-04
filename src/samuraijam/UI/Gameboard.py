@@ -5,9 +5,11 @@ Created on Apr 4, 2012
 '''
 
 from pygame import Surface, Rect
+from pygame.sprite import Sprite, Group
 import math, time, sys
 
 from samuraijam.spriteParts import DirtPath
+from samuraijam import Samurai
 
 class Gameboard(object):
     '''
@@ -36,6 +38,15 @@ class Gameboard(object):
         background_size = (self.background_width, height)
         self.backgroundSurface = Surface(background_size)
         self.__render_background()
+        
+        possible_samurai_positions = []
+        
+        for i in range(0, 6):
+            possible_samurai_positions.append(48 * i + 5)
+        
+        self.samurai = Samurai(possible_samurai_positions)
+        self.samurai.curString = 0
+        self.samurai_sprite_group = Group(self.samurai)
         
         if sys.platform == "win32":
             # On Windows, the best timer is time.clock()
@@ -69,6 +80,10 @@ class Gameboard(object):
         self.gameSurface.blit(self.backgroundSurface, origin, window_rect)
         
         #All other drawing
+        self.samurai_sprite_group.update()
+        self.samurai_sprite_group.draw(self.gameSurface)
+        
+        #Annnnd blast it back to the screen
         self.windowSurface.blit(self.gameSurface, origin)
         
         
@@ -81,7 +96,7 @@ class Gameboard(object):
         cur_width = 0
         for bI in range(0, num_blocks):
             for hI in range(0, 6):
-                my_location = (cur_width, (48 * hI + 10))
+                my_location = (cur_width, (48 * hI + 35))
                 dp = DirtPath(my_location)
 #                print "DirtPath at {0}".format(my_location)
                 self.backgroundSurface.blit(dp.image, my_location)
