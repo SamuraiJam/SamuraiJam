@@ -6,10 +6,12 @@ Created on Apr 4, 2012
 import sys, os, time, pygame
 from pygame.locals import *
 from samuraijam.util import *
-from menu import *
+#from samuraijam.game import *
+#from menu import *
 #from samuraijam.game import LevelSelectMenu
+#from LevelSelectMenu import *
+from menu import *
 from LevelSelectMenu import *
-
 
 class MainMenu:
     def __init__(self,screen=None):
@@ -105,9 +107,8 @@ class MainMenu:
                     #go to the next menu (level selection)
                     lvl = LevelSelectMenu(screen)
                     lvl.mainLoop()
-                    screen.fill((0,0,0))
-                    screen.blit(mainScreenBackground, mainScreenBackgroundRect)
                     print "outside levelSelect"
+                    state = 0
                 elif state == 2:
                     print 'Load Game!'
                     self.clashingSwords.play()
@@ -126,12 +127,14 @@ class MainMenu:
                 #blit all
                 pygame.display.update(rect_list)
                 screen.blit(mainScreenBackground, mainScreenBackgroundRect)
+                
+                #pygame.display.flip()
             # Update the screen
             
             #screen.blit(rect_list)
-            #pygame.display.flip()
                 
                 
             
 if __name__ == "__main__":
     MainMenu()
+    
