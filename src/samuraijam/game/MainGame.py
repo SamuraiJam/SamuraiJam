@@ -5,11 +5,12 @@ Created on Apr 4, 2012
 '''
 
 import pygame
+from threading import Thread
 
 import sys, time, os
 from samuraijam.control.HAL import HAL
 
-
+#from samuraijam.testing import WaitTest
 from samuraijam.ui import Gameboard, StatusBar
 
 class MainGame(object):
@@ -55,8 +56,11 @@ class MainGame(object):
         
         self.hal = HAL(buttonMap, axisMap, hatMap, axisDefault, hatDefault)
 
+#        wt = WaitTest(self.gameboard)
+#        self.thread = Thread(wt.run())
 
     def game_loop(self):
+#        self.thread.start()
         start_time = self.default_timer()
         #print start_time
         pre_apocalypse = True

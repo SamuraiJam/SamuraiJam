@@ -18,8 +18,7 @@ class Bridge(object):
         self.image = pygame.image.load('../../../data/bluecreep.png')
         self.rect = self.image.get_rect()
         
-        self.newX = width-self.rect.width
-        self.rect.topleft = (self.newX,yPos)
+        self.rect.topleft = (xPos,yPos)
         
     def update(self, dist):
         #self.newX = self.newX - 1
