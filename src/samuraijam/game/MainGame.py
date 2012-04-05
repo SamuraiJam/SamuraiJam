@@ -9,7 +9,7 @@ import sys, time, os
 from samuraijam.control.HAL import HAL
 
 
-from samuraijam.ui import Gameboard
+from samuraijam.ui import Gameboard, StatusBar
 
 class MainGame(object):
 
@@ -24,6 +24,9 @@ class MainGame(object):
         
         """Create the Screen"""
         self.screen = pygame.display.set_mode((self.width, self.height))
+        
+        self.statusBar = StatusBar(surface=self.screen,color=(200, 200, 200),width=self.width,height=60,x=0,y=0)
+        
         """Gameboard Time!"""
         self.gameboard = Gameboard(self.screen, self.width, 540, "../data/testLevel.txt")
         

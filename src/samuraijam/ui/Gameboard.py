@@ -84,7 +84,8 @@ class Gameboard(object):
         self.samurai_sprite_group.draw(self.gameSurface)
         
         #Annnnd blast it back to the screen
-        self.windowSurface.blit(self.gameSurface, origin)
+        window_origin = (0, 60)
+        self.windowSurface.blit(self.gameSurface, window_origin)
         
         
         
