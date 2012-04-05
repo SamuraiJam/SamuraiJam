@@ -53,7 +53,7 @@ class MainGame(object):
         #for windows
         #buttonMap = {0 : HAL.GREEN, 1 : HAL.RED, 2 : HAL.BLUE, 3 : HAL.YELLOW, 4 : HAL.ORANGE, 6 : HAL.BACK, 7 : HAL.START}
         axisMap = {4 : HAL.WHAMMY, 2 : HAL.EFFECT, 3 : HAL.TILT}
-        hatMap = {0 : HAL.STRUM}
+        hatMap = {0 : { (0, -1) : HAL.STRUM_DOWN, (0, 1) : HAL.STRUM_UP} }
         
         axisDefault = {4 : -1.0}
         hatDefault = {}
@@ -84,42 +84,49 @@ class MainGame(object):
                     sys.exit()
                 elif event.type == pygame.JOYBUTTONDOWN:
                     guitarState = self.hal.parseButton(self.joy)
-                    for key, value in guitarState.iteritems():
-                        #print "{0} is {1}".format(key, value)
-                        self.process_input(key, value)
+                    self.process_input(guitarState)
                 elif event.type == pygame.JOYAXISMOTION:
                     guitarState = self.hal.parseAxis(self.joy)
-                    for key, value in guitarState.iteritems():
-                        #print "{0} is {1}".format(key, value)
-                        self.process_input(key, value)
+                    self.process_input(guitarState)
                 elif event.type == pygame.JOYHATMOTION:
                     guitarState = self.hal.parseHat(self.joy)
-                    for key, value in guitarState.iteritems():
-                        #print "{0} is {1}".format(key, value)
-                        self.process_input(key, value)
+                    self.process_input(guitarState)
                         
             #self.gameboard.bridge_group.update(1)
             self.gameboard.draw()
             pygame.display.flip()
             
-    def process_input(self, input, value):
+    def process_input(self, state):
+        print state
         
-        if input == HAL.GREEN:
-            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
-                self.gameboard.samurai.curString = 0
-        elif input == HAL.RED:
-            print "Hal RED"
-            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
-                self.gameboard.samurai.curString = 1
-        elif input == HAL.YELLOW:
-            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
-                self.gameboard.samurai.curString = 2
-        elif input == HAL.BLUE:
-            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
-                self.gameboard.samurai.curString = 3
-        elif input == HAL.ORANGE:
-            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
-                self.gameboard.samurai.curString = 4
+        if (HAL.STRUM_DOWN in state and state[HAL.STRUM_DOWN] == True) or (HAL.STRUM_UP in state and state[HAL.STRUM_UP] == True):
+            buttons_down = ()
+            for button in (HAL.GREEN, HAL.RED, HAL.YELLOW, HAL.BLUE, HAL.ORANGE):
+                if button in state and state[button] == True:
+                    buttons_down.append(button)
+            
+            num_buttons = len(buttons_down)     
+              
+            if num_buttons == 1:
+                if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+                    self.gameboard.samurai.move(buttons_down[0])
+            
+#        if input == HAL.GREEN:
+#            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+#                self.gameboard.samurai.curString = 0
+#        elif input == HAL.RED:
+#            print "Hal RED"
+#            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+#                self.gameboard.samurai.curString = 1
+#        elif input == HAL.YELLOW:
+#            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+#                self.gameboard.samurai.curString = 2
+#        elif input == HAL.BLUE:
+#            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+#                self.gameboard.samurai.curString = 3
+#        elif input == HAL.ORANGE:
+#            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+#                self.gameboard.samurai.curString = 4
 
 if __name__ == '__main__':
     os.chdir(os.path.join("..",".."))

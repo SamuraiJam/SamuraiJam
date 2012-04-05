@@ -16,12 +16,15 @@ class HAL(object):
     YELLOW = "Yellow"
     BLUE = "Blue"
     ORANGE = "Orange"
-    STRUM = "Strum"
+    STRUM_DOWN = "Strum_down"
+    STRUM_UP = "Strum_up"
     BACK = "Back"
     START = "Start"
     WHAMMY = "Whammy"
     EFFECT = "Effect"
     TILT = "Tilt"
+    
+    list_of_constants = (GREEN, RED, YELLOW, BLUE, ORANGE, STRUM_DOWN, STRUM_UP, BACK, START, WHAMMY, EFFECT, TILT)
 
     def __init__(self, buttonMap, axisMap, hatMap, axisDefault = {}, hatDefault = {}):
         '''
@@ -58,6 +61,8 @@ class HAL(object):
                         ret[self.axisMap[iA]] = joy.get_axis(iA);
                     else:
                         print "Unrecognized Axis {0} found.".format(iA)
+                        
+        
         return ret
     
     def parseHat(self, joy):
@@ -69,7 +74,10 @@ class HAL(object):
                     defaultValue = self.hatDefault[iH]
                 if(joy.get_hat(iH) != defaultValue):
                     if iH in self.hatMap:
-                        ret[self.hatMap[iH]] = joy.get_hat(iH);
+                        value_table = self.hatMap[iH]
+                        joy_val = joy.get_hat(iH)
+                        if joy_val in value_table:
+                            ret[value_table[joy_val]] = True;
                     else:
                         print "Unrecognized Hat {0} found.".format(iH)
         return ret

@@ -47,7 +47,6 @@ class Gameboard(object):
             possible_samurai_positions.append(48 * i + 5)
         
         self.samurai = Samurai(possible_samurai_positions)
-        self.samurai.curString = 0
         self.samurai_sprite_group = Group(self.samurai)
         
         self.bridge_group = OrderedUpdates()
