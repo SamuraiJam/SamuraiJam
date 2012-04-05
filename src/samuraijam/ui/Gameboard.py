@@ -62,6 +62,7 @@ class Gameboard(object):
         self.gameSurface.fill((0, 0, 0))
         origin = (0, 0)
         this_scroll = 0
+        self.scroll_amount = 0
         if self.last_frame_time > 0:
             cur_time = self.default_timer()
             gap_time = cur_time - self.last_frame_time
