@@ -3,8 +3,8 @@ Created on Apr 4, 2012
 
 @author: jaywaldron
 '''
-from MainMenu import *
+from samuraijam.game import *
 
-#if __name__ == '__main__':
-m = MainMenu()
-m.mainLoop()
+if __name__ == '__main__':
+    m = MainMenu()
+    m.mainLoop()

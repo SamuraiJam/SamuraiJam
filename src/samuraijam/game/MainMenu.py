@@ -3,26 +3,16 @@ Created on Apr 4, 2012
 
 @author: jaywaldron
 '''
-from samuraijam.Constants import *
-import pygame
-import sys,os
+import sys, os, time, pygame
 from pygame.locals import *
-from Helpers import *
+from samuraijam.util import *
 from menu import *
+#from samuraijam.game import LevelSelectMenu
 from LevelSelectMenu import *
-import threading
-import time
-
-class MainMenu(threading.Thread):
-    '''
-    classdocs
-    
-    Creates and runs a main menu
-    '''
 
 
+class MainMenu:
     def __init__(self,screen=None):
-        threading.Thread.__init__(self)
         """Initialize PyGame"""
         pygame.init()
         
@@ -32,8 +22,9 @@ class MainMenu(threading.Thread):
         #self.numbutton = self.joy.get_numbuttons()
         self.screen = screen
         # Load two sounds
-        self.fluteMusic = pygame.mixer.Sound("../../data/introFlute.ogg")
-        self.clashingSwords = pygame.mixer.Sound("../../data/swords_1Clash.ogg")
+        #self.fluteMusic = pygame.mixer.Sound("../data/introFlute.ogg")
+        self.fluteMusic = load_sound("introFlute.ogg")
+        self.clashingSwords = load_sound("swords_1Clash.ogg")
         #jab = pygame.mixer.Sound("../../data/jab.ogg")
         # Play the sounds; these will play simultaneously
         self.fluteMusic.play()
@@ -49,8 +40,8 @@ class MainMenu(threading.Thread):
         if screen==None:
             screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         #self.mainScreenBackground, self.mainScreenBackgroundRect = load_image("SamuraiJam_MainScreen.jpg")
-        mainScreenBackground = pygame.image.load("../../data/SamuraiJam_MainScreen.jpg")
-        mainScreenBackgroundRect = mainScreenBackground.get_rect()
+        mainScreenBackground,mainScreenBackgroundRect = load_image("SamuraiJam_MainScreen.jpg")
+        #mainScreenBackgroundRect = mainScreenBackground.get_rect()
         #blit once first to avoid graphics conflicts with the menu
         screen.blit(mainScreenBackground, mainScreenBackgroundRect)
         
@@ -62,7 +53,7 @@ class MainMenu(threading.Thread):
         # images, and a third is -gasp- a mix of images and text buttons!  To
         # understand the input factors, see the menu file
         menu = cMenu(50, 50, 20, 5, 'vertical', 100, screen,
-               [('Start Game', 1, None),
+               [('Level Select', 1, None),
                 ('Load Game',  2, None),
                 ('Options',    3, None),
                 ('Exit',       4, None)])
@@ -112,8 +103,6 @@ class MainMenu(threading.Thread):
                     print 'Start Game!'
                     self.clashingSwords.play()
                     #go to the next menu (level selection)
-                    #pygame.mixer.music.load("../../data/swords_1Clash.ogg")
-                    #pygame.mixer.music.play(0, 0.0)
                     lvl = LevelSelectMenu(screen)
                     lvl.mainLoop()
                     screen.fill((0,0,0))
@@ -141,64 +130,8 @@ class MainMenu(threading.Thread):
             
             #screen.blit(rect_list)
             #pygame.display.flip()
-        
-        
-    '''
-    def MainLoop(self):
-        # The main while loop
-        while 1:
-            # Check if the state has changed, if it has, then post a user event to
-            # the queue to force the menu to be shown at least once
-            if self.prev_state != self.state:
-                pygame.event.post(pygame.event.Event(EVENT_CHANGE_STATE, key = 0))
-                self.prev_state = self.state
-            
-            # Get the next event
-            e = pygame.event.wait()
-            
-            # Update the menu, based on which "state" we are in - When using the menu
-            # in a more complex program, definitely make the states global variables
-            # so that you can refer to them by a name
-            if e.type == pygame.KEYDOWN or e.type == EVENT_CHANGE_STATE:
-                if self.state == 0:
-                    self.rect_list, state = self.menu.update(e, self.state)
-                elif state == 1:
-                    print 'Start Game!'
-                    state = 0
-                elif state == 2:
-                    print 'Load Game!'
-                    state = 0
-                elif state == 3:
-                    print 'Options!'
-                    state = 0
-                else:
-                    print 'Exit!'
-                    pygame.quit()
-                    sys.exit()
-                    
-            #blit all
-            self.screen.blit(self.mainScreenBackground, self.mainScreenBackgroundRect)
-            # Update the screen
-            pygame.display.update(self.rect_list)
-            pygame.display.flip()
-    '''
-    '''       
-    def MainLoop(self):
-        while 1:
-            for event in pygame.event.get():
-                pygame.event.pump()
-                m = pygame.key.get_mods()
-                if m & KMOD_SHIFT:
-                    sys.exit()
-                
-                #blit all
-                self.screen.blit(self.mainScreenBackground, self.mainScreenBackgroundRect)
-                pygame.display.flip()
-                
-    '''
                 
                 
             
-#if __name__ == "__main__":
-    #MainWindow = Main()
-    #MainWindow.MainLoop()     
+if __name__ == "__main__":
+    MainMenu()

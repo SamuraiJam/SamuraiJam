@@ -3,16 +3,13 @@ Created on Apr 4, 2012
 
 @author: jaywaldron
 '''
-from samuraijam.Constants import *
-import pygame
-import sys,os
+import sys, os, pygame
 from pygame.locals import *
-from Helpers import *
+from samuraijam.util import *
 from menu import *
 from MainMenu import *
-import threading
 
-class LevelSelectMenu(threading.Thread):
+class LevelSelectMenu(object):
     '''
     classdocs
     '''
@@ -20,7 +17,7 @@ class LevelSelectMenu(threading.Thread):
 
     def __init__(self, screen):
         """Initialize PyGame"""
-        pygame.init()
+        #pygame.init()
         self.screen = screen
         
     def mainLoop(self):
@@ -173,6 +170,6 @@ class LevelSelectMenu(threading.Thread):
                 
                 
                 
-#if __name__ == "__main__":
-    #MainWindow = LevelSelectMenu()
+if __name__ == "__main__":
+    LevelSelectMenu()
     #MainWindow.MainLoop()
