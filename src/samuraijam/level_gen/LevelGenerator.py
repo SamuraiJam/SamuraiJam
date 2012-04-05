@@ -7,13 +7,13 @@ import random
 import math
 
 PROB_MINE = .5
-PROB_ENEMY = .4
+PROB_ENEMY = .5
 PROB_DOWN = .4
 PROB_UP = .4
 BRIDGE_FREQ = 4
 
-input = open("times.txt", "r")
-output = open("level.txt", "w")
+input = open("../../../data/times.txt", "r")
+output = open("../../../data/level.txt", "w")
 linenumber = 0
 lastindex = 2
 for line in input:

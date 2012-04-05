@@ -29,12 +29,12 @@ hatDefault = {}
 hal9000 = HAL(buttonMap, axisMap, hatMap, axisDefault, hatDefault)
 '''
 
-pygame.mixer.music.load("guitar.ogg")
+pygame.mixer.music.load("../../../data/guitar.ogg")
 pygame.mixer.music.play()
 
 old_time = time.clock()
 
-out = open("times.txt", "w")
+out = open("../../../data/times.txt", "w")
 
 while 1:
     for event in pygame.event.get():
