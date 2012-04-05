@@ -10,6 +10,7 @@ import math, time, sys
 
 from samuraijam.spriteParts import DirtPath, Bridge
 from samuraijam.player import Samurai
+from samuraijam.enemies.Mine import Mine
 
 class Gameboard(object):
     '''
@@ -50,6 +51,7 @@ class Gameboard(object):
         self.samurai_sprite_group = Group(self.samurai)
         
         self.bridge_group = OrderedUpdates()
+        self.mine_group = OrderedUpdates()
         
         if sys.platform == "win32":
             # On Windows, the best timer is time.clock()
@@ -87,6 +89,9 @@ class Gameboard(object):
         self.bridge_group.update(self.scroll_amount)
         self.bridge_group.draw(self.gameSurface)
         
+        self.mine_group.update(self.scroll_amount)
+        self.mine_group.draw(self.gameSurface)
+        
         self.samurai_sprite_group.update()
         self.samurai_sprite_group.draw(self.gameSurface)  
         
@@ -102,9 +107,14 @@ class Gameboard(object):
         
         
     def add_bridge(self):
-        print "FAKE BRIDGE"
+#        print "FAKE BRIDGE"
         new_bridge = Bridge(1101, 0)
         self.bridge_group.add(new_bridge)
+        
+    def add_mine(self, string_num):
+#        print "CREATE ZE LANDMINE"
+        new_mine = Mine(1101, 48 * (string_num + 1))
+        self.mine_group.add(new_mine)
         
         
         

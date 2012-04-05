@@ -6,3 +6,4 @@ WINDOW_HEIGHT=600
 
 #intro music
 fluteMusic = None
+sexyMusic= None

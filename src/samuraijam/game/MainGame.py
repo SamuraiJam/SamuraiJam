@@ -7,11 +7,15 @@ Created on Apr 4, 2012
 import pygame
 from threading import Timer
 
+
 import sys, time, os
 from samuraijam.control.HAL import HAL
 
 #from samuraijam.testing.WaitTest import *
 from samuraijam.ui import Gameboard, StatusBar
+from samuraijam.enemy_spawn.Spawner import Spawner
+
+from samuraijam.util import *
 
 class MainGame(object):
 
@@ -50,7 +54,7 @@ class MainGame(object):
         #for jay's jank mac
         buttonMap = {11 : HAL.GREEN, 12 : HAL.RED, 13 : HAL.BLUE, 14 : HAL.YELLOW, 8 : HAL.ORANGE, 5 : HAL.BACK, 4 : HAL.START, 1 : HAL.STRUM_DOWN, 0 : HAL.STRUM_UP}
         
-        axisMap = {4 : HAL.WHAMMY, 2 : HAL.EFFECT, 3 : HAL.TILT}
+        axisMap = {4 : HAL.WHAMMY, 1 : HAL.EFFECT, 5 : HAL.TILT, 2 : HAL.NOTHING, 3 : HAL.NOTHING}
         
         hatMap = {0 : {} }
         
@@ -67,16 +71,21 @@ class MainGame(object):
 #        hatDefault = {}
         
         self.hal = HAL(buttonMap, axisMap, hatMap, axisDefault, hatDefault)
+        
+        self.is_playing = False
+        self.health = 100
 
 #        wt = WaitTest(self.gameboard)
 #        self.thread = Thread(wt.spawn())
 
     def game_loop(self):
 #        self.thread.start()
-        for i in range(0, 10):
-            t = Timer(1+i, self.gameboard.add_bridge)
-            t.start()
+#        for i in range(0, 10):
+#            t = Timer(1+i, self.gameboard.add_bridge)
+#            t.start()
 #        self.gameboard.add_bridge()
+        spawner = Spawner("../data/level.txt", self.gameboard)
+        spawner.start()
         start_time = self.default_timer()
         #print start_time
         pre_apocalypse = True
@@ -87,6 +96,8 @@ class MainGame(object):
             #print self.gameboard.song_length
             if cur_time >= (self.gameboard.song_length + (self.gameboard.width / self.gameboard.pixels_per_second)):
                 pre_apocalypse = False
+                
+            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
                     sys.exit()
@@ -100,7 +111,17 @@ class MainGame(object):
                     guitarState = self.hal.parseHat(self.joy)
                     self.process_input(guitarState)
                         
-            #self.gameboard.bridge_group.update(1)
+            if self.is_playing == False and pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+                self.playSexy()            
+                        
+            mine_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.mine_group, False)
+            if mine_collisions != None:
+                for m in mine_collisions:
+                    self.gameboard.mine_group.remove(m)
+#                    self.health = self.health - 10
+#                    self.statusBar.healthBar.update(self.health)
+            
+            
             self.gameboard.draw()
             pygame.display.flip()
             
@@ -136,6 +157,13 @@ class MainGame(object):
 #            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
 #                self.gameboard.samurai.curString = 4
 
+    def playSexy(self):
+        self.is_playing = True
+        Constants.sexyMusic = load_sound("sexyAndIKnowIt.ogg")
+        Constants.sexyMusic.play()
+            
+            
+            
 if __name__ == '__main__':
     os.chdir(os.path.join("..",".."))
     game = MainGame()
