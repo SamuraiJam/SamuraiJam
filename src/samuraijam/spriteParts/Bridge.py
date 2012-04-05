@@ -16,7 +16,7 @@ class Bridge(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self) 
         #self.image, self.rect = load_image('pinkcreep.png',-1)
         
-        self.image, self.rect = load_image('bridge.jpg')
+        self.image, self.rect = load_image('bridge.png',-1)
         #self.rect = self.image.get_rect()
         
         self.rect.topleft = (xPos,yPos)
