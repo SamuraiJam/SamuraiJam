@@ -6,7 +6,7 @@ Created on Apr 4, 2012
 
 import pygame
 
-class Bridge(object):
+class Bridge(pygame.sprite.Sprite):
     
 
 
@@ -15,7 +15,7 @@ class Bridge(object):
         pygame.sprite.Sprite.__init__(self) 
         #self.image, self.rect = load_image('pinkcreep.png',-1)
         
-        self.image = pygame.image.load('../../../data/bluecreep.png')
+        self.image = pygame.image.load('../data/bridge.jpg')
         self.rect = self.image.get_rect()
         
         self.rect.topleft = (xPos,yPos)

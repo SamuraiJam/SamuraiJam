@@ -10,7 +10,7 @@ from threading import Thread
 import sys, time, os
 from samuraijam.control.HAL import HAL
 
-#from samuraijam.testing import WaitTest
+#import samuraijam.testing.WaitTest
 from samuraijam.ui import Gameboard, StatusBar
 
 class MainGame(object):
@@ -57,10 +57,11 @@ class MainGame(object):
         self.hal = HAL(buttonMap, axisMap, hatMap, axisDefault, hatDefault)
 
 #        wt = WaitTest(self.gameboard)
-#        self.thread = Thread(wt.run())
+#        self.thread = Thread(wt.spawn())
 
     def game_loop(self):
 #        self.thread.start()
+        self.gameboard.add_bridge()
         start_time = self.default_timer()
         #print start_time
         pre_apocalypse = True

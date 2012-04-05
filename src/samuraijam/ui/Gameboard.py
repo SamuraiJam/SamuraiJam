@@ -100,7 +100,7 @@ class Gameboard(object):
         
     def add_bridge(self):
         print "FAKE BRIDGE"
-        new_bridge = Bridge(1101, 0)
+        new_bridge = Bridge.Bridge(1101, 0)
         self.bridge_group.add(new_bridge)
         
         
