@@ -5,13 +5,12 @@ Created on Apr 4, 2012
 '''
 
 import pygame
-from pygame.sprite import OrderedUpdates
+
 import sys, time, os
 from samuraijam.control.HAL import HAL
 
 
 from samuraijam.ui import Gameboard, StatusBar
-from samuraijam.spriteParts import Bridge
 
 class MainGame(object):
 
@@ -55,8 +54,6 @@ class MainGame(object):
         hatDefault = {}
         
         self.hal = HAL(buttonMap, axisMap, hatMap, axisDefault, hatDefault)
-        
-        self.bridge_group = OrderedUpdates()
 
 
     def game_loop(self):
@@ -95,19 +92,20 @@ class MainGame(object):
     def process_input(self, input, value):
         
         if input == HAL.GREEN:
-            self.gameboard.samurai.curString = 0
+            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+                self.gameboard.samurai.curString = 0
         elif input == HAL.RED:
-            self.gameboard.samurai.curString = 1
+            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+                self.gameboard.samurai.curString = 1
         elif input == HAL.YELLOW:
-            self.gameboard.samurai.curString = 2
+            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+                self.gameboard.samurai.curString = 2
         elif input == HAL.BLUE:
-            self.gameboard.samurai.curString = 3
+            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+                self.gameboard.samurai.curString = 3
         elif input == HAL.ORANGE:
-            self.gameboard.samurai.curString = 4
-            
-    def add_bridge(self):
-        print "FAKE BRIDGE"
-        new_bridge = Bridge()
+            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+                self.gameboard.samurai.curString = 4
 
 if __name__ == '__main__':
     os.chdir(os.path.join("..",".."))

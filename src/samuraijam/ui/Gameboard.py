@@ -5,10 +5,10 @@ Created on Apr 4, 2012
 '''
 
 from pygame import Surface, Rect
-from pygame.sprite import Sprite, Group
+from pygame.sprite import Sprite, Group, OrderedUpdates
 import math, time, sys
 
-from samuraijam.spriteParts import DirtPath
+from samuraijam.spriteParts import DirtPath, Bridge
 from samuraijam.player import Samurai
 
 class Gameboard(object):
@@ -48,6 +48,8 @@ class Gameboard(object):
         self.samurai.curString = 0
         self.samurai_sprite_group = Group(self.samurai)
         
+        self.bridge_group = OrderedUpdates()
+        
         if sys.platform == "win32":
             # On Windows, the best timer is time.clock()
             self.default_timer = time.clock
@@ -59,21 +61,21 @@ class Gameboard(object):
     def draw(self):
         self.gameSurface.fill((0, 0, 0))
         origin = (0, 0)
-        scroll_amount = 0
+        this_scroll = 0
         if self.last_frame_time > 0:
             cur_time = self.default_timer()
             gap_time = cur_time - self.last_frame_time
-            scroll_amount = self.pixels_per_second * gap_time
-#            print "Pixels per second: {0}\nGap Time: {1}\nScrollAmount: {2}".format(self.pixels_per_second, gap_time, scroll_amount)
+            this_scroll = self.pixels_per_second * gap_time
+#            print "Pixels per second: {0}\nGap Time: {1}\nScrollAmount: {2}".format(self.pixels_per_second, gap_time, this_scroll)
             self.last_frame_time = cur_time
         else:
             self.last_frame_time = self.default_timer()
-        self.frac_scroll += scroll_amount
+        self.frac_scroll += this_scroll
         if self.frac_scroll >= 1:
-            whole_part = math.floor(self.frac_scroll)
-            self.pixel_offset += whole_part
+            self.scroll_amount = math.floor(self.frac_scroll)
+            self.pixel_offset += self.scroll_amount
 #            print "Now scrolling {0} pixel(s)".format(whole_part)
-            self.frac_scroll -= whole_part
+            self.frac_scroll -= self.scroll_amount
                      
         window_rect = Rect(self.pixel_offset, 0, self.gameSurface.get_width(), self.gameSurface.get_height()) 
 #        print window_rect
@@ -83,10 +85,22 @@ class Gameboard(object):
         self.samurai_sprite_group.update()
         self.samurai_sprite_group.draw(self.gameSurface)
         
+        self.bridge_group.update(self.scroll_amount)
+        
+        for bridge in self.bridge_group.sprites():
+            if bridge.rect.left < 0:
+                self.bridge_group.remove(bridge)
+            
+        
         #Annnnd blast it back to the screen
         window_origin = (0, 60)
         self.windowSurface.blit(self.gameSurface, window_origin)
         
+        
+    def add_bridge(self):
+        print "FAKE BRIDGE"
+        new_bridge = Bridge(1101, 0)
+        self.bridge_group.add(new_bridge)
         
         
         
