@@ -4,7 +4,7 @@ Created on Apr 4, 2012
 @author: Matt Halpern
 '''
 import time
-from samuraijam.ui import Gameboard
+from samuraijam.ui.Gameboard import Gameboard
 
 class WaitTest:
     

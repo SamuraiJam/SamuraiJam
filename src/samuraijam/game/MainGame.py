@@ -5,12 +5,12 @@ Created on Apr 4, 2012
 '''
 
 import pygame
-from threading import Thread
+from threading import Timer
 
 import sys, time, os
 from samuraijam.control.HAL import HAL
 
-#import samuraijam.testing.WaitTest
+#from samuraijam.testing.WaitTest import *
 from samuraijam.ui import Gameboard, StatusBar
 
 class MainGame(object):
@@ -65,7 +65,10 @@ class MainGame(object):
 
     def game_loop(self):
 #        self.thread.start()
-        self.gameboard.add_bridge()
+        for i in range(0, 10):
+            t = Timer(1+i, self.gameboard.add_bridge)
+            t.start()
+#        self.gameboard.add_bridge()
         start_time = self.default_timer()
         #print start_time
         pre_apocalypse = True
@@ -74,7 +77,7 @@ class MainGame(object):
             #print cur_time
             #print (cur_time - start_time)
             #print self.gameboard.song_length
-            if cur_time >= self.gameboard.song_length:
+            if cur_time >= (self.gameboard.song_length + (self.gameboard.width / self.gameboard.pixels_per_second)):
                 pre_apocalypse = False
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 

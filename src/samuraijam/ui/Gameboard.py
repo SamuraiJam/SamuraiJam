@@ -21,6 +21,8 @@ class Gameboard(object):
         Constructor
         '''
         self.windowSurface = surface
+        self.width = width
+        self.height = height
         self.song_filename = song_filename
         board_size = (width, height)
         self.gameSurface = Surface(board_size) # This will be drawn every frame to the window
@@ -83,11 +85,12 @@ class Gameboard(object):
         self.gameSurface.blit(self.backgroundSurface, origin, window_rect)
         
         #All other drawing
-        self.samurai_sprite_group.update()
-        self.samurai_sprite_group.draw(self.gameSurface)
-        
         self.bridge_group.update(self.scroll_amount)
         self.bridge_group.draw(self.gameSurface)
+        
+        self.samurai_sprite_group.update()
+        self.samurai_sprite_group.draw(self.gameSurface)  
+        
         
         for bridge in self.bridge_group.sprites():
             if bridge.rect.left < 0:
