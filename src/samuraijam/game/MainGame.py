@@ -44,10 +44,14 @@ class MainGame(object):
             self.default_timer = time.time            
         
         """Joystick"""
-        #self.joy = pygame.joystick.Joystick(0)
-        #self.joy.init()
+        self.joy = pygame.joystick.Joystick(0)
+        self.joy.init()
         
-        buttonMap = {0 : HAL.GREEN, 1 : HAL.RED, 2 : HAL.BLUE, 3 : HAL.YELLOW, 4 : HAL.ORANGE, 6 : HAL.BACK, 7 : HAL.START}
+        #for jay's jank mac
+        buttonMap = {11 : HAL.GREEN, 12 : HAL.RED, 13 : HAL.BLUE, 14 : HAL.YELLOW, 8 : HAL.ORANGE, 5 : HAL.BACK, 4 : HAL.START}
+        
+        #for windows
+        #buttonMap = {0 : HAL.GREEN, 1 : HAL.RED, 2 : HAL.BLUE, 3 : HAL.YELLOW, 4 : HAL.ORANGE, 6 : HAL.BACK, 7 : HAL.START}
         axisMap = {4 : HAL.WHAMMY, 2 : HAL.EFFECT, 3 : HAL.TILT}
         hatMap = {0 : HAL.STRUM}
         
@@ -91,6 +95,7 @@ class MainGame(object):
                         #print "{0} is {1}".format(key, value)
                         self.process_input(key, value)
                         
+            #self.gameboard.bridge_group.update(1)
             self.gameboard.draw()
             pygame.display.flip()
             
@@ -100,6 +105,7 @@ class MainGame(object):
             if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
                 self.gameboard.samurai.curString = 0
         elif input == HAL.RED:
+            print "Hal RED"
             if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
                 self.gameboard.samurai.curString = 1
         elif input == HAL.YELLOW:

@@ -5,6 +5,7 @@ Created on Apr 4, 2012
 '''
 
 import pygame
+from samuraijam.util import *
 
 class Bridge(pygame.sprite.Sprite):
     
@@ -15,8 +16,8 @@ class Bridge(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self) 
         #self.image, self.rect = load_image('pinkcreep.png',-1)
         
-        self.image = pygame.image.load('../data/bridge.jpg')
-        self.rect = self.image.get_rect()
+        self.image, self.rect = load_image('bridge.jpg')
+        #self.rect = self.image.get_rect()
         
         self.rect.topleft = (xPos,yPos)
         
