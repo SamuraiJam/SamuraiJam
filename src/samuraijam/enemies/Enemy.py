@@ -15,7 +15,7 @@ class Enemy(pygame.sprite.Sprite):
         self.newX = width-self.rect.width
         self.rect.topleft = (self.newX,yPos)
         
-    def update(self):
+    def update(self, dist):
         #self.newX = self.newX - 1
         #self.rect.topleft = (self.newX,self.rect.y)
-        self.rect.move_ip(-1,0)
+        self.rect.move_ip(-dist,0)
