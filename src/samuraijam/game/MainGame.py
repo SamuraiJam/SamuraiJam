@@ -48,15 +48,23 @@ class MainGame(object):
         self.joy.init()
         
         #for jay's jank mac
-        buttonMap = {11 : HAL.GREEN, 12 : HAL.RED, 13 : HAL.BLUE, 14 : HAL.YELLOW, 8 : HAL.ORANGE, 5 : HAL.BACK, 4 : HAL.START}
+        buttonMap = {11 : HAL.GREEN, 12 : HAL.RED, 13 : HAL.BLUE, 14 : HAL.YELLOW, 8 : HAL.ORANGE, 5 : HAL.BACK, 4 : HAL.START, 1 : HAL.STRUM_DOWN, 0 : HAL.STRUM_UP}
         
-        #for windows
-        #buttonMap = {0 : HAL.GREEN, 1 : HAL.RED, 2 : HAL.BLUE, 3 : HAL.YELLOW, 4 : HAL.ORANGE, 6 : HAL.BACK, 7 : HAL.START}
         axisMap = {4 : HAL.WHAMMY, 2 : HAL.EFFECT, 3 : HAL.TILT}
-        hatMap = {0 : { (0, -1) : HAL.STRUM_DOWN, (0, 1) : HAL.STRUM_UP} }
+        
+        hatMap = {0 : {} }
         
         axisDefault = {4 : -1.0}
         hatDefault = {}
+        
+        #for windows
+#        buttonMap = {0 : HAL.GREEN, 1 : HAL.RED, 2 : HAL.BLUE, 3 : HAL.YELLOW, 4 : HAL.ORANGE, 6 : HAL.BACK, 7 : HAL.START}
+#        axisMap = {4 : HAL.WHAMMY, 2 : HAL.EFFECT, 3 : HAL.TILT}
+#        
+#        hatMap = {0 : { (0, -1) : HAL.STRUM_DOWN, (0, 1) : HAL.STRUM_UP} }
+#        
+#        axisDefault = {4 : -1.0}
+#        hatDefault = {}
         
         self.hal = HAL(buttonMap, axisMap, hatMap, axisDefault, hatDefault)
 
@@ -100,7 +108,7 @@ class MainGame(object):
         print state
         
         if (HAL.STRUM_DOWN in state and state[HAL.STRUM_DOWN] == True) or (HAL.STRUM_UP in state and state[HAL.STRUM_UP] == True):
-            buttons_down = ()
+            buttons_down = []
             for button in (HAL.GREEN, HAL.RED, HAL.YELLOW, HAL.BLUE, HAL.ORANGE):
                 if button in state and state[button] == True:
                     buttons_down.append(button)
