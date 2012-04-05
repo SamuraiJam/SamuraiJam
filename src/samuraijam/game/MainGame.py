@@ -16,33 +16,36 @@ from samuraijam.spriteParts import Bridge
 class MainGame(object):
 
 
-    def __init__(self):
-        
-        pygame.init()
+    def __init__(self, screen=None):
         
         """Set the window Size"""
         self.width = 1100
         self.height = 600
         
         """Create the Screen"""
-        self.screen = pygame.display.set_mode((self.width, self.height))
+        if screen == None:
+            pygame.init()
+            self.screen = pygame.display.set_mode((self.width, self.height))
+        else:
+            self.screen = screen
+        screen.fill((0,0,0))
+        
         
         self.statusBar = StatusBar(surface=self.screen,color=(200, 200, 200),width=self.width,height=60,x=0,y=0)
         
         """Gameboard Time!"""
         self.gameboard = Gameboard(self.screen, self.width, 540, "../data/testLevel.txt")
         
-        if sys.platform == "win32":
+        if sys.platform == "win32" or sys.platform == "darwin":
             # On Windows, the best timer is time.clock()
             self.default_timer = time.clock
         else:
             # On most other platforms, the best timer is time.time()
-            self.default_timer = time.time
-            
+            self.default_timer = time.time            
         
         """Joystick"""
-        self.joy = pygame.joystick.Joystick(0)
-        self.joy.init()
+        #self.joy = pygame.joystick.Joystick(0)
+        #self.joy.init()
         
         buttonMap = {0 : HAL.GREEN, 1 : HAL.RED, 2 : HAL.BLUE, 3 : HAL.YELLOW, 4 : HAL.ORANGE, 6 : HAL.BACK, 7 : HAL.START}
         axisMap = {4 : HAL.WHAMMY, 2 : HAL.EFFECT, 3 : HAL.TILT}
@@ -57,12 +60,15 @@ class MainGame(object):
 
 
     def game_loop(self):
-        start_time = game.default_timer()
+        start_time = self.default_timer()
+        #print start_time
         pre_apocalypse = True
         while pre_apocalypse:
-            cur_time = game.default_timer()
-    #        print (cur_time - start_time)
-            if cur_time >= game.gameboard.song_length:
+            cur_time = self.default_timer()
+            #print cur_time
+            #print (cur_time - start_time)
+            #print self.gameboard.song_length
+            if cur_time >= self.gameboard.song_length:
                 pre_apocalypse = False
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
@@ -83,7 +89,7 @@ class MainGame(object):
                         #print "{0} is {1}".format(key, value)
                         self.process_input(key, value)
                         
-            game.gameboard.draw()
+            self.gameboard.draw()
             pygame.display.flip()
             
     def process_input(self, input, value):
@@ -106,5 +112,5 @@ class MainGame(object):
 if __name__ == '__main__':
     os.chdir(os.path.join("..",".."))
     game = MainGame()
-    game.game_loop()
+    #game.game_loop()
     

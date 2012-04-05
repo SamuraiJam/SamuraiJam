@@ -25,11 +25,12 @@ class MainMenu:
         self.screen = screen
         # Load two sounds
         #self.fluteMusic = pygame.mixer.Sound("../data/introFlute.ogg")
-        self.fluteMusic = load_sound("introFlute.ogg")
+        #self.fluteMusic = load_sound("introFlute.ogg")
+        Constants.fluteMusic = load_sound("introFlute.ogg")
         self.clashingSwords = load_sound("swords_1Clash.ogg")
         #jab = pygame.mixer.Sound("../../data/jab.ogg")
         # Play the sounds; these will play simultaneously
-        self.fluteMusic.play()
+        Constants.fluteMusic.play()
         
     def mainLoop(self):
         # Initialize the mixer

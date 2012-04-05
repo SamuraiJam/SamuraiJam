@@ -7,6 +7,7 @@ import sys, os, pygame
 from pygame.locals import *
 from samuraijam.util import *
 from menu import *
+from MainGame import *
 #from menu import *
 #from MainMenu import *
 #from samuraijam.game import *
@@ -100,6 +101,11 @@ class LevelSelectMenu:
                 elif state == 2:
                     print 'Level 1!'
                     self.clashingSwords.play()
+                    Constants.fluteMusic.stop()
+                    m = MainGame(screen)
+                    m.game_loop()
+                    screen.fill((255,255,255))
+                    Constants.fluteMusic.play()
                     state = 0
                 else:
                     print 'Back to Main Menu!'
