@@ -9,7 +9,7 @@ from pygame.sprite import Sprite, Group
 import math, time, sys
 
 from samuraijam.spriteParts import DirtPath
-from samuraijam import Samurai
+from samuraijam.player import Samurai
 
 class Gameboard(object):
     '''
