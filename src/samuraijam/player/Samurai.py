@@ -9,7 +9,7 @@ will contain references to:
 '''
 import os, sys
 import pygame
-from Helpers import *
+from samuraijam.util.Helpers import *
 from pygame.locals import *
 
 class Samurai(pygame.sprite.Sprite):

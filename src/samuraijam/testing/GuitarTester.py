@@ -6,7 +6,7 @@ Created on Mar 31, 2012
 
 import pygame
 import sys
-from samuraijam.Control.HAL import HAL
+from samuraijam.control.HAL import HAL
 
 """Initialize PyGame"""
 pygame.init()
