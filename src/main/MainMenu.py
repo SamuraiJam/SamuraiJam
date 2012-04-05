@@ -11,6 +11,7 @@ from Helpers import *
 from menu import *
 from LevelSelectMenu import *
 import threading
+import time
 
 class MainMenu(threading.Thread):
     '''
@@ -29,8 +30,21 @@ class MainMenu(threading.Thread):
         #self.joy=pygame.joystick.Joystick(0)
         #self.joy.init()
         #self.numbutton = self.joy.get_numbuttons()
+        self.screen = screen
+        # Load two sounds
+        self.fluteMusic = pygame.mixer.Sound("../../data/introFlute.ogg")
+        self.clashingSwords = pygame.mixer.Sound("../../data/swords_1Clash.ogg")
+        #jab = pygame.mixer.Sound("../../data/jab.ogg")
+        # Play the sounds; these will play simultaneously
+        self.fluteMusic.play()
         
+    def mainLoop(self):
+        # Initialize the mixer
+        pygame.mixer.init()
         
+        #pygame.mixer.music.load("../../data/introFlute.ogg")
+        #pygame.mixer.music.play(0, 0.0)
+        screen = self.screen
         """Create the Screen"""
         if screen==None:
             screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -57,7 +71,7 @@ class MainMenu(threading.Thread):
         
         # Center the menu on the draw_surface (the entire screen here)
         menu.set_center(False, False)
-
+    
         # Center the menu on the draw_surface (the entire screen here)
         #menu.set_alignment('center', 'center')
         menu.set_position(800,200)
@@ -75,7 +89,7 @@ class MainMenu(threading.Thread):
         
         # Ignore mouse motion (greatly reduces resources when not needed)
         pygame.event.set_blocked(pygame.MOUSEMOTION)
-
+    
         
         # The main while loop
         while 1:
@@ -96,18 +110,27 @@ class MainMenu(threading.Thread):
                     rect_list, state = menu.update(e, state)
                 elif state == 1:
                     print 'Start Game!'
+                    self.clashingSwords.play()
                     #go to the next menu (level selection)
-                    print "still here"
-                    LevelSelectMenu(screen).start()
-                    break
+                    #pygame.mixer.music.load("../../data/swords_1Clash.ogg")
+                    #pygame.mixer.music.play(0, 0.0)
+                    lvl = LevelSelectMenu(screen)
+                    lvl.mainLoop()
+                    screen.fill((0,0,0))
+                    screen.blit(mainScreenBackground, mainScreenBackgroundRect)
+                    print "outside levelSelect"
                 elif state == 2:
                     print 'Load Game!'
+                    self.clashingSwords.play()
                     state = 0
                 elif state == 3:
                     print 'Options!'
+                    self.clashingSwords.play()
                     state = 0
                 else:
                     print 'Exit!'
+                    self.clashingSwords.play()
+                    time.sleep(.5)
                     pygame.quit()
                     sys.exit()
                     

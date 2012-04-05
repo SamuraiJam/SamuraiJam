@@ -5,5 +5,6 @@ Created on Apr 4, 2012
 '''
 from MainMenu import *
 
-if __name__ == '__main__':
-    MainMenu().start()
+#if __name__ == '__main__':
+m = MainMenu()
+m.mainLoop()

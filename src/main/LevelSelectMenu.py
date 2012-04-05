@@ -21,7 +21,10 @@ class LevelSelectMenu(threading.Thread):
     def __init__(self, screen):
         """Initialize PyGame"""
         pygame.init()
+        self.screen = screen
         
+    def mainLoop(self):
+        screen = self.screen
         """Joystick"""
         #self.joy=pygame.joystick.Joystick(0)
         #self.joy.init()
@@ -72,9 +75,9 @@ class LevelSelectMenu(threading.Thread):
         # Ignore mouse motion (greatly reduces resources when not needed)
         pygame.event.set_blocked(pygame.MOUSEMOTION)
 
-        
+        stillSelectingLevels = True
         # The main while loop
-        while 1:
+        while stillSelectingLevels:
             # Check if the state has changed, if it has, then post a user event to
             # the queue to force the menu to be shown at least once
             if prev_state != state:
@@ -100,8 +103,10 @@ class LevelSelectMenu(threading.Thread):
                     print 'Back to Main Menu!'
                     #pygame.quit()
                     #sys.exit()
-                    MainMenu(screen)
-                    break
+#                    m = MainMenu(screen)
+#                    m.mainLoop()
+#                    break
+                    stillSelectingLevels = False
                     
                 #blit all
                 pygame.display.update(rect_list)
