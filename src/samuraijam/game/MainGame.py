@@ -47,30 +47,30 @@ class MainGame(object):
             # On most other platforms, the best timer is time.time()
             self.default_timer = time.time            
         
+        if sys.platform == "darwin":
+            self.buttonMap = {11 : HAL.GREEN, 12 : HAL.RED, 13 : HAL.BLUE, 14 : HAL.YELLOW, 8 : HAL.ORANGE, 5 : HAL.BACK, 4 : HAL.START, 1 : HAL.STRUM_DOWN, 0 : HAL.STRUM_UP}
+        
+            self.axisMap = {4 : HAL.WHAMMY, 1 : HAL.EFFECT, 5 : HAL.TILT, 2 : HAL.NOTHING, 3 : HAL.NOTHING}
+            
+            self.hatMap = {0 : {} }
+            
+            self.axisDefault = {4 : -1.0}
+            self.hatDefault = {}
+            
+        elif sys.platform == "win32":
+            self.buttonMap = {0 : HAL.GREEN, 1 : HAL.RED, 2 : HAL.BLUE, 3 : HAL.YELLOW, 4 : HAL.ORANGE, 6 : HAL.BACK, 7 : HAL.START}
+            self.axisMap = {4 : HAL.WHAMMY, 2 : HAL.EFFECT, 3 : HAL.TILT}
+            
+            self.hatMap = {0 : { (0, -1) : HAL.STRUM_DOWN, (0, 1) : HAL.STRUM_UP} }
+            
+            self.axisDefault = {4 : -1.0}
+            self.hatDefault = {}
+        
         """Joystick"""
         self.joy = pygame.joystick.Joystick(0)
         self.joy.init()
         
-        #for jay's jank mac
-        buttonMap = {11 : HAL.GREEN, 12 : HAL.RED, 13 : HAL.BLUE, 14 : HAL.YELLOW, 8 : HAL.ORANGE, 5 : HAL.BACK, 4 : HAL.START, 1 : HAL.STRUM_DOWN, 0 : HAL.STRUM_UP}
-        
-        axisMap = {4 : HAL.WHAMMY, 1 : HAL.EFFECT, 5 : HAL.TILT, 2 : HAL.NOTHING, 3 : HAL.NOTHING}
-        
-        hatMap = {0 : {} }
-        
-        axisDefault = {4 : -1.0}
-        hatDefault = {}
-        
-        #for windows
-#        buttonMap = {0 : HAL.GREEN, 1 : HAL.RED, 2 : HAL.BLUE, 3 : HAL.YELLOW, 4 : HAL.ORANGE, 6 : HAL.BACK, 7 : HAL.START}
-#        axisMap = {4 : HAL.WHAMMY, 2 : HAL.EFFECT, 3 : HAL.TILT}
-#        
-#        hatMap = {0 : { (0, -1) : HAL.STRUM_DOWN, (0, 1) : HAL.STRUM_UP} }
-#        
-#        axisDefault = {4 : -1.0}
-#        hatDefault = {}
-        
-        self.hal = HAL(buttonMap, axisMap, hatMap, axisDefault, hatDefault)
+        self.hal = HAL(self.buttonMap, self.axisMap, self.hatMap, self.axisDefault, self.hatDefault)
         
         self.is_playing = False
         self.health = 100
