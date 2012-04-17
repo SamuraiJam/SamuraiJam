@@ -65,6 +65,8 @@ class MainGame(object):
             
             self.axisDefault = {4 : -1.0}
             self.hatDefault = {}
+            
+        pygame.mixer.music.load(os.path.join('..', 'data', "sexyAndIKnowIt.ogg"))
         
         """Joystick"""
         self.joy = pygame.joystick.Joystick(0)
@@ -159,8 +161,9 @@ class MainGame(object):
 
     def playSexy(self):
         self.is_playing = True
-        Constants.sexyMusic = load_sound("sexyAndIKnowIt.ogg")
-        Constants.sexyMusic.play()
+        pygame.mixer.music.play()
+        #Constants.sexyMusic = load_sound("sexyAndIKnowIt.ogg")
+        #Constants.sexyMusic.play()
             
             
             
