@@ -105,7 +105,8 @@ class LevelSelectMenu:
                     m = MainGame(screen)
                     m.game_loop()
                     screen.fill((255,255,255))
-                    Constants.sexyMusic.stop()
+                    #Constants.sexyMusic.stop()
+                    pygame.mixer.music.stop();
                     Constants.fluteMusic.play()
                     state = 0
                 else:

@@ -92,17 +92,19 @@ class MainGame(object):
         #print start_time
         pre_apocalypse = True
         while pre_apocalypse:
-            cur_time = self.default_timer()
+            #cur_time = self.default_timer()
             #print cur_time
             #print (cur_time - start_time)
             #print self.gameboard.song_length
-            if cur_time >= (self.gameboard.song_length + (self.gameboard.width / self.gameboard.pixels_per_second)):
-                pre_apocalypse = False
+            #if cur_time >= (self.gameboard.song_length + (self.gameboard.width / self.gameboard.pixels_per_second)):
+            #    pre_apocalypse = False
                 
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
                     sys.exit()
+                elif event.type == Constants.Song_End_Event:
+                    pre_apocalypse = False
                 elif event.type == pygame.JOYBUTTONDOWN:
                     guitarState = self.hal.parseButton(self.joy)
                     self.process_input(guitarState)
@@ -161,6 +163,7 @@ class MainGame(object):
 
     def playSexy(self):
         self.is_playing = True
+        pygame.mixer.music.set_endevent(Constants.Song_End_Event)
         pygame.mixer.music.play()
         #Constants.sexyMusic = load_sound("sexyAndIKnowIt.ogg")
         #Constants.sexyMusic.play()
