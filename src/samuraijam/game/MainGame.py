@@ -102,17 +102,19 @@ class MainGame(object):
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
+                    pygame.mixer.music.stop()
+                    pygame.quit()
                     sys.exit()
                 elif event.type == Constants.Song_End_Event:
                     pre_apocalypse = False
-                elif event.type == pygame.JOYBUTTONDOWN:
+                elif sys.platform == "darwin" and event.type == pygame.JOYBUTTONDOWN:
                     guitarState = self.hal.parseButton(self.joy)
                     self.process_input(guitarState)
-                elif event.type == pygame.JOYAXISMOTION:
-                    guitarState = self.hal.parseAxis(self.joy)
-                    self.process_input(guitarState)
-                elif event.type == pygame.JOYHATMOTION:
-                    guitarState = self.hal.parseHat(self.joy)
+#                elif event.type == pygame.JOYAXISMOTION:
+#                    guitarState = self.hal.parseAxis(self.joy)
+#                    self.process_input(guitarState)
+                elif sys.platform == "win32" and event.type == pygame.JOYHATMOTION:
+                    guitarState = self.hal.parseAll(self.joy)
                     self.process_input(guitarState)
                         
             if self.is_playing == False and pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:

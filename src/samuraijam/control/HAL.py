@@ -84,7 +84,7 @@ class HAL(object):
     
     def parseAll(self, joy):
         ret = {}
-        ret.update(self.parseButtons(joy))
+        ret.update(self.parseButton(joy))
         ret.update(self.parseAxis(joy))
         ret.update(self.parseHat(joy))
         return ret
