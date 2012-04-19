@@ -86,7 +86,7 @@ class MainGame(object):
 #            t = Timer(1+i, self.gameboard.add_bridge)
 #            t.start()
 #        self.gameboard.add_bridge()
-        spawner = Spawner("../data/level.txt", self.gameboard)
+        spawner = Spawner("../data/midi-level.txt", self.gameboard)
         spawner.start()
         start_time = self.default_timer()
         #print start_time

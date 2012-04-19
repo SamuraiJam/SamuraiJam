@@ -19,14 +19,18 @@ class MidiToTimes(MidiOutStream):
         self.output = open("../../../data/midi-times.txt", "w")
         self.sum = 0.0
         self.output.writelines("{0}\n".format(str(0)))
+        self.prev_time = 0
         
     def note_on(self, channel=0, note=0x40, velocity=0x40):
-        time = self.rel_time()
-        if time != 0:
-            self.sum = self.sum + time
-            if self.sum >= 500:
-                self.output.writelines("{0}\n".format(self.sum/1000))
-                self.sum = 0.0
+        if channel == 0:
+            time = self.abs_time()
+            rel_time = time - self.prev_time
+            self.prev_time = time
+            if time != 0:
+                self.sum = self.sum + rel_time
+                if self.sum > 200:
+                    self.output.writelines("{0}\n".format(self.sum/500.0))
+                    self.sum = 0.0
                 
                            
 if __name__ == '__main__':
