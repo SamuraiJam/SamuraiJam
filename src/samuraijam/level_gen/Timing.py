@@ -7,9 +7,11 @@ import pygame
 import os, sys
 #from samuraijam.Control.HAL import HAL
 import time
-from Helpers import *
 from pygame.locals import *
 if not pygame.mixer: print 'Warning, sound disabled'
+
+
+OUTPUT_FILE = "maybe-times.txt"
 
 """Initialize PyGame"""
 pygame.init()
@@ -34,7 +36,7 @@ pygame.mixer.music.play()
 
 old_time = time.clock()
 
-out = open("../../../data/times.txt", "w")
+out = open("../../../data/" + OUTPUT_FILE, "w")
 
 while 1:
     for event in pygame.event.get():

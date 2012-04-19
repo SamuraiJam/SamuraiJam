@@ -124,8 +124,10 @@ class MainGame(object):
             if mine_collisions != None:
                 for m in mine_collisions:
                     self.gameboard.mine_group.remove(m)
-#                    self.health = self.health - 10
-#                    self.statusBar.healthBar.update(self.health)
+                    self.health = self.health - 10
+                    self.statusBar.healthBar.update(-10)
+                    if self.health <= 0:
+                        pre_apocalypse = False 
             
             
             self.gameboard.draw()

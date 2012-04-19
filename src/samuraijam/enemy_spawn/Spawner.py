@@ -40,5 +40,5 @@ class Spawner(threading.Thread):
 #                print enemy
                 if enemy == 1:
                     self.gameboard.add_mine(i)
-#                elif enemy == 2:
-#                    self.gameboard.add_enemy(i)
+                elif enemy == 2:
+                    self.gameboard.add_enemy(i)
