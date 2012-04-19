@@ -6,23 +6,28 @@ Created on Apr 4, 2012
 import random
 import math
 
-PROB_MINE = .5
+PROB_MINE = .3
 PROB_ENEMY = .5
 PROB_DOWN = .4
 PROB_UP = .4
 BRIDGE_FREQ = 4
 START_STRING = 2
 
+INPUT_FILE = "midi-times.txt"
+OUTPUT_FILE = "midi-level.txt"
 
-input = open("../../../data/times.txt", "r")
-output = open("../../../data/level.txt", "w")
+input = open("../../../data/" + INPUT_FILE, "r")
+output = open("../../../data/" + OUTPUT_FILE, "w")
 linenumber = 0
 lastindex = START_STRING
 
 for line in input:
     linenumber = linenumber + 1
     line = line.rstrip()
-    output.write(line + "\t")
+    if linenumber == 1:
+        output.write(str(0.0) + "\t")
+    else:
+        output.write(line + "\t")
     if linenumber % BRIDGE_FREQ == 1:
         output.write("1\t")
         r = random.random()
