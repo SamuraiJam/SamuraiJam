@@ -112,21 +112,25 @@ class LevelSelectMenu:
                         
             if sys.platform == "win32":
                 if e.type == pygame.JOYHATMOTION:
-                    print "LOL JOY HAT"
                     g_state = self.hal.parseAll(self.joy)
                     if (HAL.STRUM_DOWN in g_state and g_state[HAL.STRUM_DOWN] == True):
-                        print "down"
                         e = pygame.event.Event(pygame.KEYDOWN, key = pygame.K_DOWN)
-                    if (HAL.STRUM_UP in g_state and g_state[HAL.STRUM_UP] == True):
-                        print "up"
+                    elif (HAL.STRUM_UP in g_state and g_state[HAL.STRUM_UP] == True):
                         e = pygame.event.Event(pygame.KEYDOWN, key = pygame.K_UP)
                 elif e.type == pygame.JOYBUTTONDOWN:
-                    print "LOL JOY BUTTON"
                     g_state = self.hal.parseButton(self.joy)
                     if (HAL.GREEN in g_state) and (g_state[HAL.GREEN] == True):
-                        print "green"
                         e = pygame.event.Event(pygame.KEYDOWN, key = pygame.K_RETURN)
                         
+            elif sys.platform == "darwin":
+                if e.type == pygame.JOYBUTTONDOWN:
+                    g_state = self.hal.parseButton(self.joy)
+                    if (HAL.STRUM_DOWN in g_state and g_state[HAL.STRUM_DOWN] == True):
+                        e = pygame.event.Event(pygame.KEYDOWN, key = pygame.K_DOWN)
+                    elif (HAL.STRUM_UP in g_state and g_state[HAL.STRUM_UP] == True):
+                        e = pygame.event.Event(pygame.KEYDOWN, key = pygame.K_UP)
+                    elif (HAL.GREEN in g_state) and (g_state[HAL.GREEN] == True):
+                        e = pygame.event.Event(pygame.KEYDOWN, key = pygame.K_RETURN)
             
             # Update the menu, based on which "state" we are in - When using the menu
             # in a more complex program, definitely make the states global variables
