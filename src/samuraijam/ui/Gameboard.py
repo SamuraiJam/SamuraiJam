@@ -14,6 +14,8 @@ from samuraijam.enemies.Mine import Mine
 from samuraijam.enemies.Enemy import Enemy
 from samuraijam.player.attacks import *
 
+PATH_HEIGHT = 72
+
 class Gameboard(object):
     '''
     classdocs
@@ -47,7 +49,7 @@ class Gameboard(object):
         possible_samurai_positions = []
         
         for i in range(0, 6):
-            possible_samurai_positions.append(48 * i + 5)
+            possible_samurai_positions.append(PATH_HEIGHT * i + 5)
         
         self.samurai = Samurai(possible_samurai_positions)
         self.samurai_sprite_group = Group(self.samurai)
@@ -134,11 +136,11 @@ class Gameboard(object):
         
     def add_mine(self, string_num):
 #        print "CREATE ZE LANDMINE"
-        new_mine = Mine(1101, 48 * (string_num + 1))
+        new_mine = Mine(1101, PATH_HEIGHT * string_num + 42)
         self.mine_group.add(new_mine)
         
     def add_enemy(self, string_num):
-        new_enemy = Enemy(1101, 48* (string_num + 1))
+        new_enemy = Enemy(1101, PATH_HEIGHT * string_num + 42)
         self.enemy_group.add(new_enemy)
         
     def remove_attack(self, attack):
@@ -156,7 +158,7 @@ class Gameboard(object):
         cur_width = 0
         for bI in range(0, num_blocks):
             for hI in range(0, 6):
-                my_location = (cur_width, (48 * hI + 35))
+                my_location = (cur_width, (PATH_HEIGHT * hI + 35))
                 dp = DirtPath(my_location)
 #                print "DirtPath at {0}".format(my_location)
                 self.backgroundSurface.blit(dp.image, my_location)

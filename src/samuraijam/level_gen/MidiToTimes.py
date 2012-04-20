@@ -28,7 +28,7 @@ class MidiToTimes(MidiOutStream):
             self.prev_time = time
             if time != 0:
                 self.sum = self.sum + rel_time
-                if self.sum > 200:
+                if self.sum > 0:
                     self.output.writelines("{0}\n".format(self.sum/500.0))
                     self.sum = 0.0
                 
