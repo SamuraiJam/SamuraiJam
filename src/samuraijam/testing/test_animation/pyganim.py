@@ -699,107 +699,107 @@ class PygConductor(object):
         if startTime is None:
             startTime = time.time()
 
-        for animObj in self._animations:
-            animObj.play(startTime)
+        for animObjPlayer in self._animations:
+            animObjPlayer.play(startTime)
 
     def pause(self, startTime=None):
         if startTime is None:
             startTime = time.time()
 
-        for animObj in self._animations:
-            animObj.pause(startTime)
+        for animObjPlayer in self._animations:
+            animObjPlayer.pause(startTime)
 
     def stop(self):
-        for animObj in self._animations:
-            animObj.stop()
+        for animObjPlayer in self._animations:
+            animObjPlayer.stop()
 
     def reverse(self):
-        for animObj in self._animations:
-            animObj.reverse()
+        for animObjPlayer in self._animations:
+            animObjPlayer.reverse()
 
     def clearTransforms(self):
-        for animObj in self._animations:
-            animObj.clearTransforms()
+        for animObjPlayer in self._animations:
+            animObjPlayer.clearTransforms()
 
     def makeTransformsPermanent(self):
-        for animObj in self._animations:
-            animObj.makeTransformsPermanent()
+        for animObjPlayer in self._animations:
+            animObjPlayer.makeTransformsPermanent()
 
     def togglePause(self):
-        for animObj in self._animations:
-            animObj.togglePause()
+        for animObjPlayer in self._animations:
+            animObjPlayer.togglePause()
 
     def nextFrame(self, jump=1):
-        for animObj in self._animations:
-            animObj.nextFrame(jump)
+        for animObjPlayer in self._animations:
+            animObjPlayer.nextFrame(jump)
 
     def prevFrame(self, jump=1):
-        for animObj in self._animations:
-            animObj.prevFrame(jump)
+        for animObjPlayer in self._animations:
+            animObjPlayer.prevFrame(jump)
 
     def rewind(self, seconds=None):
-        for animObj in self._animations:
-            animObj.rewind(seconds)
+        for animObjPlayer in self._animations:
+            animObjPlayer.rewind(seconds)
 
     def fastForward(self, seconds=None):
-        for animObj in self._animations:
-            animObj.fastForward(seconds)
+        for animObjPlayer in self._animations:
+            animObjPlayer.fastForward(seconds)
 
     def flip(self, xbool, ybool):
-        for animObj in self._animations:
-            animObj.flip(xbool, ybool)
+        for animObjPlayer in self._animations:
+            animObjPlayer.flip(xbool, ybool)
 
     def scale(self, width_height):
-        for animObj in self._animations:
-            animObj.scale(width_height)
+        for animObjPlayer in self._animations:
+            animObjPlayer.scale(width_height)
 
     def rotate(self, angle):
-        for animObj in self._animations:
-            animObj.rotate(angle)
+        for animObjPlayer in self._animations:
+            animObjPlayer.rotate(angle)
 
     def rotozoom(self, angle, scale):
-        for animObj in self._animations:
-            animObj.rotozoom(angle, scale)
+        for animObjPlayer in self._animations:
+            animObjPlayer.rotozoom(angle, scale)
 
     def scale2x(self):
-        for animObj in self._animations:
-            animObj.scale2x()
+        for animObjPlayer in self._animations:
+            animObjPlayer.scale2x()
 
     def smoothscale(self, width_height):
-        for animObj in self._animations:
-            animObj.smoothscale(width_height)
+        for animObjPlayer in self._animations:
+            animObjPlayer.smoothscale(width_height)
 
     def convert(self):
-        for animObj in self._animations:
-            animObj.convert()
+        for animObjPlayer in self._animations:
+            animObjPlayer.convert()
 
     def convert_alpha(self):
-        for animObj in self._animations:
-            animObj.convert_alpha()
+        for animObjPlayer in self._animations:
+            animObjPlayer.convert_alpha()
 
     def set_alpha(self, *args, **kwargs):
-        for animObj in self._animations:
-            animObj.set_alpha(*args, **kwargs)
+        for animObjPlayer in self._animations:
+            animObjPlayer.set_alpha(*args, **kwargs)
 
     def scroll(self, dx=0, dy=0):
-        for animObj in self._animations:
-            animObj.scroll(dx, dy)
+        for animObjPlayer in self._animations:
+            animObjPlayer.scroll(dx, dy)
 
     def set_clip(self, *args, **kwargs):
-        for animObj in self._animations:
-            animObj.set_clip(*args, **kwargs)
+        for animObjPlayer in self._animations:
+            animObjPlayer.set_clip(*args, **kwargs)
 
     def set_colorkey(self, *args, **kwargs):
-        for animObj in self._animations:
-            animObj.set_colorkey(*args, **kwargs)
+        for animObjPlayer in self._animations:
+            animObjPlayer.set_colorkey(*args, **kwargs)
 
     def lock(self):
-        for animObj in self._animations:
-            animObj.lock()
+        for animObjPlayer in self._animations:
+            animObjPlayer.lock()
 
     def unlock(self):
-        for animObj in self._animations:
-            animObj.unlock()
+        for animObjPlayer in self._animations:
+            animObjPlayer.unlock()
 
 
 def getInBetweenValue(lowerBound, value, upperBound):
