@@ -129,7 +129,7 @@ class MainGame(object):
                     if self.health <= 0:
                         pre_apocalypse = False 
                         
-            attack_collosions = pygame.sprite.groupcollide(self.gameboard.attack_group, self.gameboard.mine_group, False, True)
+            attack_collosions = pygame.sprite.groupcollide(self.gameboard.attack_group, self.gameboard.mine_group, False, False)
             if attack_collosions != None:
                 for m in attack_collosions:
                     self.gameboard.attack_group.remove(m)
