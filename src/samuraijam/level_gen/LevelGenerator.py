@@ -6,15 +6,16 @@ Created on Apr 4, 2012
 import random
 import math
 
-PROB_MINE = .3
-PROB_ENEMY = .5
+PROB_MINE = .05
+PROB_ENEMY = .07
 PROB_DOWN = .4
 PROB_UP = .4
-BRIDGE_FREQ = 4
+PROB_BRIDGE = .05
+BRIDGE_FREQ = 8
 START_STRING = 2
 
 INPUT_FILE = "midi-times.txt"
-OUTPUT_FILE = "midi-level.txt"
+OUTPUT_FILE = "midi-level2.txt"
 
 input = open("../../../data/" + INPUT_FILE, "r")
 output = open("../../../data/" + OUTPUT_FILE, "w")
@@ -29,7 +30,6 @@ for line in input:
     else:
         output.write(line + "\t")
     if linenumber % BRIDGE_FREQ == 1:
-        output.write("1\t")
         r = random.random()
         if r < PROB_DOWN:
             move = -1
@@ -42,8 +42,8 @@ for line in input:
         else:
             newindex = lastindex + move     
     else:
-        output.write("0\t")
         newindex = lastindex
+    bridgeline = ""
     newline = ""
     minindex = min(lastindex, newindex)
     maxindex = max(lastindex, newindex)
@@ -53,6 +53,11 @@ for line in input:
             newline = newline + "1"
         else:
             newline = newline + "0"
+        r = random.random()
+        if r < PROB_BRIDGE:
+            bridgeline = bridgeline + "1"
+        else:
+            bridgeline = bridgeline + "0"
     r = random.random()
     if newindex == lastindex:
         if r < PROB_ENEMY:
@@ -61,12 +66,19 @@ for line in input:
             newline = newline + "0"
     else:
         newline = newline + "00"
+        bridgeline = bridgeline + "1"
     for i in range(0, 5-maxindex):
         r = random.random()
         if r < PROB_MINE:
             newline = newline + "1"
         else:
             newline = newline + "0"
+        r = random.random()
+        if r < PROB_BRIDGE:
+            bridgeline = bridgeline + "1"
+        else:
+            bridgeline = bridgeline + "0"
     lastindex = newindex
+    output.write(bridgeline + "\t")
     output.write(newline + "\n")
     

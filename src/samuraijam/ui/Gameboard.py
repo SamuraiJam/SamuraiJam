@@ -129,9 +129,10 @@ class Gameboard(object):
         self.windowSurface.blit(self.gameSurface, window_origin)
         
         
-    def add_bridge(self):
+    def add_bridge(self, bridge_num):
 #        print "FAKE BRIDGE"
-        new_bridge = Bridge(1101, 0)
+        
+        new_bridge = Bridge(1101, bridge_num * PATH_HEIGHT + 39)
         self.bridge_group.add(new_bridge)
         
     def add_mine(self, string_num):
@@ -140,7 +141,7 @@ class Gameboard(object):
         self.mine_group.add(new_mine)
         
     def add_enemy(self, string_num):
-        new_enemy = Enemy(1101, PATH_HEIGHT * string_num + 42)
+        new_enemy = Enemy(1111, PATH_HEIGHT * string_num + 42)
         self.enemy_group.add(new_enemy)
         
     def remove_attack(self, attack):

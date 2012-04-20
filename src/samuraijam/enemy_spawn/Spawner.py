@@ -33,8 +33,12 @@ class Spawner(threading.Thread):
         for list in self.level:
             #print list[0]
             time.sleep(float(list[0]))
-            if list[1] == '1':
-                self.gameboard.add_bridge()
+#            if list[1] == '1':
+#                self.gameboard.add_bridge()
+            for i in range(0,5):
+                bridge = int(list[1][i:i+1])
+                if bridge == 1:
+                    self.gameboard.add_bridge(i)
             for i in range(0, 6):
                 enemy = int(list[2][i:i+1])
 #                print enemy
