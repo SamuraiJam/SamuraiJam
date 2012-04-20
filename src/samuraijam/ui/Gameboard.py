@@ -12,6 +12,7 @@ from samuraijam.spriteParts import DirtPath, Bridge
 from samuraijam.player import Samurai
 from samuraijam.enemies.Mine import Mine
 from samuraijam.enemies.Enemy import Enemy
+from samuraijam.player.attacks import *
 
 class Gameboard(object):
     '''
@@ -54,6 +55,11 @@ class Gameboard(object):
         self.bridge_group = OrderedUpdates()
         self.mine_group = OrderedUpdates()
         self.enemy_group = OrderedUpdates()
+        self.attack_group = OrderedUpdates()
+        
+        tempSprite = self.samurai_sprite_group.sprites()
+        self.testSword = VerticalSlash(self.samurai.get_rect().centerx,self.samurai.get_rect().centery, self.remove_attack)
+        self.attack_group.add(self.testSword)
         
         if sys.platform == "win32":
             # On Windows, the best timer is time.clock()
@@ -70,11 +76,12 @@ class Gameboard(object):
         self.scroll_amount = 0
         if self.last_frame_time > 0:
             cur_time = self.default_timer()
-            gap_time = cur_time - self.last_frame_time
-            this_scroll = self.pixels_per_second * gap_time
-#            print "Pixels per second: {0}\nGap Time: {1}\nScrollAmount: {2}".format(self.pixels_per_second, gap_time, this_scroll)
+            self.gap_time = cur_time - self.last_frame_time
+            this_scroll = self.pixels_per_second * self.gap_time
+#            print "Pixels per second: {0}\nGap Time: {1}\nScrollAmount: {2}".format(self.pixels_per_second, self.gap_time, this_scroll)
             self.last_frame_time = cur_time
         else:
+            self.gap_time = 0
             self.last_frame_time = self.default_timer()
         self.frac_scroll += this_scroll
         if self.frac_scroll >= 1:
@@ -100,6 +107,14 @@ class Gameboard(object):
         self.samurai_sprite_group.update()
         self.samurai_sprite_group.draw(self.gameSurface)  
         
+        #self.testSword = VerticalSlash(400,400)
+        #self.attack_group.add(self.testSword)
+        self.attack_group.update()
+        self.attack_group.draw(self.gameSurface)
+        
+#        self.testSword.draw(self.gameSurface)
+        
+        
         
         for bridge in self.bridge_group.sprites():
             if bridge.rect.left < 0:
@@ -124,6 +139,9 @@ class Gameboard(object):
     def add_enemy(self, string_num):
         new_enemy = Enemy(1101, 48* (string_num + 1))
         self.enemy_group.add(new_enemy)
+        
+    def remove_attack(self, attack):
+        self.attack_group.remove(attack)
         
         
         
