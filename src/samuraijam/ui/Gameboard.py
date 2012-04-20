@@ -144,6 +144,9 @@ class Gameboard(object):
     def remove_attack(self, attack):
         self.attack_group.remove(attack)
         
+    def add_attack(self, attack):
+        self.attack_group.add(attack)
+        
         
         
     def __render_background(self):

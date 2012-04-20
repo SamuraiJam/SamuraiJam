@@ -34,7 +34,7 @@ class VerticalSlash(pygame.sprite.Sprite):
         self.currentRotation = 75 
     
     def update(self):
-        self.currentRotation = self.currentRotation - 4
+        self.currentRotation = self.currentRotation - 10
         if self.currentRotation <= -75:
             self.killFunction(self)
             

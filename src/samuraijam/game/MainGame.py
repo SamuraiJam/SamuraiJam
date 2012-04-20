@@ -14,7 +14,7 @@ from samuraijam.control.HAL import HAL
 #from samuraijam.testing.WaitTest import *
 from samuraijam.ui import Gameboard, StatusBar
 from samuraijam.enemy_spawn.Spawner import Spawner
-
+from samuraijam.player.attacks import *
 from samuraijam.util import *
 
 class MainGame(object):
@@ -128,7 +128,12 @@ class MainGame(object):
                     self.statusBar.healthBar.update(-10)
                     if self.health <= 0:
                         pre_apocalypse = False 
-            
+                        
+            attack_collosions = pygame.sprite.groupcollide(self.gameboard.attack_group, self.gameboard.mine_group, False, True)
+            if attack_collosions != None:
+                for m in attack_collosions:
+                    self.gameboard.attack_group.remove(m)
+                    #add score!
             
             self.gameboard.draw()
             pygame.display.flip()
@@ -147,6 +152,10 @@ class MainGame(object):
             if num_buttons == 1:
                 if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
                     self.gameboard.samurai.move(buttons_down[0])
+            if num_buttons == 2:
+                tempSprite = self.gameboard.samurai_sprite_group.sprites()
+                tempRect = tempSprite[0].get_rect()
+                self.gameboard.add_attack(VerticalSlash(tempRect.centerx,tempRect.centery, self.gameboard.remove_attack))
             
 #        if input == HAL.GREEN:
 #            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
