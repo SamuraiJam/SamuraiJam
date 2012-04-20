@@ -47,7 +47,7 @@ def loadFiles(dirName):
 
 
 animObjPlayer = loadFiles("samurai_sprites")
-animObjWeapon = loadFiles("weapon_sprites")
+#animObjWeapon = loadFiles("weapon_sprites")
 animObjPlayer.play()
 
 while True: # main loop
