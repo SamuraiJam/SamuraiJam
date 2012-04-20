@@ -58,7 +58,8 @@ class Gameboard(object):
         self.attack_group = OrderedUpdates()
         
         tempSprite = self.samurai_sprite_group.sprites()
-        self.testSword = VerticalSlash(self.samurai.get_rect().centerx,self.samurai.get_rect().centery, self.remove_attack)
+        tempRect = tempSprite[0].get_rect()
+        self.testSword = VerticalSlash(tempRect.centerx,tempRect.centery, self.remove_attack)
         self.attack_group.add(self.testSword)
         
         if sys.platform == "win32":

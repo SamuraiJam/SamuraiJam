@@ -59,3 +59,6 @@ class Samurai(pygame.sprite.Sprite):
     def update(self):
         #self.rect.move_ip(0,self.guitarStringPaths[self.curString])
         self.rect.topleft = (0,self.guitarStringPaths[self.curString])
+        
+    def get_rect(self):
+        return self.rect
