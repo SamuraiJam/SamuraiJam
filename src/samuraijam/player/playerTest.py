@@ -36,19 +36,24 @@ def getPlayerSprite(fileName):
 def getWeaponSprite(fileName):
     return os.path.join("..","..","..","data","weapon_sprites", fileName)
 
-def loadFiles(dirName):
+def loadFiles(dirName, type):
     playerAnimationArray = []
     path = os.path.join("..","..","..","data",dirName)
     fileList = os.listdir(path)
-    for eachFile in fileList:
-        playerAnimationArray.append((getPlayerSprite(eachFile), 0.15)) #what to append & what speed it takes up in the cycle (in seconds)
+    if type == 1:
+        for eachFile in fileList:
+            playerAnimationArray.append((getPlayerSprite(eachFile), 0.15)) #what to append & what speed it takes up in the cycle (in seconds)
+    if type == 2:
+        for eachFile in fileList:
+            playerAnimationArray.append((getWeaponSprite(eachFile), 0.1)) #what to append & what speed it takes up in the cycle (in seconds)
     return pyganim.PygAnimation(playerAnimationArray)
 #animObjPlayer = pyganim.PygAnimation([(getPlayerSprite('chr06000.BMP'), 0.2), (getPlayerSprite('chr06002.BMP'), 0.2), (getPlayerSprite('chr06004.BMP'), .4)])
 
 
-animObjPlayer = loadFiles("samurai_sprites")
-#animObjWeapon = loadFiles("weapon_sprites")
+animObjPlayer = loadFiles("samurai_sprites",1)
+animObjWeapon = loadFiles("weapon_sprites",2)
 animObjPlayer.play()
+animObjWeapon.play()
 
 while True: # main loop
     for event in pygame.event.get():
@@ -57,6 +62,7 @@ while True: # main loop
             sys.exit()
     surface.fill((0,0,0))
     animObjPlayer.blit(surface, (0, 0))
+    animObjWeapon.blit(surface, (90, 0))
     pygame.display.update()
     #print animObjPlayer.getCurrentFrame()
     
