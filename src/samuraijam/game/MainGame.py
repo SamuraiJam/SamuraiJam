@@ -168,8 +168,12 @@ class MainGame(object):
             num_buttons = len(buttons_down)     
               
             if num_buttons == 1:
-                if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
-                    self.gameboard.samurai.move(buttons_down[0])
+#                if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+#                    self.gameboard.samurai.move(buttons_down[0])
+                bridge_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.bridge_group, False, None)
+                if bridge_collisions != None:
+                    for bridge in bridge_collisions:
+                        self.gameboard.samurai.move(buttons_down[0], bridge)
             if num_buttons == 2:
                 tempSprite = self.gameboard.samurai_sprite_group.sprites()
                 tempRect = tempSprite[0].get_rect()

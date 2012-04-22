@@ -12,6 +12,7 @@ import pygame
 from samuraijam.util.Helpers import *
 from pygame.locals import *
 from samuraijam.control.HAL import HAL
+from samuraijam.spriteParts import Bridge
 
 class Samurai(pygame.sprite.Sprite):
     """A hero is born!"""
@@ -24,35 +25,35 @@ class Samurai(pygame.sprite.Sprite):
         self.curString = 2
     
 
-    def move(self, button):
-        if self.curString == 0 and button == HAL.GREEN:
+    def move(self, button, bridge):
+        if bridge.bridge_type == Bridge.BRIDGE_TYPE_GREEN and self.curString == 0 and button == HAL.GREEN:
             self.curString = 1
             self.update()
-        elif self.curString == 1 and button == HAL.GREEN:
+        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_GREEN and self.curString == 1 and button == HAL.GREEN:
             self.curString = 0
             self.update()
-        elif self.curString == 1 and button == HAL.RED:
+        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_RED and self.curString == 1 and button == HAL.RED:
             self.curString = 2
             self.update()
-        elif self.curString == 2 and button == HAL.RED:
+        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_RED and self.curString == 2 and button == HAL.RED:
             self.curString = 1
             self.update()
-        elif self.curString == 2 and button == HAL.YELLOW:
+        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_YELLOW and self.curString == 2 and button == HAL.YELLOW:
             self.curString = 3
             self.update()
-        elif self.curString == 3 and button == HAL.YELLOW:
+        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_YELLOW and self.curString == 3 and button == HAL.YELLOW:
             self.curString = 2
             self.update()
-        elif self.curString == 3 and button == HAL.BLUE:
+        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_BLUE and self.curString == 3 and button == HAL.BLUE:
             self.curString = 4
             self.update()
-        elif self.curString == 4 and button == HAL.BLUE:
+        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_BLUE and self.curString == 4 and button == HAL.BLUE:
             self.curString = 3
             self.update()
-        elif self.curString == 4 and button == HAL.ORANGE:
+        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_ORANGE and self.curString == 4 and button == HAL.ORANGE:
             self.curString = 5
             self.update()
-        elif self.curString == 5 and button == HAL.ORANGE:
+        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_ORANGE and self.curString == 5 and button == HAL.ORANGE:
             self.curString = 4
             self.update()
     
