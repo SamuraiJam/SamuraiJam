@@ -14,6 +14,8 @@ class VerticalSlash(pygame.sprite.Sprite):
     '''
     classdocs
     '''
+    
+    TYPE_VERTICAL_SLASH = "type_vertical_slash"
 
 
     def __init__(self,xpos,ypos, killFunction):
@@ -27,6 +29,8 @@ class VerticalSlash(pygame.sprite.Sprite):
         self.killFunction = killFunction
         self.xpos = xpos
         self.ypos = ypos
+        
+        self.attack_type = self.TYPE_VERTICAL_SLASH
         
         #start at 75 degrees
         self.image = pygame.transform.rotate(self.image,30)

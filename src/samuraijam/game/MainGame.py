@@ -118,21 +118,39 @@ class MainGame(object):
                     self.process_input(guitarState)
                         
             if self.is_playing == False and pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
-                self.playSexy()            
+                self.playSexy()       
+                
+                
+            # Process attacks before player impacts:
+            
+            enemy_a_collosions = pygame.sprite.groupcollide(self.gameboard.attack_group, self.gameboard.enemy_group, False, False).items()
+            if enemy_a_collosions != None:
+                for attack, enemies in enemy_a_collosions:
+                    for enemy in enemies:
+                        enemy.process_hit(attack.attack_type, self.gameboard.enemy_group)
+                    self.gameboard.attack_group.remove(attack)
+                    
+#                    enemy.process_hit(attack.attack_type, self.gameboard.enemy_group)
                         
-            mine_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.mine_group, False)
-            if mine_collisions != None:
-                for m in mine_collisions:
+            mine_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.mine_group, False)
+            if mine_p_collisions != None:
+                for m in mine_p_collisions:
                     self.gameboard.mine_group.remove(m)
                     self.health = self.health - 10
                     self.statusBar.healthBar.update(-10)
                     if self.health <= 0:
-                        pre_apocalypse = False 
+                        pre_apocalypse = False
+            
+            enemy_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.enemy_group, False)
+            if enemy_p_collisions != None:
+                for e in enemy_p_collisions:
+                    self.gameboard.enemy_group.remove(e)
+                    self.health = self.health - 20
+                    self.statusBar.healthBar.update(-20)
+                    if self.health <= 0:
+                        pre_apocalypse = False
                         
-            attack_collosions = pygame.sprite.groupcollide(self.gameboard.attack_group, self.gameboard.mine_group, False, False)
-            if attack_collosions != None:
-                for m in attack_collosions:
-                    self.gameboard.attack_group.remove(m)
+            
                     #add score!
             
             self.gameboard.draw()
