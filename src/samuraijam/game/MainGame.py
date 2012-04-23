@@ -16,6 +16,7 @@ from samuraijam.ui import Gameboard, StatusBar
 from samuraijam.enemy_spawn.Spawner import Spawner
 from samuraijam.player.attacks import *
 from samuraijam.util import *
+from samuraijam.game.LevelPauseMenu import *
 
 class MainGame(object):
 
@@ -169,6 +170,24 @@ class MainGame(object):
             
     def process_input(self, state):
         print state
+        
+        #check for pause menu
+        if HAL.START in state and state[HAL.START] == True:
+            wasPaused = False
+            if pygame.mixer.music.get_busy:
+                pygame.mixer.music.pause()
+                wasPaused = True
+            m = LevelPauseMenu(self.screen)
+            m.mainLoop()
+            #Constants.sexyMusic.stop()
+            #check to see if we're quitting forever
+            if m.timeToQuit():
+                pre_apocalypse = False
+            else:
+                #reblit the status info
+                self.statusBar.draw() #redraw this since it won't be blitted again
+                if wasPaused:
+                    pygame.mixer.music.unpause();
         
         if (HAL.STRUM_DOWN in state and state[HAL.STRUM_DOWN] == True) or (HAL.STRUM_UP in state and state[HAL.STRUM_UP] == True):
             buttons_down = []
