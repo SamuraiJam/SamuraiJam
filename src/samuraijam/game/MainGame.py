@@ -112,6 +112,7 @@ class MainGame(object):
                     pre_apocalypse = False
                 elif sys.platform == "darwin" and event.type == pygame.JOYBUTTONDOWN:
                     guitarState = self.hal.parseButton(self.joy)
+                    self.process_pause(guitarState)
                     self.process_input(guitarState)
 #                elif event.type == pygame.JOYAXISMOTION:
 #                    guitarState = self.hal.parseAxis(self.joy)
@@ -119,6 +120,9 @@ class MainGame(object):
                 elif sys.platform == "win32" and event.type == pygame.JOYHATMOTION:
                     guitarState = self.hal.parseAll(self.joy)
                     self.process_input(guitarState)
+                elif sys.platform == "win32" and event.type == pygame.JOYBUTTONDOWN:
+                    guitarState = self.hal.parseButton(self.joy)
+                    self.process_pause(guitarState)
                         
             if self.is_playing == False and pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
                 self.playSexy()       
@@ -168,9 +172,8 @@ class MainGame(object):
             self.gameboard.draw()
             pygame.display.flip()
             
-    def process_input(self, state):
-        print state
-        
+            
+    def process_pause(self, state):
         #check for pause menu
         if HAL.START in state and state[HAL.START] == True:
             wasPaused = False
@@ -187,7 +190,10 @@ class MainGame(object):
                 #reblit the status info
                 self.statusBar.draw() #redraw this since it won't be blitted again
                 if wasPaused:
-                    pygame.mixer.music.unpause();
+                    pygame.mixer.music.unpause();        
+    
+    def process_input(self, state):
+        print state
         
         if (HAL.STRUM_DOWN in state and state[HAL.STRUM_DOWN] == True) or (HAL.STRUM_UP in state and state[HAL.STRUM_UP] == True):
             buttons_down = []
