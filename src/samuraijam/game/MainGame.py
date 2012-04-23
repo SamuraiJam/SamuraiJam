@@ -86,6 +86,8 @@ class MainGame(object):
 #            t = Timer(1+i, self.gameboard.add_bridge)
 #            t.start()
 #        self.gameboard.add_bridge()
+        self.gameboard.add_healthpack(3)
+
         spawner = Spawner("../data/midi-level2.txt", self.gameboard)
         spawner.start()
         start_time = self.default_timer()
@@ -149,6 +151,15 @@ class MainGame(object):
                     self.statusBar.healthBar.update(-20)
                     if self.health <= 0:
                         pre_apocalypse = False
+                        
+            ## check for powerup collisions ##
+            healthpack_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.healthpack_group, False)
+            if healthpack_p_collisions != None:
+                for m in healthpack_p_collisions:
+                    self.gameboard.healthpack_group.remove(m)
+                    self.health = self.health + 30
+                    self.statusBar.healthBar.update(30)
+
                         
             
                     #add score!

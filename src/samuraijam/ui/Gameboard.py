@@ -12,6 +12,7 @@ from samuraijam.spriteParts import DirtPath, Bridge
 from samuraijam.player import Samurai
 from samuraijam.enemies.Mine import Mine
 from samuraijam.enemies.Enemy import Enemy
+from samuraijam.powerups.Healthpack import Healthpack
 from samuraijam.player.attacks import *
 
 PATH_HEIGHT = 72
@@ -58,6 +59,7 @@ class Gameboard(object):
         self.mine_group = OrderedUpdates()
         self.enemy_group = OrderedUpdates()
         self.attack_group = OrderedUpdates()
+        self.healthpack_group = OrderedUpdates()
         
 #        tempSprite = self.samurai_sprite_group.sprites()
 #        tempRect = tempSprite[0].get_rect()
@@ -108,7 +110,10 @@ class Gameboard(object):
         self.enemy_group.draw(self.gameSurface)
         
         self.samurai_sprite_group.update()
-        self.samurai_sprite_group.draw(self.gameSurface)  
+        self.samurai_sprite_group.draw(self.gameSurface) 
+        
+        self.healthpack_group.update(self.scroll_amount)
+        self.healthpack_group.draw(self.gameSurface)
         
         #self.testSword = VerticalSlash(400,400)
         #self.attack_group.add(self.testSword)
@@ -139,6 +144,11 @@ class Gameboard(object):
 #        print "CREATE ZE LANDMINE"
         new_mine = Mine(1101, PATH_HEIGHT * string_num + 42)
         self.mine_group.add(new_mine)
+    
+    def add_healthpack(self, string_num):
+#        print "such a healthy young man!"
+        new_healthpack = Healthpack(1101, PATH_HEIGHT * string_num + 42)
+        self.healthpack_group.add(new_healthpack)
         
     def add_enemy(self, string_num):
         new_enemy = Enemy(1111, PATH_HEIGHT * string_num + 42)
