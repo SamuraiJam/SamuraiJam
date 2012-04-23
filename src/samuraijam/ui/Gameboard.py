@@ -42,7 +42,8 @@ class Gameboard(object):
         self.frac_scroll = 0
 #        print "{0}[{1}] : {2}".format(self.song_name, self.song_length, self.pixels_per_second)
         
-        self.background_width = (self.pixels_per_second * self.song_length) + width
+#        self.background_width = (self.pixels_per_second * self.song_length) + width
+        self.background_width = width + 96  # Jank scroll edition!
         background_size = (self.background_width, height)
         self.backgroundSurface = Surface(background_size)
         self.__render_background()
@@ -94,6 +95,11 @@ class Gameboard(object):
             self.pixel_offset += self.scroll_amount
 #            print "Now scrolling {0} pixel(s)".format(whole_part)
             self.frac_scroll -= self.scroll_amount
+
+        if self.pixel_offset > 96:
+            self.pixel_offset = self.pixel_offset - 96
+            if self.pixel_offset < 0:
+                self.pixel_offset = 0
                      
         window_rect = Rect(self.pixel_offset, 0, self.gameSurface.get_width(), self.gameSurface.get_height()) 
 #        print window_rect
