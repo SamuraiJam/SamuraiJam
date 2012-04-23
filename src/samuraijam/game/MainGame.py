@@ -190,7 +190,8 @@ class MainGame(object):
                 #reblit the status info
                 self.statusBar.draw() #redraw this since it won't be blitted again
                 if wasPaused:
-                    pygame.mixer.music.unpause();        
+                    pygame.mixer.music.unpause();
+                self.gameboard.last_frame_time = self.gameboard.default_timer()     # Hax, don't count the time spent pausing.        
     
     def process_input(self, state):
         print state

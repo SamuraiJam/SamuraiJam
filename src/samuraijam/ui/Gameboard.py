@@ -78,17 +78,19 @@ class Gameboard(object):
     def draw(self):
         self.gameSurface.fill((0, 0, 0))
         origin = (0, 0)
-        this_scroll = 0
+#        this_scroll = 0
         self.scroll_amount = 0
         if self.last_frame_time > 0:
             cur_time = self.default_timer()
             self.gap_time = cur_time - self.last_frame_time
-            this_scroll = self.pixels_per_second * self.gap_time
 #            print "Pixels per second: {0}\nGap Time: {1}\nScrollAmount: {2}".format(self.pixels_per_second, self.gap_time, this_scroll)
             self.last_frame_time = cur_time
         else:
             self.gap_time = 0
             self.last_frame_time = self.default_timer()
+            
+        this_scroll = self.pixels_per_second * self.gap_time
+    
         self.frac_scroll += this_scroll
         if self.frac_scroll >= 1:
             self.scroll_amount = math.floor(self.frac_scroll)
