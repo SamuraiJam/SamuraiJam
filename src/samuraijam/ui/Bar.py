@@ -25,6 +25,8 @@ class Bar:
         
     def update(self, newCurValue):
         self.curValue = self.curValue + newCurValue
+        if self.curValue > self.maxValue:
+            self.curValue = self.maxValue
         minWidth = int((float(self.curValue)/float(self.maxValue))*self.width)
         self.minRect = pygame.Rect(self.x, self.y, minWidth, self.height)
         self.draw()
