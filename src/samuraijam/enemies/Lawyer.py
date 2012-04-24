@@ -30,20 +30,31 @@ class Lawyer(Sprite):
         #self.images = (load_image_from_folder('groupie', 'groupie_1.png', -1), load_image_from_folder('groupie', 'groupie_2.png', -1), load_image_from_folder('groupie', 'groupie_3.png', -1), load_image_from_folder('groupie', 'groupie_4.png', -1), load_image_from_folder('groupie', 'groupie_5.png', -1), load_image_from_folder('groupie', 'groupie_6.png', -1), load_image_from_folder('groupie', 'groupie_7.png', -1), load_image_from_folder('groupie', 'groupie_8.png', -1), load_image_from_folder('groupie', 'groupie_9.png', -1))
         
         self.images = load_images_from_folder('lawyer', -1)      
-        
-        
+        self.walk_anim = self.images[:3:1]
+        self.walk_anim.extend(self.walk_anim[::-1])
+                
         self.current_frame = 0
         self.frame_counter = 0
         
         self.hit_once = False
         
     def update(self, dist):
-        self.frame_counter = self.frame_counter + 1
-        if self.current_frame < (len(self.images) - 1) and self.frame_counter >= 12:
-            self.frame_counter = 0
-            self.current_frame = self.current_frame + 1
-                
-        self.image, frame_rect = self.images[self.current_frame]
+        if self.rect.left < 300:
+            self.frame_counter = self.frame_counter + 1
+            if self.current_frame < (len(self.images) - 1) and self.frame_counter >= 12:
+                self.frame_counter = 0
+                self.current_frame = self.current_frame + 1
+                    
+            self.image, frame_rect = self.images[self.current_frame]
+        else:
+            self.frame_counter = self.frame_counter + 1
+            if self.frame_counter >= 12:
+                self.frame_counter = 0
+                self.current_frame = self.current_frame + 1
+                if self.current_frame > (len(self.walk_anim) - 1):
+                    self.current_frame = 0
+                    
+            self.image, frame_rect = self.walk_anim[self.current_frame]
 
         
         self.rect.move_ip(-dist,0)
