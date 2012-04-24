@@ -13,6 +13,7 @@ class WaterSpray(Sprite):
     '''
 
     TYPE_WATER_SPRAY = "type_water_spray"
+    TYPE_MEGA_SWORD = "type_mega_sword"
 
     def __init__(self,xPos,yPos, killFunction):
         '''

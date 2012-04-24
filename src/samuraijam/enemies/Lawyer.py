@@ -60,7 +60,7 @@ class Lawyer(Sprite):
         self.rect.move_ip(-dist,0)
         
     def process_hit(self, attack_type, my_group, status_bar):
-        if attack_type == FaceMeltingSolo.TYPE_FACE_MELTING_SOLO:
+        if (attack_type == FaceMeltingSolo.TYPE_MEGA_SWORD) or (attack_type == FaceMeltingSolo.TYPE_FACE_MELTING_SOLO):
             status_bar.kiBar.update(20)
             status_bar.update_score(10)
             my_group.remove(self)

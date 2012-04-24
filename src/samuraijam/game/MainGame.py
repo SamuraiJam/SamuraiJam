@@ -86,6 +86,7 @@ class MainGame(object):
         self.sound_fire_sword = load_sound_from_folder('sound_effects', 'fire_sword.wav')
         self.sound_water_spray = load_sound_from_folder('sound_effects', 'water_spray.wav')
         self.sound_mine_explosion = load_sound_from_folder('sound_effects', 'mine_explosion.wav')
+        self.sound_mega_sword_get = load_sound_from_folder('sound_effects', 'mega_sword_get.wav')
         
         
         """Joystick"""
@@ -206,6 +207,13 @@ class MainGame(object):
                 for s in shield_p_collisions:
                     self.gameboard.samurai.ha_I_am_invincible(self.statusBar)
                     self.gameboard.shield_group.remove(s)
+                    
+            sword_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.sword_group, False)
+            if sword_p_collisions != None:
+                for s in sword_p_collisions:
+                    self.sound_mega_sword_get.play()
+                    self.gameboard.samurai.mega_sword_get(self.statusBar)
+                    self.gameboard.shield_group.remove(s)
             
                     #add score!
             
@@ -267,22 +275,45 @@ class MainGame(object):
                 
                 if (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.RED in state and state[HAL.RED] == True):
 #                    self.statusBar.kiBar.update(-2)
-                    self.gameboard.add_attack(VerticalSlash(tempRect.centerx,tempRect.centery, self.gameboard.remove_attack))
+                    my_attack = VerticalSlash(tempRect.centerx,tempRect.centery, self.gameboard.remove_attack)
+                    
+                    if self.gameboard.samurai.has_mega_sword:
+                        my_attack.attack_type = VerticalSlash.TYPE_MEGA_SWORD
+                    
+                    self.gameboard.add_attack(my_attack)
                     self.sound_basic_slash.play()
                 
                 elif (self.statusBar.kiBar.curValue >= 20) and (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.YELLOW in state and state[HAL.YELLOW] == True):
                     self.statusBar.kiBar.update(-20)
-                    self.gameboard.add_attack(FaceMeltingSolo(tempRect.centerx - 20, tempRect.centery - 20, self.gameboard.remove_attack))
+                    
+                    my_attack = FaceMeltingSolo(tempRect.centerx - 20, tempRect.centery - 20, self.gameboard.remove_attack)
+                    
+                    if self.gameboard.samurai.has_mega_sword:
+                        my_attack.attack_type = VerticalSlash.TYPE_MEGA_SWORD
+                    
+                    self.gameboard.add_attack(my_attack)
                     self.sound_face_melt.play()
                     
                 elif (self.statusBar.kiBar.curValue >= 20) and (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.BLUE in state and state[HAL.BLUE] == True):
                     self.statusBar.kiBar.update(-20)
-                    self.gameboard.add_attack(WaterSpray(tempRect.centerx + 10, tempRect.centery - 10, self.gameboard.remove_attack))
+                    
+                    my_attack = WaterSpray(tempRect.centerx + 10, tempRect.centery - 10, self.gameboard.remove_attack)
+                    
+                    if self.gameboard.samurai.has_mega_sword:
+                        my_attack.attack_type = VerticalSlash.TYPE_MEGA_SWORD
+                    
+                    self.gameboard.add_attack(my_attack)
                     self.sound_water_spray.play()
                     
                 elif (self.statusBar.kiBar.curValue >= 20) and (HAL.RED in state and state[HAL.RED] == True) and (HAL.YELLOW in state and state[HAL.YELLOW] == True):
                     self.statusBar.kiBar.update(-20)
-                    self.gameboard.add_attack(FireSword(tempRect.centerx, tempRect.centery, self.gameboard.remove_attack))
+                    
+                    my_attack = FireSword(tempRect.centerx, tempRect.centery, self.gameboard.remove_attack)
+                    
+                    if self.gameboard.samurai.has_mega_sword:
+                        my_attack.attack_type = VerticalSlash.TYPE_MEGA_SWORD
+                    
+                    self.gameboard.add_attack(my_attack)
                     self.sound_fire_sword.play()
                     
                     

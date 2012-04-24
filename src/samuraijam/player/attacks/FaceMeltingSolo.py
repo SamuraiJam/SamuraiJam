@@ -13,6 +13,7 @@ class FaceMeltingSolo(Sprite):
     '''
 
     TYPE_FACE_MELTING_SOLO = "type_face_melting_solo"
+    TYPE_MEGA_SWORD = "type_mega_sword"
 
     def __init__(self,xPos,yPos, killFunction):
         '''

@@ -16,6 +16,7 @@ class FireSword(pygame.sprite.Sprite):
     '''
     
     TYPE_FIRE_SWORD = "type_fire_sword"
+    TYPE_MEGA_SWORD = "type_mega_sword"
 
 
     def __init__(self,xpos,ypos, killFunction):

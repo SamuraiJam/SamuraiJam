@@ -55,7 +55,7 @@ class MaleGroupie(Sprite):
         self.rect.move_ip(-dist,0)
         
     def process_hit(self, attack_type, my_group, status_bar):
-        if attack_type == WaterSpray.TYPE_WATER_SPRAY:
+        if (attack_type == WaterSpray.TYPE_MEGA_SWORD) or (attack_type == WaterSpray.TYPE_WATER_SPRAY):
             status_bar.kiBar.update(20)
             status_bar.update_score(10)
             my_group.remove(self)

@@ -16,6 +16,7 @@ class VerticalSlash(pygame.sprite.Sprite):
     '''
     
     TYPE_VERTICAL_SLASH = "type_vertical_slash"
+    TYPE_MEGA_SWORD = "type_mega_sword"
 
 
     def __init__(self,xpos,ypos, killFunction):

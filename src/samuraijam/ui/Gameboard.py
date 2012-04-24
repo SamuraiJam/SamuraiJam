@@ -19,6 +19,7 @@ from samuraijam.enemies.Explosion import Explosion
 from samuraijam.powerups.Healthpack import Healthpack
 from samuraijam.powerups.KiPotion import KiPotion
 from samuraijam.powerups.Shield import Shield
+from samuraijam.powerups.MegaSword import MegaSword
 from samuraijam.player.attacks import *
 
 PATH_HEIGHT = 72
@@ -38,7 +39,8 @@ class Gameboard(object):
         
         self.PROB_KI = 0.7
         
-        self.PROB_SHIELD = 1.0
+        self.PROB_SHIELD = 0.9
+        self.PROB_SWORD = 1.0
         
         self.windowSurface = surface
         self.width = width
@@ -91,6 +93,7 @@ class Gameboard(object):
         self.healthpack_group = OrderedUpdates()
         self.ki_potion_group = OrderedUpdates()
         self.shield_group = OrderedUpdates()
+        self.sword_group = OrderedUpdates()
         self.explosion_group = OrderedUpdates()
         
 #        tempSprite = self.samurai_sprite_group.sprites()
@@ -164,6 +167,9 @@ class Gameboard(object):
         self.shield_group.update(self.scroll_amount)
         self.shield_group.draw(self.gameSurface)
         
+        self.sword_group.update(self.scroll_amount)
+        self.sword_group.draw(self.gameSurface)
+        
         #self.testSword = VerticalSlash(400,400)
         #self.attack_group.add(self.testSword)
         self.attack_group.update()
@@ -205,6 +211,8 @@ class Gameboard(object):
             self.add_kiboost(string_num)
         elif r < self.PROB_SHIELD:
             self.add_shield(string_num)
+        elif r < self.PROB_SWORD:
+            self.add_sword(string_num)
 
     def add_healthpack(self, string_num):
 #        print "such a healthy young man!"
@@ -214,6 +222,10 @@ class Gameboard(object):
     def add_shield(self, string_num):
         new_shield = Shield(1101, PATH_HEIGHT * string_num + 42)
         self.shield_group.add(new_shield)
+        
+    def add_sword(self, string_num):
+        new_sword = MegaSword(1101, PATH_HEIGHT * string_num + 42)
+        self.sword_group.add(new_sword)
         
     def add_kiboost(self, string_num):
         new_ki_potion = KiPotion(1101, PATH_HEIGHT * string_num + 42)

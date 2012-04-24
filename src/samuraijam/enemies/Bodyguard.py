@@ -31,7 +31,7 @@ class Bodyguard(Sprite):
         self.rect.move_ip(-dist,0)
         
     def process_hit(self, attack_type, my_group, status_bar):
-        if attack_type == FireSword.TYPE_FIRE_SWORD:
+        if (attack_type == FireSword.TYPE_MEGA_SWORD) or (attack_type == FireSword.TYPE_FIRE_SWORD):
             status_bar.kiBar.update(20)
             status_bar.update_score(10)
             my_group.remove(self)

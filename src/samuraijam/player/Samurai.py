@@ -33,6 +33,7 @@ class Samurai(pygame.sprite.Sprite):
         
         self.is_stunned = False
         self.is_invincible = False
+        self.has_mega_sword = False
     
 
     def move(self, button, bridge):
@@ -113,10 +114,38 @@ class Samurai(pygame.sprite.Sprite):
             # Start the timer until it's time to "chill"
             stun_timer = Timer(5.0, self.__liquid_nitrogen)
             stun_timer.start()
+            
+    def mega_sword_get(self, status_bar):
+        if not self.has_mega_sword:
+            # Turn the samurai into Boris
+            self.has_mega_sword = True
+            
+            # Draw the icon to the status bar
+            self.status_bar = status_bar
+            self.status_bar.add_status_icon('sword_powerup_icon.png')
+            
+            
+            # Start the timer until it's time to "chill"
+            stun_timer = Timer(5.0, self.__lose_sword)
+            stun_timer.start()
         
     def __liquid_nitrogen(self):
-        # Free the Samurai
+        # OH NOES!
         self.is_invincible = False
         
         # Clean up the icons    
         self.status_bar.remove_status_icon('shield_powerup_icon.png')
+        
+    def __un_stun(self):
+        # Free the Samurai
+        self.is_stunned = False
+        
+        # Clean up the icons    
+        self.status_bar.remove_status_icon('bolt.png')
+        
+    def __lose_sword(self):
+        # OH NOES!
+        self.has_mega_sword = False
+        
+        # Clean up the icons    
+        self.status_bar.remove_status_icon('sword_powerup_icon.png')
