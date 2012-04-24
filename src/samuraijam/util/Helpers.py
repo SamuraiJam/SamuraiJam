@@ -67,6 +67,26 @@ def load_images_from_folder(folder_name, colorkey=None):
             ret.append((image, image.get_rect()))
     return ret
 
+def load_images_g_from_folder(folder_name, colorkey=None):
+    fullname = os.path.join('..', 'data', folder_name)
+    file_list = os.listdir(fullname)
+    ret = []
+    for file in file_list:
+        file = os.path.join(fullname, file)
+        try:
+            image = pygame.image.load(file)
+        except pygame.error, message:
+            print 'Cannot load image:', file
+            raise SystemExit, message
+        image = image.convert()
+        if colorkey is not None:
+            if colorkey is -1:
+                colorkey = image.get_at((1,1))
+            image.set_colorkey(colorkey, RLEACCEL)
+        if image is not None:
+            ret.append((image, image.get_rect()))
+    return ret
+
 def load_sound(name):
     class NoneSound:
         def play(self): pass

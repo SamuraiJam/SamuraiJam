@@ -132,8 +132,7 @@ class WinScreen:
         # images, and a third is -gasp- a mix of images and text buttons!  To
         # understand the input factors, see the menu file
         menu = cMenu(50, 50, 20, 5, 'vertical', 100, screen,
-               [('Main Menu', 1, None),
-                ('Replay Level', 2, None)])
+               [('Continue', 1, None)])
         #set the unselected color for menu items
         menu.set_unselected_color(BLACK)
         
