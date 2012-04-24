@@ -7,7 +7,7 @@ Created on Apr 23, 2012
 from pygame.sprite import Sprite
 from pygame import RLEACCEL
 from samuraijam.util.Helpers import *
-from samuraijam.player.attacks import VerticalSlash
+from samuraijam.player.attacks.WaterSpray import WaterSpray
 
 class MaleGroupie(Sprite):
     '''
@@ -55,7 +55,7 @@ class MaleGroupie(Sprite):
         self.rect.move_ip(-dist,0)
         
     def process_hit(self, attack_type, my_group, update_score_func):
-        if attack_type == VerticalSlash.TYPE_VERTICAL_SLASH:
+        if attack_type == WaterSpray.TYPE_WATER_SPRAY:
             update_score_func(10)
             my_group.remove(self)
         else:

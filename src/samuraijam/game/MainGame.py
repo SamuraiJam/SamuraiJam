@@ -16,6 +16,7 @@ from samuraijam.ui import Gameboard, StatusBar
 from samuraijam.enemy_spawn.Spawner import Spawner
 from samuraijam.player.attacks import *
 from samuraijam.player.attacks.FaceMeltingSolo import FaceMeltingSolo
+from samuraijam.player.attacks.WaterSpray import WaterSpray
 from samuraijam.util import *
 from samuraijam.game.LevelPauseMenu import *
 from samuraijam.game.WinScreen import *
@@ -261,6 +262,12 @@ class MainGame(object):
                 elif (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.YELLOW in state and state[HAL.YELLOW] == True):
                     self.gameboard.add_attack(FaceMeltingSolo(tempRect.centerx - 20, tempRect.centery - 20, self.gameboard.remove_attack))
                     self.sound_face_melt.play()
+                    
+                elif (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.BLUE in state and state[HAL.BLUE] == True):
+                    self.gameboard.add_attack(WaterSpray(tempRect.centerx + 10, tempRect.centery - 10, self.gameboard.remove_attack))
+                    self.sound_water_spray.play()
+                    
+                    
             
 #        if input == HAL.GREEN:
 #            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:

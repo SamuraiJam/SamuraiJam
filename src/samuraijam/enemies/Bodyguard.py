@@ -24,6 +24,8 @@ class Bodyguard(Sprite):
         
         self.rect.topleft = (xPos,yPos)
         
+        self.hit_once = False
+        
         
     def update(self, dist):
         self.rect.move_ip(-dist,0)
