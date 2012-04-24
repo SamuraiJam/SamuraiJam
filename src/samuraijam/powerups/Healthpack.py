@@ -20,7 +20,7 @@ class Healthpack(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self) 
         #self.image, self.rect = load_image('pinkcreep.png',-1)
         
-        self.image, self.rect = load_image('health_pack.png',-1)
+        self.image, self.rect = load_image_from_folder('powerups', 'health_pack.png',-1)
         #self.rect = self.image.get_rect()
         
         self.rect.topleft = (xPos,yPos)
