@@ -87,6 +87,7 @@ class MainGame(object):
         self.sound_water_spray = load_sound_from_folder('sound_effects', 'water_spray.wav')
         self.sound_mine_explosion = load_sound_from_folder('sound_effects', 'mine_explosion.wav')
         self.sound_mega_sword_get = load_sound_from_folder('sound_effects', 'mega_sword_get.wav')
+        self.sound_generic_powerup = load_sound_from_folder('sound_effects', 'powerup.wav')
         
         
         """Joystick"""
@@ -192,6 +193,7 @@ class MainGame(object):
             healthpack_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.healthpack_group, False)
             if healthpack_p_collisions != None:
                 for m in healthpack_p_collisions:
+                    self.sound_generic_powerup.play()
                     self.gameboard.healthpack_group.remove(m)
                     self.statusBar.healthBar.update(30)
                     
@@ -199,12 +201,14 @@ class MainGame(object):
             ki_potion_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.ki_potion_group, False)
             if ki_potion_p_collisions != None:
                 for m in ki_potion_p_collisions:
+                    self.sound_generic_powerup.play()
                     self.gameboard.ki_potion_group.remove(m)
                     self.statusBar.kiBar.update(30)
                     
             shield_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.shield_group, False)
             if shield_p_collisions != None:
                 for s in shield_p_collisions:
+                    self.sound_generic_powerup.play()
                     self.gameboard.samurai.ha_I_am_invincible(self.statusBar)
                     self.gameboard.shield_group.remove(s)
                     
@@ -213,7 +217,7 @@ class MainGame(object):
                 for s in sword_p_collisions:
                     self.sound_mega_sword_get.play()
                     self.gameboard.samurai.mega_sword_get(self.statusBar)
-                    self.gameboard.shield_group.remove(s)
+                    self.gameboard.sword_group.remove(s)
             
                     #add score!
             
