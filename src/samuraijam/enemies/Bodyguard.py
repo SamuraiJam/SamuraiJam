@@ -39,6 +39,7 @@ class Bodyguard(Sprite):
                 update_score_func(5)
                 my_group.remove(self)
                 
-    def process_player_hit(self, status_bar):
+    def process_player_hit(self, status_bar, samurai):
         status_bar.healthBar.update(-20)
+        samurai.stun(status_bar)
         print "NYI - STUN THE PLAYER!"

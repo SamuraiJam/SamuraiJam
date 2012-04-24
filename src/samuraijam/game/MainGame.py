@@ -166,7 +166,7 @@ class MainGame(object):
             enemy_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.enemy_group, False)
             if enemy_p_collisions != None:
                 for e in enemy_p_collisions:
-                    e.process_player_hit(self.statusBar)
+                    e.process_player_hit(self.statusBar, self.gameboard.samurai)
                     self.gameboard.enemy_group.remove(e)
 #                    self.health = self.health - 20
 #                    self.statusBar.healthBar.update(-20)

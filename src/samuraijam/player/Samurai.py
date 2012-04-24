@@ -13,6 +13,9 @@ from samuraijam.util.Helpers import *
 from pygame.locals import *
 from samuraijam.control.HAL import HAL
 from samuraijam.spriteParts import Bridge
+from threading import Timer
+
+
 
 class Samurai(pygame.sprite.Sprite):
     """A hero is born!"""
@@ -27,39 +30,43 @@ class Samurai(pygame.sprite.Sprite):
         self.guitarStringPaths = guitarStrings
         self.rect.move_ip(0,guitarStrings[2])
         self.curString = 2
+        
+        self.is_stunned = False
+        self.is_invincible = False
     
 
     def move(self, button, bridge):
-        if bridge.bridge_type == Bridge.BRIDGE_TYPE_GREEN and self.curString == 0 and button == HAL.GREEN:
-            self.curString = 1
-            self.update()
-        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_GREEN and self.curString == 1 and button == HAL.GREEN:
-            self.curString = 0
-            self.update()
-        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_RED and self.curString == 1 and button == HAL.RED:
-            self.curString = 2
-            self.update()
-        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_RED and self.curString == 2 and button == HAL.RED:
-            self.curString = 1
-            self.update()
-        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_YELLOW and self.curString == 2 and button == HAL.YELLOW:
-            self.curString = 3
-            self.update()
-        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_YELLOW and self.curString == 3 and button == HAL.YELLOW:
-            self.curString = 2
-            self.update()
-        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_BLUE and self.curString == 3 and button == HAL.BLUE:
-            self.curString = 4
-            self.update()
-        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_BLUE and self.curString == 4 and button == HAL.BLUE:
-            self.curString = 3
-            self.update()
-        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_ORANGE and self.curString == 4 and button == HAL.ORANGE:
-            self.curString = 5
-            self.update()
-        elif bridge.bridge_type == Bridge.BRIDGE_TYPE_ORANGE and self.curString == 5 and button == HAL.ORANGE:
-            self.curString = 4
-            self.update()
+        if not self.is_stunned:
+            if bridge.bridge_type == Bridge.BRIDGE_TYPE_GREEN and self.curString == 0 and button == HAL.GREEN:
+                self.curString = 1
+                self.update()
+            elif bridge.bridge_type == Bridge.BRIDGE_TYPE_GREEN and self.curString == 1 and button == HAL.GREEN:
+                self.curString = 0
+                self.update()
+            elif bridge.bridge_type == Bridge.BRIDGE_TYPE_RED and self.curString == 1 and button == HAL.RED:
+                self.curString = 2
+                self.update()
+            elif bridge.bridge_type == Bridge.BRIDGE_TYPE_RED and self.curString == 2 and button == HAL.RED:
+                self.curString = 1
+                self.update()
+            elif bridge.bridge_type == Bridge.BRIDGE_TYPE_YELLOW and self.curString == 2 and button == HAL.YELLOW:
+                self.curString = 3
+                self.update()
+            elif bridge.bridge_type == Bridge.BRIDGE_TYPE_YELLOW and self.curString == 3 and button == HAL.YELLOW:
+                self.curString = 2
+                self.update()
+            elif bridge.bridge_type == Bridge.BRIDGE_TYPE_BLUE and self.curString == 3 and button == HAL.BLUE:
+                self.curString = 4
+                self.update()
+            elif bridge.bridge_type == Bridge.BRIDGE_TYPE_BLUE and self.curString == 4 and button == HAL.BLUE:
+                self.curString = 3
+                self.update()
+            elif bridge.bridge_type == Bridge.BRIDGE_TYPE_ORANGE and self.curString == 4 and button == HAL.ORANGE:
+                self.curString = 5
+                self.update()
+            elif bridge.bridge_type == Bridge.BRIDGE_TYPE_ORANGE and self.curString == 5 and button == HAL.ORANGE:
+                self.curString = 4
+                self.update()
     
     def update(self):
         #self.rect.move_ip(0,self.guitarStringPaths[self.curString])
@@ -77,5 +84,21 @@ class Samurai(pygame.sprite.Sprite):
     def get_rect(self):
         return self.rect
 
+
+    def stun(self, status_bar):
+        # Stun the Samurai
+        self.is_stunned = True
         
+        # Draw the icon to the status bar
+        self.status_bar = status_bar
+        
+        # Start the timer to free the Samurai
+        stun_timer = Timer(3.0, self.__un_stun)
+        stun_timer.start()
+        
+    def __un_stun(self):
+        # Free the Samurai
+        self.is_stunned = False
+        
+        # Clean up the icons    
         

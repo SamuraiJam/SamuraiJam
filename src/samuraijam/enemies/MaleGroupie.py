@@ -66,5 +66,5 @@ class MaleGroupie(Sprite):
                 my_group.remove(self)
                 
         
-    def process_player_hit(self, status_bar):
+    def process_player_hit(self, status_bar, samurai = None):
         status_bar.healthBar.update(-20)
