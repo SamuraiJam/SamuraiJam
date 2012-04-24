@@ -21,7 +21,7 @@ from samuraijam.game.LevelPauseMenu import *
 class MainGame(object):
 
 
-    def __init__(self, screen=None):
+    def __init__(self, level, screen=None):
         
         """Set the window Size"""
         self.width = 1100
@@ -39,7 +39,8 @@ class MainGame(object):
         self.statusBar = StatusBar(surface=self.screen,color=(200, 200, 200),width=self.width,height=60,x=0,y=0)
         
         """Gameboard Time!"""
-        self.gameboard = Gameboard(self.screen, self.width, 540, "../data/testLevel.txt")
+        #load_level = os.path.join('..', 'data', 'songs', 'sexy.txt')
+        self.gameboard = Gameboard(self.screen, self.width, 540, level)
         
         if sys.platform == "win32" or sys.platform == "darwin":
             # On Windows, the best timer is time.clock()
@@ -67,7 +68,11 @@ class MainGame(object):
             self.axisDefault = {4 : -1.0}
             self.hatDefault = {}
             
-        pygame.mixer.music.load(os.path.join('..', 'data', "sexyAndIKnowIt.ogg"))
+            
+        full_music_path = os.path.join('..', 'data', 'music', self.gameboard.music_filename)
+        
+        print "Trying to load " + os.path.abspath(full_music_path)
+        pygame.mixer.music.load(full_music_path)
         
         """Joystick"""
         self.joy = pygame.joystick.Joystick(0)
@@ -89,7 +94,9 @@ class MainGame(object):
 #        self.gameboard.add_bridge()
         self.gameboard.add_healthpack(3)
 
-        spawner = Spawner("../data/midi-level2.txt", self.gameboard)
+        full_level_path = os.path.join('..', 'data', 'levels', self.gameboard.level_filename)
+
+        spawner = Spawner(full_level_path, self.gameboard)
         spawner.start()
         start_time = self.default_timer()
         #print start_time
@@ -142,6 +149,7 @@ class MainGame(object):
             mine_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.mine_group, False)
             if mine_p_collisions != None:
                 for m in mine_p_collisions:
+                    self.gameboard.add_explosion(m.rect.top)
                     self.gameboard.mine_group.remove(m)
                     self.health = self.health - 10
                     self.statusBar.healthBar.update(-10)
@@ -163,6 +171,7 @@ class MainGame(object):
                 for m in healthpack_p_collisions:
                     self.gameboard.healthpack_group.remove(m)
                     self.health = self.health + 30
+                    self.health = min(self.health, 100)
                     self.statusBar.healthBar.update(30)
 
                         

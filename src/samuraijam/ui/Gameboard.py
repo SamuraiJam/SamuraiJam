@@ -6,7 +6,7 @@ Created on Apr 4, 2012
 
 from pygame import Surface, Rect
 from pygame.sprite import Sprite, Group, OrderedUpdates
-import math, time, sys
+import math, time, sys, random
 
 from samuraijam.spriteParts import DirtPath, Bridge
 from samuraijam.player import Samurai
@@ -14,6 +14,7 @@ from samuraijam.enemies.Mine import Mine
 from samuraijam.enemies.Enemy import Enemy
 from samuraijam.enemies.MaleGroupie import MaleGroupie
 from samuraijam.enemies.Lawyer import Lawyer
+from samuraijam.enemies.Explosion import Explosion
 from samuraijam.powerups.Healthpack import Healthpack
 from samuraijam.player.attacks import *
 
@@ -28,6 +29,12 @@ class Gameboard(object):
         '''
         Constructor
         '''
+        
+        #progressively increase; must end with 1
+        self.PROB_HEALTH = 0.4
+        self.PROB_SHIELD = 0.7
+        self.PROB_KI = 1.0
+        
         self.windowSurface = surface
         self.width = width
         self.height = height
@@ -36,9 +43,13 @@ class Gameboard(object):
         self.gameSurface = Surface(board_size) # This will be drawn every frame to the window
         
         song_file = open(song_filename)
-        self.song_name = song_file.readline()
-        self.song_length = float(song_file.readline())
+        self.song_name = song_file.readline().strip('\n')
         self.pixels_per_second = float(song_file.readline())
+        self.level_filename = song_file.readline().strip('\n')
+        self.music_filename = song_file.readline().strip('\n')
+        self.background_filename = song_file.readline().strip('\n')
+        
+        
         self.pixel_offset = 0
         self.last_frame_time = -1
         self.frac_scroll = 0
@@ -54,7 +65,8 @@ class Gameboard(object):
         #self.backgroundSurface.set_colorkey((217,62,245),pygame.RLEACCEL)
         #self.backgroundSurface.set_alpha(100,pygame.RLEACCEL)
         
-        self.mainScreenBackground,self.mainScreenBackgroundRect = load_image("sexy_background.png")
+        self.mainScreenBackground,self.mainScreenBackgroundRect = load_image_from_folder('backgrounds', self.background_filename)
+        
         #self.backgroundSurface.blit(mainScreenBackground, (0,0))
         #self.__render_background()
         
@@ -71,6 +83,7 @@ class Gameboard(object):
         self.enemy_group = OrderedUpdates()
         self.attack_group = OrderedUpdates()
         self.healthpack_group = OrderedUpdates()
+        self.explosion_group = OrderedUpdates()
         
 #        tempSprite = self.samurai_sprite_group.sprites()
 #        tempRect = tempSprite[0].get_rect()
@@ -142,6 +155,9 @@ class Gameboard(object):
         self.attack_group.update()
         self.attack_group.draw(self.gameSurface)
         
+        self.explosion_group.update()
+        self.explosion_group.draw(self.gameSurface)
+        
 #        self.testSword.draw(self.gameSurface)
         
         
@@ -167,11 +183,26 @@ class Gameboard(object):
         new_mine = Mine(1101, PATH_HEIGHT * string_num + 42)
         self.mine_group.add(new_mine)
     
+    def add_powerup(self, string_num):
+        r = random.random()
+        if r < self.PROB_HEALTH:
+            self.add_healthpack(string_num)
+        elif r < self.PROB_SHIELD:
+            self.add_shield(string_num)
+        elif r < self.PROB_KI:
+            self.add_kiboost(string_num)
+
     def add_healthpack(self, string_num):
 #        print "such a healthy young man!"
         new_healthpack = Healthpack(1101, PATH_HEIGHT * string_num + 42)
         self.healthpack_group.add(new_healthpack)
         
+    def add_shield(self, string_num):
+        print "shield"
+        
+    def add_kiboost(self, string_num):
+        print "ki boost"
+    
     def add_enemy(self, string_num):
         new_enemy = Enemy(1111, PATH_HEIGHT * string_num + 42)
         self.enemy_group.add(new_enemy)
@@ -190,6 +221,8 @@ class Gameboard(object):
     def add_attack(self, attack):
         self.attack_group.add(attack)
         
+    def add_explosion(self, y_val):
+        new_explosion = Explosion(20, y_val, self.explosion_group)
         
         
     def __render_background(self):
