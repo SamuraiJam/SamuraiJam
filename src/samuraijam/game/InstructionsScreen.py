@@ -139,7 +139,7 @@ class InstructionsScreen:
                     screen.blit(text, (400,170))
                     text = font.render("This is a groupie:", 1, (255,255,255))
                     screen.blit(text, (50,220))
-                    image = load_image("groupie/groupie_1.png", -1)[0]
+                    image = load_image_from_folder('groupieNEW', 'groupie_1.png', -1)[0]
                     screen.blit(image, (350,195))
                     text = font.render("They hate being clean and are destroyed by your water attack", 1, (255,255,255))
                     screen.blit(text, (50,250))
