@@ -15,6 +15,7 @@ from samuraijam.control.HAL import HAL
 from samuraijam.ui import Gameboard, StatusBar
 from samuraijam.enemy_spawn.Spawner import Spawner
 from samuraijam.player.attacks import *
+from samuraijam.player.attacks.FaceMeltingSolo import FaceMeltingSolo
 from samuraijam.util import *
 from samuraijam.game.LevelPauseMenu import *
 from samuraijam.game.WinScreen import *
@@ -252,8 +253,14 @@ class MainGame(object):
             if num_buttons == 2:
                 tempSprite = self.gameboard.samurai_sprite_group.sprites()
                 tempRect = tempSprite[0].get_rect()
-                self.gameboard.add_attack(VerticalSlash(tempRect.centerx,tempRect.centery, self.gameboard.remove_attack))
-                self.sound_basic_slash.play()
+                
+                if (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.RED in state and state[HAL.RED] == True):
+                    self.gameboard.add_attack(VerticalSlash(tempRect.centerx,tempRect.centery, self.gameboard.remove_attack))
+                    self.sound_basic_slash.play()
+                
+                elif (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.YELLOW in state and state[HAL.YELLOW] == True):
+                    self.gameboard.add_attack(FaceMeltingSolo(tempRect.centerx - 20, tempRect.centery - 20, self.gameboard.remove_attack))
+                    self.sound_face_melt.play()
             
 #        if input == HAL.GREEN:
 #            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
