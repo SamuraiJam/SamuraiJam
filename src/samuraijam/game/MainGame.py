@@ -134,7 +134,7 @@ class MainGame(object):
             if enemy_a_collosions != None:
                 for attack, enemies in enemy_a_collosions:
                     for enemy in enemies:
-                        enemy.process_hit(attack.attack_type, self.gameboard.enemy_group)
+                        enemy.process_hit(attack.attack_type, self.gameboard.enemy_group, self.statusBar.update_score)
                     self.gameboard.attack_group.remove(attack)
                     
 #                    enemy.process_hit(attack.attack_type, self.gameboard.enemy_group)
