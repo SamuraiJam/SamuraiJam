@@ -6,7 +6,7 @@ Created on Apr 4, 2012
 
 from pygame import Surface, Rect
 from pygame.sprite import Sprite, Group, OrderedUpdates
-import math, time, sys
+import math, time, sys, random
 
 from samuraijam.spriteParts import DirtPath, Bridge
 from samuraijam.player import Samurai
@@ -29,6 +29,12 @@ class Gameboard(object):
         '''
         Constructor
         '''
+        
+        #progressively increase; must end with 1
+        self.PROB_HEALTH = 0.4
+        self.PROB_SHIELD = 0.7
+        self.PROB_KI = 1.0
+        
         self.windowSurface = surface
         self.width = width
         self.height = height
@@ -177,11 +183,26 @@ class Gameboard(object):
         new_mine = Mine(1101, PATH_HEIGHT * string_num + 42)
         self.mine_group.add(new_mine)
     
+    def add_powerup(self, string_num):
+        r = random.random()
+        if r < self.PROB_HEALTH:
+            self.add_healthpack(string_num)
+        elif r < self.PROB_SHIELD:
+            self.add_shield(string_num)
+        elif r < self.PROB_KI:
+            self.add_kiboost(string_num)
+
     def add_healthpack(self, string_num):
 #        print "such a healthy young man!"
         new_healthpack = Healthpack(1101, PATH_HEIGHT * string_num + 42)
         self.healthpack_group.add(new_healthpack)
         
+    def add_shield(self, string_num):
+        print "shield"
+        
+    def add_kiboost(self, string_num):
+        print "ki boost"
+    
     def add_enemy(self, string_num):
         new_enemy = Enemy(1111, PATH_HEIGHT * string_num + 42)
         self.enemy_group.add(new_enemy)
