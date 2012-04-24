@@ -48,6 +48,14 @@ class Gameboard(object):
         self.backgroundSurface = Surface(background_size)
         self.__render_background()
         
+        self.backgroundSurface.set_colorkey((0,0,0),pygame.RLEACCEL)
+        #self.backgroundSurface.set_colorkey((217,62,245),pygame.RLEACCEL)
+        #self.backgroundSurface.set_alpha(100,pygame.RLEACCEL)
+        
+        self.mainScreenBackground,self.mainScreenBackgroundRect = load_image("sexy_background.png")
+        #self.backgroundSurface.blit(mainScreenBackground, (0,0))
+        #self.__render_background()
+        
         possible_samurai_positions = []
         
         for i in range(0, 6):
@@ -73,10 +81,12 @@ class Gameboard(object):
         else:
             # On most other platforms, the best timer is time.time()
             self.default_timer = time.time
+            
         
         
     def draw(self):
-        self.gameSurface.fill((0, 0, 0))
+        self.gameSurface.fill((0,0,0))
+        #self.gameSurface.fill((217,62,245))
         origin = (0, 0)
 #        this_scroll = 0
         self.scroll_amount = 0
@@ -103,6 +113,8 @@ class Gameboard(object):
             if self.pixel_offset < 0:
                 self.pixel_offset = 0
                      
+        self.gameSurface.blit(self.mainScreenBackground, origin)
+        
         window_rect = Rect(self.pixel_offset, 0, self.gameSurface.get_width(), self.gameSurface.get_height()) 
 #        print window_rect
         self.gameSurface.blit(self.backgroundSurface, origin, window_rect)
