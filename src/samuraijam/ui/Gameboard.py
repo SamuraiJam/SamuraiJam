@@ -59,7 +59,7 @@ class Gameboard(object):
         possible_samurai_positions = []
         
         for i in range(0, 6):
-            possible_samurai_positions.append(PATH_HEIGHT * i + 5)
+            possible_samurai_positions.append(PATH_HEIGHT * i + 35)
         
         self.samurai = Samurai(possible_samurai_positions)
         self.samurai_sprite_group = Group(self.samurai)

@@ -19,8 +19,8 @@ class Samurai(pygame.sprite.Sprite):
     
     def __init__(self, guitarStrings):
         pygame.sprite.Sprite.__init__(self) 
-        self.image, self.rect = load_image('CTS-sprite.gif',-1)
-        self.images = (load_samurai_image('chr06164.BMP', -1), load_samurai_image('chr06166.BMP', -1), load_samurai_image('chr06167.BMP', -1), load_samurai_image('chr06168.BMP', -1), load_samurai_image('chr06169.BMP', -1), load_samurai_image('chr06170.BMP', -1), load_samurai_image('chr06171.BMP', -1), load_samurai_image('chr06172.BMP', -1))
+        self.image, self.rect = load_samurai_image('chr06164.png', -1)
+        self.images = (load_samurai_image('chr06164.png', -1), load_samurai_image('chr06166.png', -1), load_samurai_image('chr06167.png', -1), load_samurai_image('chr06168.png', -1), load_samurai_image('chr06169.png', -1), load_samurai_image('chr06170.png', -1), load_samurai_image('chr06171.png', -1), load_samurai_image('chr06172.png', -1))
         self.current_frame = 0
         self.frame_counter = 0
         self.guitarStringPaths = guitarStrings
@@ -63,14 +63,16 @@ class Samurai(pygame.sprite.Sprite):
     
     def update(self):
         #self.rect.move_ip(0,self.guitarStringPaths[self.curString])
-        self.rect.topleft = (0,self.guitarStringPaths[self.curString])
+        
         self.frame_counter = self.frame_counter + 1
         if self.frame_counter >= 10:
             self.frame_counter = 0
             self.current_frame = self.current_frame + 1
-            if self.current_frame > len(self.images):
+            if self.current_frame > (len(self.images) - 1):
                 self.current_frame = 0
         self.image, self.rect = self.images[self.current_frame]
+        
+        self.rect.topleft = (0,self.guitarStringPaths[self.curString])
         
     def get_rect(self):
         return self.rect
