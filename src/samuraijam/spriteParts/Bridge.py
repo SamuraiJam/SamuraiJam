@@ -18,16 +18,12 @@ class Bridge(pygame.sprite.Sprite):
     def __init__(self, xPos, yPos):
         
         pygame.sprite.Sprite.__init__(self) 
-        #self.image, self.rect = load_image('pinkcreep.png',-1)
         bridge_num = (yPos-39)/72
         bridges = {0 : self.BRIDGE_TYPE_GREEN, 1 : self.BRIDGE_TYPE_RED, 2 : self.BRIDGE_TYPE_YELLOW, 3 : self.BRIDGE_TYPE_BLUE, 4 : self.BRIDGE_TYPE_ORANGE}
         self.bridge_type = bridges[bridge_num]
-        self.image, self.rect = load_image(bridges[bridge_num],-1)
-        #self.rect = self.image.get_rect()
+        self.image, self.rect = load_image_from_folder('bridges', bridges[bridge_num], -1)
         
         self.rect.topleft = (xPos,yPos)
         
     def update(self, dist):
-        #self.newX = self.newX - 1
-        #self.rect.topleft = (self.newX,self.rect.y)
         self.rect.move_ip(-dist,0)
