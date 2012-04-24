@@ -22,8 +22,6 @@ class HighScoreScreen:
         """Initialize PyGame"""
         #pygame.init()
         self.screen = screen
-        Constants.fluteMusic = load_sound("introFlute.ogg")
-        Constants.fluteMusic.play()
         self.name = ''
 
     def mainLoop(self):

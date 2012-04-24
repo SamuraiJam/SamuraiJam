@@ -16,6 +16,7 @@ from menu import *
 from LevelSelectMenu import *
 from pygame.font import Font
 from HighScoreScreen import *
+from MainGame import *
 
 
 class WinScreen:
@@ -27,7 +28,8 @@ class WinScreen:
         Constants.fluteMusic.play()
 
     def mainLoop(self, level_filename, new_score, percent_played):
-        high_score_file = "../data/" + level_filename[:len(level_filename)-10] + "-high_scores.txt"
+        raw_level_name = level_filename[:len(level_filename)-10]
+        high_score_file = "../data/" + raw_level_name + "-high_scores.txt"
         high_scores = open(high_score_file, 'r')
 #        scores = [("MSH", "500"), ("MSH", "400"), ("MSH", "300"),
 #                  ("MSH", "200"), ("MSH", "100")]
@@ -49,12 +51,12 @@ class WinScreen:
             for i in range(0, 4):
                 if new_score > scores[i][1]:
                     high_scores.writelines(new_name + "\t" + str(new_score))
-                    new_scores.append((new_name, str(score)))
+                    new_scores.append((new_name, str(new_score)))
                 high_scores.writelines(scores[i][0] + "\t" + scores[i][1])
                 new_scores.append(scores[i])
             if new_score < scores[3][1]:
                 high_scores.writelines(new_name + "\t" + str(new_score))
-                new_scores.append((new_name, str(score)))
+                new_scores.append((new_name, str(new_score)))
             high_scores.close()
             scores = new_scores
         
@@ -207,6 +209,9 @@ class WinScreen:
                     print 'Replay'
                     self.clashingSwords.play()
                     Constants.fluteMusic.stop()
+                    song_name = '.../data/songs/' + raw_level_name + '.txt'
+                    m = MainGame(song_name, screen)
+                    m.game_loop()
                     #Constants.sexyMusic.stop()
                     #m = MainGame(screen)
                     #m.game_loop()
