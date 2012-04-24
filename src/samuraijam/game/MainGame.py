@@ -88,6 +88,7 @@ class MainGame(object):
         self.sound_mine_explosion = load_sound_from_folder('sound_effects', 'mine_explosion.wav')
         self.sound_mega_sword_get = load_sound_from_folder('sound_effects', 'mega_sword_get.wav')
         self.sound_generic_powerup = load_sound_from_folder('sound_effects', 'powerup.wav')
+        self.sound_scream = load_sound_from_folder('sound_effects', 'WilhelmScream.ogg')
         
         
         """Joystick"""
@@ -184,6 +185,7 @@ class MainGame(object):
             if enemy_p_collisions != None:
                 for e in enemy_p_collisions:
                     if not self.gameboard.samurai.is_invincible:
+                        self.sound_scream.play()
                         e.process_player_hit(self.statusBar, self.gameboard.samurai)
                     self.gameboard.enemy_group.remove(e)
                     if self.statusBar.healthBar.curValue <= 0:
