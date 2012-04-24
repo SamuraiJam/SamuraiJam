@@ -131,6 +131,7 @@ class MainGame(object):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: 
                     pygame.mixer.music.stop()
+                    spawner.stop()
                     pygame.quit()
                     sys.exit()
                 elif event.type == Constants.Song_End_Event:
@@ -211,6 +212,7 @@ class MainGame(object):
             self.gameboard.draw()
             pygame.display.flip()
         
+        spawner.stop()
         time_played = pygame.mixer.music.get_pos()
         if pygame.mixer.music.get_busy:
             pygame.mixer.music.stop()

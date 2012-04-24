@@ -20,17 +20,26 @@ class Spawner(threading.Thread):
         threading.Thread.__init__(self)
         self.gameboard = gameboard
         
+        self._stop = threading.Event()
+        
         level_file = open(file_name, "r")
         self.level = []
         for line in level_file:
             list = line.split()
             self.level.append(list)
             
+        level_file.close()
+            
         
-        
+    def stop(self):
+        self._stop.set()
         
     def run(self):
         for list in self.level:
+            
+            if self._stop.is_set():
+                break
+            
             #print list[0]
             time.sleep(float(list[0]))
 #            if list[1] == '1':
