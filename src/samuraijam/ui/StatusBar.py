@@ -19,6 +19,8 @@ class StatusBar:
         
         self.score = 0
         
+        self.status_icons = {}
+        
         #sub bars
         self.barHeight = height*.5 #factor of how large the bar is. 1 = 100%
         self.barY = (height-self.barHeight)/2
@@ -77,6 +79,16 @@ class StatusBar:
         score_text_pos.centery = self.barY + score_text_pos.height
         self.surface.blit(score_text, score_text_pos)
 
+
+        cur_icon_x_pos = self.width - 32
+        cur_icon_y_pos = self.barY
+        # Draw some status icons
+        for icon in self.status_icons.values():
+            
+            self.surface.blit(icon, (cur_icon_x_pos, cur_icon_y_pos))
+            
+            cur_icon_x_pos = cur_icon_x_pos - 46
+
         # Display some expText and Bar
 #        expPos = 800
 #        expText = font.render("Rep:", 1, (10, 10, 10))
@@ -97,3 +109,15 @@ class StatusBar:
         score_val_pos.centery = self.barY + score_val_pos.height
         self.surface.blit(score_val, score_val_pos)
         
+        
+    def add_status_icon(self, icon_name):
+        print "trying to add ", icon_name
+        if not (icon_name in self.status_icons):
+            new_icon, jank_rect = load_image_from_folder('status_icons', icon_name)
+            self.status_icons[icon_name] = new_icon
+            self.update_score(0)        # calls Draw
+    
+    def remove_status_icon(self, icon_name):
+        if icon_name in self.status_icons:
+            del self.status_icons[icon_name]
+            self.update_score(0)       # calls Draw
