@@ -160,7 +160,7 @@ class MainGame(object):
             if enemy_a_collosions != None:
                 for attack, enemies in enemy_a_collosions:
                     for enemy in enemies:
-                        enemy.process_hit(attack.attack_type, self.gameboard.enemy_group, self.statusBar.update_score)
+                        enemy.process_hit(attack.attack_type, self.gameboard.enemy_group, self.statusBar)
                     self.gameboard.attack_group.remove(attack)
                     
 #                    enemy.process_hit(attack.attack_type, self.gameboard.enemy_group)
@@ -257,18 +257,22 @@ class MainGame(object):
                 tempRect = tempSprite[0].get_rect()
                 
                 if (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.RED in state and state[HAL.RED] == True):
+#                    self.statusBar.kiBar.update(-2)
                     self.gameboard.add_attack(VerticalSlash(tempRect.centerx,tempRect.centery, self.gameboard.remove_attack))
                     self.sound_basic_slash.play()
                 
-                elif (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.YELLOW in state and state[HAL.YELLOW] == True):
+                elif (self.statusBar.kiBar.curValue >= 20) and (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.YELLOW in state and state[HAL.YELLOW] == True):
+                    self.statusBar.kiBar.update(-20)
                     self.gameboard.add_attack(FaceMeltingSolo(tempRect.centerx - 20, tempRect.centery - 20, self.gameboard.remove_attack))
                     self.sound_face_melt.play()
                     
-                elif (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.BLUE in state and state[HAL.BLUE] == True):
+                elif (self.statusBar.kiBar.curValue >= 20) and (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.BLUE in state and state[HAL.BLUE] == True):
+                    self.statusBar.kiBar.update(-20)
                     self.gameboard.add_attack(WaterSpray(tempRect.centerx + 10, tempRect.centery - 10, self.gameboard.remove_attack))
                     self.sound_water_spray.play()
                     
-                elif (HAL.RED in state and state[HAL.RED] == True) and (HAL.YELLOW in state and state[HAL.YELLOW] == True):
+                elif (self.statusBar.kiBar.curValue >= 20) and (HAL.RED in state and state[HAL.RED] == True) and (HAL.YELLOW in state and state[HAL.YELLOW] == True):
+                    self.statusBar.kiBar.update(-20)
                     self.gameboard.add_attack(FireSword(tempRect.centerx, tempRect.centery, self.gameboard.remove_attack))
                     self.sound_fire_sword.play()
                     

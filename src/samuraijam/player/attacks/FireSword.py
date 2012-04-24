@@ -38,7 +38,7 @@ class FireSword(pygame.sprite.Sprite):
         self.currentRotation = 75 
     
     def update(self):
-        self.currentRotation = self.currentRotation - 10
+        self.currentRotation = self.currentRotation - 5
         if self.currentRotation <= -75:
             self.killFunction(self)
             
