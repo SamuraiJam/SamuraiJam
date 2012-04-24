@@ -76,6 +76,19 @@ def load_sound(name):
     try:
         sound = pygame.mixer.Sound(fullname)
     except pygame.error, message:
-        print 'Cannot load sound:', ogg
+        print 'Cannot load sound:', fullname
+        raise SystemExit, message
+    return sound
+
+def load_sound_from_folder(folder_name, file_name):
+    class NoneSound:
+        def play(self): pass
+    if not pygame.mixer:
+        return NoneSound()
+    fullname = os.path.join('..', 'data', folder_name, file_name)
+    try:
+        sound = pygame.mixer.Sound(fullname)
+    except pygame.error, message:
+        print 'Cannot load sound:', fullname
         raise SystemExit, message
     return sound
