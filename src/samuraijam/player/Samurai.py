@@ -23,6 +23,7 @@ class Samurai(pygame.sprite.Sprite):
         self.guitarStringPaths = guitarStrings
         self.rect.move_ip(0,guitarStrings[2])
         self.curString = 2
+        self.score = 0
     
 
     def move(self, button, bridge):
@@ -63,3 +64,11 @@ class Samurai(pygame.sprite.Sprite):
         
     def get_rect(self):
         return self.rect
+    
+    def get_score(self):
+        return self.score
+    
+    def add_score(self, number):
+        self.score = self.score + number
+        
+        
