@@ -98,10 +98,25 @@ class Samurai(pygame.sprite.Sprite):
             # Start the timer to free the Samurai
             stun_timer = Timer(3.0, self.__un_stun)
             stun_timer.start()
+            
+            
+    def ha_I_am_invincible(self, status_bar):
+        if not self.is_invincible:
+            # Turn the samurai into Boris
+            self.is_invincible = True
+            
+            # Draw the icon to the status bar
+            self.status_bar = status_bar
+            self.status_bar.add_status_icon('shield_powerup_icon.png')
+            
+            
+            # Start the timer until it's time to "chill"
+            stun_timer = Timer(5.0, self.__liquid_nitrogen)
+            stun_timer.start()
         
-    def __un_stun(self):
+    def __liquid_nitrogen(self):
         # Free the Samurai
-        self.is_stunned = False
+        self.is_invincible = False
         
         # Clean up the icons    
-        self.status_bar.remove_status_icon('bolt.png')
+        self.status_bar.remove_status_icon('shield_powerup_icon.png')

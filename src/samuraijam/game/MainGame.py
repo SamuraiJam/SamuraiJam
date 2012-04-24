@@ -169,7 +169,10 @@ class MainGame(object):
                 for m in mine_p_collisions:
                     self.gameboard.add_explosion(m.rect.top)
                     self.sound_mine_explosion.play()
-                    m.process_player_hit(self.statusBar)
+                    
+                    if not self.gameboard.samurai.is_invincible:
+                        m.process_player_hit(self.statusBar)
+                    
                     self.gameboard.mine_group.remove(m)
                     if self.statusBar.healthBar.curValue <= 0:
                         pre_apocalypse = False
@@ -177,7 +180,8 @@ class MainGame(object):
             enemy_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.enemy_group, False)
             if enemy_p_collisions != None:
                 for e in enemy_p_collisions:
-                    e.process_player_hit(self.statusBar, self.gameboard.samurai)
+                    if not self.gameboard.samurai.is_invincible:
+                        e.process_player_hit(self.statusBar, self.gameboard.samurai)
                     self.gameboard.enemy_group.remove(e)
                     if self.statusBar.healthBar.curValue <= 0:
                         pre_apocalypse = False
@@ -195,7 +199,12 @@ class MainGame(object):
                 for m in ki_potion_p_collisions:
                     self.gameboard.ki_potion_group.remove(m)
                     self.statusBar.kiBar.update(30)
-                        
+                    
+            shield_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.shield_group, False)
+            if shield_p_collisions != None:
+                for s in shield_p_collisions:
+                    self.gameboard.samurai.ha_I_am_invincible(self.statusBar)
+                    self.gameboard.shield_group.remove(s)
             
                     #add score!
             

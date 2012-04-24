@@ -18,6 +18,7 @@ from samuraijam.enemies.Bodyguard import Bodyguard
 from samuraijam.enemies.Explosion import Explosion
 from samuraijam.powerups.Healthpack import Healthpack
 from samuraijam.powerups.KiPotion import KiPotion
+from samuraijam.powerups.Shield import Shield
 from samuraijam.player.attacks import *
 
 PATH_HEIGHT = 72
@@ -89,6 +90,7 @@ class Gameboard(object):
         self.attack_group = OrderedUpdates()
         self.healthpack_group = OrderedUpdates()
         self.ki_potion_group = OrderedUpdates()
+        self.shield_group = OrderedUpdates()
         self.explosion_group = OrderedUpdates()
         
 #        tempSprite = self.samurai_sprite_group.sprites()
@@ -159,6 +161,9 @@ class Gameboard(object):
         self.ki_potion_group.update(self.scroll_amount)
         self.ki_potion_group.draw(self.gameSurface)
         
+        self.shield_group.update(self.scroll_amount)
+        self.shield_group.draw(self.gameSurface)
+        
         #self.testSword = VerticalSlash(400,400)
         #self.attack_group.add(self.testSword)
         self.attack_group.update()
@@ -207,7 +212,8 @@ class Gameboard(object):
         self.healthpack_group.add(new_healthpack)
         
     def add_shield(self, string_num):
-        print "shield"
+        new_shield = Shield(1101, PATH_HEIGHT * string_num + 42)
+        self.shield_group.add(new_shield)
         
     def add_kiboost(self, string_num):
         new_ki_potion = KiPotion(1101, PATH_HEIGHT * string_num + 42)
