@@ -42,3 +42,6 @@ class Mine(pygame.sprite.Sprite):
         
         
         self.rect.move_ip(-dist,0)
+        
+    def process_player_hit(self, status_bar):
+        status_bar.healthBar.update(-10)

@@ -156,18 +156,21 @@ class MainGame(object):
             if mine_p_collisions != None:
                 for m in mine_p_collisions:
                     self.gameboard.add_explosion(m.rect.top)
+                    m.process_player_hit(self.statusBar)
                     self.gameboard.mine_group.remove(m)
 #                    self.health = self.health - 10
-                    self.statusBar.healthBar.update(-10)
+#                    self.statusBar.healthBar.update(-10)
                     if self.statusBar.healthBar.curValue <= 0:
                         pre_apocalypse = False
             
             enemy_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.enemy_group, False)
             if enemy_p_collisions != None:
                 for e in enemy_p_collisions:
+                    e.process_player_hit(self.statusBar)
                     self.gameboard.enemy_group.remove(e)
 #                    self.health = self.health - 20
-                    self.statusBar.healthBar.update(-20)
+#                    self.statusBar.healthBar.update(-20)
+        
                     if self.statusBar.healthBar.curValue <= 0:
                         pre_apocalypse = False
                         
