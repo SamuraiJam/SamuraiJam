@@ -82,7 +82,7 @@ class MainGame(object):
         self.hal = HAL(self.buttonMap, self.axisMap, self.hatMap, self.axisDefault, self.hatDefault)
         
         self.is_playing = False
-        self.health = 100
+#        self.health = 100
 
 #        wt = WaitTest(self.gameboard)
 #        self.thread = Thread(wt.spawn())
@@ -157,18 +157,18 @@ class MainGame(object):
                 for m in mine_p_collisions:
                     self.gameboard.add_explosion(m.rect.top)
                     self.gameboard.mine_group.remove(m)
-                    self.health = self.health - 10
+#                    self.health = self.health - 10
                     self.statusBar.healthBar.update(-10)
-                    if self.health <= 0:
+                    if self.statusBar.healthBar.curValue <= 0:
                         pre_apocalypse = False
             
             enemy_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.enemy_group, False)
             if enemy_p_collisions != None:
                 for e in enemy_p_collisions:
                     self.gameboard.enemy_group.remove(e)
-                    self.health = self.health - 20
+#                    self.health = self.health - 20
                     self.statusBar.healthBar.update(-20)
-                    if self.health <= 0:
+                    if self.statusBar.healthBar.curValue <= 0:
                         pre_apocalypse = False
                         
             ## check for powerup collisions ##
@@ -176,8 +176,8 @@ class MainGame(object):
             if healthpack_p_collisions != None:
                 for m in healthpack_p_collisions:
                     self.gameboard.healthpack_group.remove(m)
-                    self.health = self.health + 30
-                    self.health = min(self.health, 100)
+#                    self.health = self.health + 30
+#                    self.health = min(self.health, 100)
                     self.statusBar.healthBar.update(30)
 
                         
