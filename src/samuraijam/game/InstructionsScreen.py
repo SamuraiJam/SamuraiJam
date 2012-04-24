@@ -89,8 +89,6 @@ class InstructionsScreen:
 
             e = pygame.event.wait()
             
-            print e.type
-            
             if e.type == pygame.JOYBUTTONDOWN:
                 g_state = self.hal.parseButton(self.joy)
                 if (HAL.GREEN in g_state and g_state[HAL.GREEN] == True):
