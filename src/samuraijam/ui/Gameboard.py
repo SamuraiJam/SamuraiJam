@@ -49,6 +49,7 @@ class Gameboard(object):
         self.__render_background()
         
         self.backgroundSurface.set_colorkey((0,0,0),pygame.RLEACCEL)
+        #self.backgroundSurface.set_colorkey((217,62,245),pygame.RLEACCEL)
         #self.backgroundSurface.set_alpha(100,pygame.RLEACCEL)
         
         self.mainScreenBackground,self.mainScreenBackgroundRect = load_image("sexy_background.png")
@@ -84,7 +85,8 @@ class Gameboard(object):
         
         
     def draw(self):
-        self.gameSurface.fill((0, 0, 0))
+        self.gameSurface.fill((0,0,0))
+        #self.gameSurface.fill((217,62,245))
         origin = (0, 0)
 #        this_scroll = 0
         self.scroll_amount = 0
