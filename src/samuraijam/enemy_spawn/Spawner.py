@@ -46,4 +46,5 @@ class Spawner(threading.Thread):
                     self.gameboard.add_mine(i)
                 elif enemy == 2:
                     #self.gameboard.add_enemy(i)
-                    self.gameboard.add_male_groupie(i)
+                    #self.gameboard.add_male_groupie(i)
+                    self.gameboard.add_lawyer(i)
