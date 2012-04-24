@@ -129,7 +129,7 @@ class InstructionsScreen:
                     screen.blit(text, (50,380))
                     text = font.render("This is a mine", 1, (255,255,255))
                     screen.blit(text, (50,430))
-                    image = load_image("mine_blin/mine_1.png", -1)[0]
+                    image = load_image("mine_blink/mine_1.png", -1)[0]
                     screen.blit(image, (250,430))
                     text = font.render("You want to avoid all mines.", 1, (255,255,255))
                     screen.blit(text, (50,460))
@@ -140,7 +140,7 @@ class InstructionsScreen:
                     text = font.render("This is a groupie:", 1, (255,255,255))
                     screen.blit(text, (50,220))
                     image = load_image("groupie/groupie_1.png", -1)[0]
-                    screen.blit(image, (250,220))
+                    screen.blit(image, (350,195))
                     text = font.render("They hate being clean and are destroyed by your water attack", 1, (255,255,255))
                     screen.blit(text, (50,250))
                     text = font.render("To do your water attack: STRUM the guitar controller", 1, (255,255,255))
@@ -150,7 +150,7 @@ class InstructionsScreen:
                     text = font.render("This is a bodyguard:", 1, (255,255,255))
                     screen.blit(text, (50,360))
                     image = load_image("guard/guard.png", -1)[0]
-                    screen.blit(image, (250,360))
+                    screen.blit(image, (450,335))
                     text = font.render("They are strong and need to be defeated by your fiery sword", 1, (255,255,255))
                     screen.blit(text, (50,390))
                     text = font.render("To do your fire sword attack: STRUM the guitar controller", 1, (255,255,255))
@@ -160,7 +160,7 @@ class InstructionsScreen:
                     text = font.render("This is a lawyer:", 1, (255,255,255))
                     screen.blit(text, (50,500))
                     image = load_image("lawyer/lawyer_ZZZ30.png", -1)[0]
-                    screen.blit(image, (250,500))
+                    screen.blit(image, (300,475))
                     text = font.render("They are very stiff and need to be mellowed by a face melting solo", 1, (255,255,255))
                     screen.blit(text, (50,530))
                     text = font.render("To do a face melting solo: STRUM the guitar controller", 1, (255,255,255))
@@ -197,25 +197,25 @@ class InstructionsScreen:
                     text = font.render("This is a health pack:", 1, (255,255,255))
                     screen.blit(text, (50,300))
                     image = load_image("powerups/health_pack.png", -1)[0]
-                    screen.blit(image, (250,300))
+                    screen.blit(image, (450,300))
                     text = font.render("It increases your health as seen in the status bar.", 1, (255,255,255))
                     screen.blit(text, (50,330))
                     text = font.render("This is a Ki booster:", 1, (255,255,255))
                     screen.blit(text, (50,380))
                     image = load_image("powerups/ki_pickup.png", -1)[0]
-                    screen.blit(image, (250,380))
+                    screen.blit(image, (450,380))
                     text = font.render("It increases your Ki level as seen in the status bar.", 1, (255,255,255))
                     screen.blit(text, (50,410))
                     text = font.render("This is a shield:", 1, (255,255,255))
                     screen.blit(text, (50,460))
                     image = load_image("powerups/shield_pickup.png", -1)[0]
-                    screen.blit(image, (250,460))
+                    screen.blit(image, (450,460))
                     text = font.render("It protects you from enemies for a period of time.", 1, (255,255,255))
                     screen.blit(text, (50,490))
                     text = font.render("This is a special sword:", 1, (255,255,255))
-                    screen.blit(text, (50,5400))
+                    screen.blit(text, (50,540))
                     image = load_image("powerups/sword_pickup.png", -1)[0]
-                    screen.blit(image, (250,540))
+                    screen.blit(image, (240,540))
                     text = font.render("It makes your basic slash more powerful for a period of time.", 1, (255,255,255))
                     screen.blit(text, (50,570))
                     prev_state = 3
