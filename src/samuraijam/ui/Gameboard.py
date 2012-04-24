@@ -14,6 +14,7 @@ from samuraijam.enemies.Mine import Mine
 from samuraijam.enemies.Enemy import Enemy
 from samuraijam.enemies.MaleGroupie import MaleGroupie
 from samuraijam.enemies.Lawyer import Lawyer
+from samuraijam.enemies.Explosion import Explosion
 from samuraijam.powerups.Healthpack import Healthpack
 from samuraijam.player.attacks import *
 
@@ -71,6 +72,7 @@ class Gameboard(object):
         self.enemy_group = OrderedUpdates()
         self.attack_group = OrderedUpdates()
         self.healthpack_group = OrderedUpdates()
+        self.explosion_group = OrderedUpdates()
         
 #        tempSprite = self.samurai_sprite_group.sprites()
 #        tempRect = tempSprite[0].get_rect()
@@ -142,6 +144,9 @@ class Gameboard(object):
         self.attack_group.update()
         self.attack_group.draw(self.gameSurface)
         
+        self.explosion_group.update()
+        self.explosion_group.draw(self.gameSurface)
+        
 #        self.testSword.draw(self.gameSurface)
         
         
@@ -190,6 +195,8 @@ class Gameboard(object):
     def add_attack(self, attack):
         self.attack_group.add(attack)
         
+    def add_explosion(self, y_val):
+        new_explosion = Explosion(20, y_val, self.explosion_group)
         
         
     def __render_background(self):

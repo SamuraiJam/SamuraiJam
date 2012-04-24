@@ -142,6 +142,7 @@ class MainGame(object):
             mine_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.mine_group, False)
             if mine_p_collisions != None:
                 for m in mine_p_collisions:
+                    self.gameboard.add_explosion(m.rect.top)
                     self.gameboard.mine_group.remove(m)
                     self.health = self.health - 10
                     self.statusBar.healthBar.update(-10)
