@@ -7,14 +7,16 @@ import random
 
 PROB_MINE = .05
 PROB_ENEMY = .07
+#sum of probs must be 1
+PROB_ENEMY_TYPE = [(2, 0.35), (3, 0.25), (4, 0.2), (5, 0.2)]
 PROB_DOWN = .4
 PROB_UP = .4
 PROB_BRIDGE = .05
 MOVE_FREQ = 8
 START_STRING = 2
 
-INPUT_FILE = "tiktok2-times.txt"
-OUTPUT_FILE = "tiktok-level.txt"
+INPUT_FILE = "firework-times.txt"
+OUTPUT_FILE = "firework-level.txt"
 
 input = open("../../../data/" + INPUT_FILE, "r")
 output = open("../../../data/" + OUTPUT_FILE, "w")
@@ -60,7 +62,12 @@ for line in input:
     r = random.random()
     if newindex == lastindex:
         if r < PROB_ENEMY:
-            newline = newline + "2"
+            r = random.random()
+            cum = 0
+            for type, prob in PROB_ENEMY_TYPE:
+                if cum <= r and r < cum + prob:
+                    newline = newline + str(type)
+                cum = cum + prob
         else:
             newline = newline + "0"
     else:

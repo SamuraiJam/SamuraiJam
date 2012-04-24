@@ -6,11 +6,11 @@ Created on Apr 19, 2012
 from samuraijam.enemy_spawn.midi.MidiOutStream import MidiOutStream
 from samuraijam.enemy_spawn.midi.MidiInFile import MidiInFile
 
-INPUT = "kesha-tik_tok.mid"
-OUTPUT = "tiktok2-times.txt"
+INPUT = "katy_perry-firework.mid"
+OUTPUT = "firework-times.txt"
 #channel is one less than what anvil gives
 CHANNEL = 3
-BPM = 120
+BPM = 124
 
 class MidiToTimes(MidiOutStream):
     '''
