@@ -62,17 +62,31 @@ class LevelSelectMenu:
         #blit once first to avoid graphics conflicts with the menu
         screen.blit(mainScreenBackground, (700,0))
         
+        song_dir = os.path.join('..', 'data', 'songs')
+        list_of_songs = os.listdir(song_dir)
+        song_file_list = []
+        menu_list = [('Tutorial', 1, None)]
+        i_state = 1
         
-        
+        for song in list_of_songs:
+            song_filename = os.path.join(song_dir, song)
+            song_file_list.append(song_filename)
+            song_file = open(song_filename)
+            song_title = song_file.readline()
+            i_state = i_state + 1
+            menu_list.append( (song_title, i_state, None) )
+            
+        i_state = i_state + 1
+        menu_list.append( ('Back', i_state, None))
         
         '''Create the menu'''
         # Create 3 diffrent menus.  One of them is only text, another one is only
         # images, and a third is -gasp- a mix of images and text buttons!  To
         # understand the input factors, see the menu file
-        menu = cMenu(50, 50, 20, 5, 'vertical', 100, screen,
-               [('Tutorial', 1, None),
-                ('Level 1: Sexy And I Know It - LMFAO',  2, None),
-                ('Back', 3, None)])
+        menu = cMenu(50, 50, 20, 5, 'vertical', 100, screen, menu_list)
+#               [('Tutorial', 1, None),
+#                ('Level 1: Sexy And I Know It - LMFAO',  2, None),
+#                ('Back', 3, None)])
         #set the unselected color for menu items
         menu.set_unselected_color(BLACK)
         
@@ -143,17 +157,28 @@ class LevelSelectMenu:
                     print 'Tutorial'
                     self.clashingSwords.play()
                     state = 0
-                elif state == 2:
-                    print 'Level 1!'
+                    
+                elif state > 1 and state < i_state:
                     self.clashingSwords.play()
                     Constants.fluteMusic.stop()
-                    m = MainGame(screen)
+                    print song_file_list[state - 2]
+                    m = MainGame(song_file_list[state - 2], screen)
                     m.game_loop()
                     screen.fill((255,255,255))
-                    #Constants.sexyMusic.stop()
                     pygame.mixer.music.stop();
                     Constants.fluteMusic.play()
                     state = 0
+#                elif state == 2:
+#                    print 'Level 1!'
+#                    self.clashingSwords.play()
+#                    Constants.fluteMusic.stop()
+#                    m = MainGame(screen)
+#                    m.game_loop()
+#                    screen.fill((255,255,255))
+#                    #Constants.sexyMusic.stop()
+#                    pygame.mixer.music.stop();
+#                    Constants.fluteMusic.play()
+#                    state = 0
                 else:
                     print 'Back to Main Menu!'
                     self.clashingSwords.play()

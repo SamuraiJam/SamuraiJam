@@ -40,6 +40,10 @@ class Gameboard(object):
         self.song_name = song_file.readline()
         self.pixels_per_second = float(song_file.readline())
         self.level_filename = song_file.readline()
+        self.music_filename = song_file.readline()
+        self.background_filename = song_file.readline()
+        
+        
         self.pixel_offset = 0
         self.last_frame_time = -1
         self.frac_scroll = 0
@@ -55,7 +59,7 @@ class Gameboard(object):
         #self.backgroundSurface.set_colorkey((217,62,245),pygame.RLEACCEL)
         #self.backgroundSurface.set_alpha(100,pygame.RLEACCEL)
         
-        self.mainScreenBackground,self.mainScreenBackgroundRect = load_image("sexy_background.png")
+        self.mainScreenBackground,self.mainScreenBackgroundRect = load_image_from_folder('backgrounds', self.background_filename)
         
         #self.backgroundSurface.blit(mainScreenBackground, (0,0))
         #self.__render_background()

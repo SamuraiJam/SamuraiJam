@@ -21,7 +21,7 @@ from samuraijam.game.LevelPauseMenu import *
 class MainGame(object):
 
 
-    def __init__(self, screen=None):
+    def __init__(self, level, screen=None):
         
         """Set the window Size"""
         self.width = 1100
@@ -39,8 +39,8 @@ class MainGame(object):
         self.statusBar = StatusBar(surface=self.screen,color=(200, 200, 200),width=self.width,height=60,x=0,y=0)
         
         """Gameboard Time!"""
-        load_level = os.path.join('..', 'data', 'songs', 'sexy.txt')
-        self.gameboard = Gameboard(self.screen, self.width, 540, load_level)
+        #load_level = os.path.join('..', 'data', 'songs', 'sexy.txt')
+        self.gameboard = Gameboard(self.screen, self.width, 540, level)
         
         if sys.platform == "win32" or sys.platform == "darwin":
             # On Windows, the best timer is time.clock()
@@ -68,7 +68,10 @@ class MainGame(object):
             self.axisDefault = {4 : -1.0}
             self.hatDefault = {}
             
-        pygame.mixer.music.load(os.path.join('..', 'data', 'music', "sexyAndIKnowIt.ogg"))
+            
+        full_music_path = os.path.join('..', 'data', 'music', self.gameboard.music_filename)
+        print "Trying to load " + os.path.abspath(full_music_path)
+        pygame.mixer.music.load(full_music_path)
         
         """Joystick"""
         self.joy = pygame.joystick.Joystick(0)
