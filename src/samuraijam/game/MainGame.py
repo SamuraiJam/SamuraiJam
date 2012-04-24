@@ -105,6 +105,7 @@ class MainGame(object):
         start_music = Timer(1025.0 / self.gameboard.pixels_per_second, self.playSexy)
         start_music.start()
         pre_apocalypse = True
+        complete = False
         while pre_apocalypse:
             #cur_time = self.default_timer()
             #print cur_time
@@ -121,6 +122,7 @@ class MainGame(object):
                     sys.exit()
                 elif event.type == Constants.Song_End_Event:
                     pre_apocalypse = False
+                    complete = True
                 elif sys.platform == "darwin" and event.type == pygame.JOYBUTTONDOWN:
                     guitarState = self.hal.parseButton(self.joy)
                     self.process_pause(guitarState)
@@ -188,7 +190,10 @@ class MainGame(object):
         time_played = pygame.mixer.music.get_pos()
         if pygame.mixer.music.get_busy:
             pygame.mixer.music.stop()
-        percent_played = int(time_played/(10*self.gameboard.song_length))
+        if complete:
+            percent_played = 100
+        else:
+            percent_played = int(time_played/(10*self.gameboard.song_length))
         m = WinScreen(self.screen)
         m.mainLoop(self.gameboard.level_filename, self.statusBar.score, percent_played)
             
