@@ -8,13 +8,14 @@ class StatusBar:
     """The Main PyMan Class - This class handles the main 
     initialization and creating of the Game."""
     
-    def __init__(self,surface,color,width,height,x,y):
+    def __init__(self, surface, color, width, height, x, y, song_name):
         self.surface = surface
         self.color = color
         self.width = width
         self.height = height
         self.x = x
         self.y = y
+        self.song_title = song_name
         
         self.score = 0
         
@@ -26,6 +27,7 @@ class StatusBar:
         
         self.hpPos = 400
         self.mpPos = 600
+        self.song_title_pos = 80
         
         self.healthBar = Bar(surface=self.surface, frontColor=(255,0,0), backColor=(128,128,128), curValue=100, maxValue=100, width=150, height=self.barHeight, x=self.hpPos, y=self.barY)
         self.kiBar = Bar(surface=self.surface, frontColor=(0,0,255), backColor=(128,128,128), curValue=100, maxValue=100, width=150, height=self.barHeight, x=self.mpPos, y=self.barY)
@@ -39,6 +41,14 @@ class StatusBar:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.rect(self.surface, self.color, self.rect, 0)
         
+        
+        
+        
+        song_title_text = self.font.render(self.song_title, 1, (10, 10, 10))
+        song_title_text_pos = song_title_text.get_rect()
+        song_title_text_pos.centerx = song_title_text_pos.width / 2.0
+        song_title_text_pos.centery = self.barY + song_title_text_pos.height
+        self.surface.blit(song_title_text, song_title_text_pos)
         
         # Display some hpText and Bar
         

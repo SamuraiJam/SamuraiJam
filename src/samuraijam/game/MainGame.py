@@ -37,11 +37,13 @@ class MainGame(object):
         screen.fill((0,0,0))
         
         
-        self.statusBar = StatusBar(surface=self.screen,color=(200, 200, 200),width=self.width,height=60,x=0,y=0)
+#        self.statusBar = StatusBar(surface=self.screen,color=(200, 200, 200),width=self.width,height=60,x=0,y=0)
         
         """Gameboard Time!"""
         #load_level = os.path.join('..', 'data', 'songs', 'sexy.txt')
         self.gameboard = Gameboard(self.screen, self.width, 540, level)
+        
+        self.statusBar = StatusBar(surface=self.screen, color=(200, 200, 200), width=self.width, height=60, x=0, y=0, song_name=self.gameboard.song_name)
         
         if sys.platform == "win32" or sys.platform == "darwin":
             # On Windows, the best timer is time.clock()
