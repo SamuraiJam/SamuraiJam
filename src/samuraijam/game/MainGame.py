@@ -17,6 +17,7 @@ from samuraijam.enemy_spawn.Spawner import Spawner
 from samuraijam.player.attacks import *
 from samuraijam.util import *
 from samuraijam.game.LevelPauseMenu import *
+from samuraijam.game.WinScreen import *
 
 class MainGame(object):
 
@@ -183,7 +184,13 @@ class MainGame(object):
             
             self.gameboard.draw()
             pygame.display.flip()
-            
+        
+        time_played = pygame.mixer.music.get_pos()
+        if pygame.mixer.music.get_busy:
+            pygame.mixer.music.stop()
+        percent_played = int(time_played/(10*self.gameboard.song_length))
+        m = WinScreen(self.screen)
+        m.mainLoop(self.gameboard.level_filename, self.statusBar.score, percent_played)
             
     def process_pause(self, state):
         #check for pause menu

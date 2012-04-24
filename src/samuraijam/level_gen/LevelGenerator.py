@@ -21,7 +21,7 @@ SONGS = ["sexy", "tiktok", "firework"]
 
 for song in SONGS:
     input = open("../../../data/" + song + "-times.txt", "r")
-    output = open("../../../data/" + song + "-level.txt", "w")
+    output = open("../../../data/levels" + song + "-level.txt", "w")
     linenumber = 0
     lastindex = START_STRING
     

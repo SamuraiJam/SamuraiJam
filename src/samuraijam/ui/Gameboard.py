@@ -44,6 +44,7 @@ class Gameboard(object):
         
         song_file = open(song_filename)
         self.song_name = song_file.readline().strip('\n')
+        self.song_length = float(song_file.readline())
         self.pixels_per_second = float(song_file.readline())
         self.level_filename = song_file.readline().strip('\n')
         self.music_filename = song_file.readline().strip('\n')
