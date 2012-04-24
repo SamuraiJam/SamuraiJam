@@ -222,6 +222,7 @@ class WinScreen:
                     
                 #update the screen
                 pygame.display.update(rect_list)
+        pygame.display.flip()
                 #screen.blit(self.pauseSurface, (700,0))
                 
         #return self.timeToQuit()

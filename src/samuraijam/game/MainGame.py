@@ -228,7 +228,7 @@ class MainGame(object):
             self.gameboard.draw()
             pygame.display.flip()
         
-        spawner.stop()
+#        spawner.stop()
         time_played = pygame.mixer.music.get_pos()
         if pygame.mixer.music.get_busy:
             pygame.mixer.music.stop()

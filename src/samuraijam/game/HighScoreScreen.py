@@ -128,9 +128,10 @@ class HighScoreScreen:
                         letter = chr(dec)
                     elif e.key == pygame.K_RETURN:
                         done = True
-            self.name = self.name + letter
-                
-        
+                        
+                pygame.display.flip()
+            self.name = self.name + letter       
+        pygame.display.flip()
                 
 if __name__ == "__main__":
     HighScoreScreen()
