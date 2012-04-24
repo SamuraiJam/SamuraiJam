@@ -6,7 +6,7 @@ Created on Apr 24, 2012
 
 from samuraijam.util.Helpers import *
 from pygame.sprite import Sprite
-from samuraijam.player.attacks import VerticalSlash
+from samuraijam.player.attacks.FireSword import FireSword
 
 class Bodyguard(Sprite):
     '''
@@ -31,7 +31,7 @@ class Bodyguard(Sprite):
         self.rect.move_ip(-dist,0)
         
     def process_hit(self, attack_type, my_group, update_score_func):
-        if attack_type == VerticalSlash.TYPE_VERTICAL_SLASH:
+        if attack_type == FireSword.TYPE_FIRE_SWORD:
             update_score_func(10)
             my_group.remove(self)
         else:

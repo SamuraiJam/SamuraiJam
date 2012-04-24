@@ -17,6 +17,7 @@ from samuraijam.enemy_spawn.Spawner import Spawner
 from samuraijam.player.attacks import *
 from samuraijam.player.attacks.FaceMeltingSolo import FaceMeltingSolo
 from samuraijam.player.attacks.WaterSpray import WaterSpray
+from samuraijam.player.attacks.FireSword import FireSword
 from samuraijam.util import *
 from samuraijam.game.LevelPauseMenu import *
 from samuraijam.game.WinScreen import *
@@ -266,6 +267,10 @@ class MainGame(object):
                 elif (HAL.GREEN in state and state[HAL.GREEN] == True) and (HAL.BLUE in state and state[HAL.BLUE] == True):
                     self.gameboard.add_attack(WaterSpray(tempRect.centerx + 10, tempRect.centery - 10, self.gameboard.remove_attack))
                     self.sound_water_spray.play()
+                    
+                elif (HAL.RED in state and state[HAL.RED] == True) and (HAL.YELLOW in state and state[HAL.YELLOW] == True):
+                    self.gameboard.add_attack(FireSword(tempRect.centerx, tempRect.centery, self.gameboard.remove_attack))
+                    self.sound_fire_sword.play()
                     
                     
             
