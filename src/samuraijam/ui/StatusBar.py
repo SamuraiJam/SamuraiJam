@@ -24,6 +24,12 @@ class StatusBar:
         
         self.font = pygame.font.Font(None, 26)
         
+        self.hpPos = 400
+        self.mpPos = 600
+        
+        self.healthBar = Bar(surface=self.surface, frontColor=(255,0,0), backColor=(128,128,128), curValue=100, maxValue=100, width=150, height=self.barHeight, x=self.hpPos, y=self.barY)
+        self.kiBar = Bar(surface=self.surface, frontColor=(0,0,255), backColor=(128,128,128), curValue=100, maxValue=100, width=150, height=self.barHeight, x=self.mpPos, y=self.barY)
+        
         self.draw()
         self.update_score(0)    # Force draw the initial zero
         
@@ -35,22 +41,22 @@ class StatusBar:
         
         
         # Display some hpText and Bar
-        hpPos = 400
+        
         hpText = self.font.render("HP:", 1, (10, 10, 10))
         hpTextPos = hpText.get_rect()
-        hpTextPos.centerx = hpPos - 20
+        hpTextPos.centerx = self.hpPos - 20
         hpTextPos.centery = self.barY+hpText.get_rect().height
         self.surface.blit(hpText, hpTextPos)
-        self.healthBar = Bar(surface=self.surface, frontColor=(255,0,0), backColor=(128,128,128), curValue=100, maxValue=100, width=150, height=self.barHeight, x=hpPos, y=self.barY)
+        self.healthBar.draw()
 
         # Display some mpText and Bar
-        mpPos = 600
+        
         mpText = self.font.render("Ki:", 1, (10, 10, 10))
         mpTextPos = mpText.get_rect()
-        mpTextPos.centerx = mpPos - 20
+        mpTextPos.centerx = self.mpPos - 20
         mpTextPos.centery = self.barY+mpText.get_rect().height
         self.surface.blit(mpText, mpTextPos)
-        self.kiBar = Bar(surface=self.surface, frontColor=(0,0,255), backColor=(128,128,128), curValue=100, maxValue=100, width=150, height=self.barHeight, x=mpPos, y=self.barY)
+        self.kiBar.draw()
         
         
         # Display the score!
