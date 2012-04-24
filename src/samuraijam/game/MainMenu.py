@@ -46,6 +46,7 @@ class MainMenu:
         
         
         self.screen = screen
+        
         # Load two sounds
         #self.fluteMusic = pygame.mixer.Sound("../data/introFlute.ogg")
         #self.fluteMusic = load_sound("introFlute.ogg")
@@ -65,6 +66,8 @@ class MainMenu:
         """Create the Screen"""
         if screen==None:
             screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+            
+            
         #self.mainScreenBackground, self.mainScreenBackgroundRect = load_image("SamuraiJam_MainScreen.jpg")
         mainScreenBackground,mainScreenBackgroundRect = load_image("SamuraiJam_MainScreen.jpg")
         #mainScreenBackgroundRect = mainScreenBackground.get_rect()
