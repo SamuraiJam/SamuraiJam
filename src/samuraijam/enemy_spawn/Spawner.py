@@ -52,6 +52,6 @@ class Spawner(threading.Thread):
                     self.gameboard.add_lawyer(i)
                 elif enemy == 4:
                     # fasdfasdf
-                    print "Bodyguard"
+                    self.gameboard.add_bodyguard(i)
                 elif enemy == 5:
                     self.gameboard.add_healthpack(i)
