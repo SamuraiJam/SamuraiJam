@@ -8,15 +8,18 @@ class StatusBar:
     """The Main PyMan Class - This class handles the main 
     initialization and creating of the Game."""
     
-    def __init__(self,surface,color,width,height,x,y):
+    def __init__(self, surface, color, width, height, x, y, song_name):
         self.surface = surface
         self.color = color
         self.width = width
         self.height = height
         self.x = x
         self.y = y
+        self.song_title = song_name
         
         self.score = 0
+        
+        self.status_icons = {}
         
         #sub bars
         self.barHeight = height*.5 #factor of how large the bar is. 1 = 100%
@@ -26,6 +29,7 @@ class StatusBar:
         
         self.hpPos = 400
         self.mpPos = 600
+        self.song_title_pos = 80
         
         self.healthBar = Bar(surface=self.surface, frontColor=(255,0,0), backColor=(128,128,128), curValue=100, maxValue=100, width=150, height=self.barHeight, x=self.hpPos, y=self.barY)
         self.kiBar = Bar(surface=self.surface, frontColor=(0,0,255), backColor=(128,128,128), curValue=100, maxValue=100, width=150, height=self.barHeight, x=self.mpPos, y=self.barY)
@@ -39,6 +43,14 @@ class StatusBar:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         pygame.draw.rect(self.surface, self.color, self.rect, 0)
         
+        
+        
+        
+        song_title_text = self.font.render(self.song_title, 1, (10, 10, 10))
+        song_title_text_pos = song_title_text.get_rect()
+        song_title_text_pos.centerx = song_title_text_pos.width / 2.0
+        song_title_text_pos.centery = self.barY + song_title_text_pos.height
+        self.surface.blit(song_title_text, song_title_text_pos)
         
         # Display some hpText and Bar
         
@@ -67,6 +79,16 @@ class StatusBar:
         score_text_pos.centery = self.barY + score_text_pos.height
         self.surface.blit(score_text, score_text_pos)
 
+
+        cur_icon_x_pos = self.width - 32
+        cur_icon_y_pos = self.barY
+        # Draw some status icons
+        for icon in self.status_icons.values():
+            
+            self.surface.blit(icon, (cur_icon_x_pos, cur_icon_y_pos))
+            
+            cur_icon_x_pos = cur_icon_x_pos - 46
+
         # Display some expText and Bar
 #        expPos = 800
 #        expText = font.render("Rep:", 1, (10, 10, 10))
@@ -87,3 +109,15 @@ class StatusBar:
         score_val_pos.centery = self.barY + score_val_pos.height
         self.surface.blit(score_val, score_val_pos)
         
+        
+    def add_status_icon(self, icon_name):
+        print "trying to add ", icon_name
+        if not (icon_name in self.status_icons):
+            new_icon, jank_rect = load_image_from_folder('status_icons', icon_name)
+            self.status_icons[icon_name] = new_icon
+            self.update_score(0)        # calls Draw
+    
+    def remove_status_icon(self, icon_name):
+        if icon_name in self.status_icons:
+            del self.status_icons[icon_name]
+            self.update_score(0)       # calls Draw

@@ -86,19 +86,22 @@ class Samurai(pygame.sprite.Sprite):
 
 
     def stun(self, status_bar):
-        # Stun the Samurai
-        self.is_stunned = True
-        
-        # Draw the icon to the status bar
-        self.status_bar = status_bar
-        
-        # Start the timer to free the Samurai
-        stun_timer = Timer(3.0, self.__un_stun)
-        stun_timer.start()
+        if not self.is_stunned:
+            # Stun the Samurai
+            self.is_stunned = True
+            
+            # Draw the icon to the status bar
+            self.status_bar = status_bar
+            self.status_bar.add_status_icon('bolt.png')
+            
+            
+            # Start the timer to free the Samurai
+            stun_timer = Timer(3.0, self.__un_stun)
+            stun_timer.start()
         
     def __un_stun(self):
         # Free the Samurai
         self.is_stunned = False
         
         # Clean up the icons    
-        
+        self.status_bar.remove_status_icon('bolt.png')

@@ -42,4 +42,3 @@ class Bodyguard(Sprite):
     def process_player_hit(self, status_bar, samurai):
         status_bar.healthBar.update(-20)
         samurai.stun(status_bar)
-        print "NYI - STUN THE PLAYER!"

@@ -37,11 +37,13 @@ class MainGame(object):
         screen.fill((0,0,0))
         
         
-        self.statusBar = StatusBar(surface=self.screen,color=(200, 200, 200),width=self.width,height=60,x=0,y=0)
+#        self.statusBar = StatusBar(surface=self.screen,color=(200, 200, 200),width=self.width,height=60,x=0,y=0)
         
         """Gameboard Time!"""
         #load_level = os.path.join('..', 'data', 'songs', 'sexy.txt')
         self.gameboard = Gameboard(self.screen, self.width, 540, level)
+        
+        self.statusBar = StatusBar(surface=self.screen, color=(200, 200, 200), width=self.width, height=60, x=0, y=0, song_name=self.gameboard.song_name)
         
         if sys.platform == "win32" or sys.platform == "darwin":
             # On Windows, the best timer is time.clock()
@@ -74,6 +76,14 @@ class MainGame(object):
         
         print "Trying to load " + os.path.abspath(full_music_path)
         pygame.mixer.music.load(full_music_path)
+        
+        # Where are the sound effects?
+        self.sound_basic_slash = load_sound_from_folder('sound_effects', 'vertical_slash.wav')
+        self.sound_face_melt = load_sound_from_folder('sound_effects', 'face_melt.wav')
+        self.sound_fire_sword = load_sound_from_folder('sound_effects', 'fire_sword.wav')
+        self.sound_water_spray = load_sound_from_folder('sound_effects', 'water_spray.wav')
+        self.sound_mine_explosion = load_sound_from_folder('sound_effects', 'mine_explosion.wav')
+        
         
         """Joystick"""
         self.joy = pygame.joystick.Joystick(0)
@@ -156,6 +166,7 @@ class MainGame(object):
             if mine_p_collisions != None:
                 for m in mine_p_collisions:
                     self.gameboard.add_explosion(m.rect.top)
+                    self.sound_mine_explosion.play()
                     m.process_player_hit(self.statusBar)
                     self.gameboard.mine_group.remove(m)
 #                    self.health = self.health - 10
@@ -242,6 +253,7 @@ class MainGame(object):
                 tempSprite = self.gameboard.samurai_sprite_group.sprites()
                 tempRect = tempSprite[0].get_rect()
                 self.gameboard.add_attack(VerticalSlash(tempRect.centerx,tempRect.centery, self.gameboard.remove_attack))
+                self.sound_basic_slash.play()
             
 #        if input == HAL.GREEN:
 #            if pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
