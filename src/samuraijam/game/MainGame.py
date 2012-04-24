@@ -39,7 +39,8 @@ class MainGame(object):
         self.statusBar = StatusBar(surface=self.screen,color=(200, 200, 200),width=self.width,height=60,x=0,y=0)
         
         """Gameboard Time!"""
-        self.gameboard = Gameboard(self.screen, self.width, 540, "../data/testLevel.txt")
+        load_level = os.path.join('..', 'data', 'sexy.txt')
+        self.gameboard = Gameboard(self.screen, self.width, 540, load_level)
         
         if sys.platform == "win32" or sys.platform == "darwin":
             # On Windows, the best timer is time.clock()
@@ -89,7 +90,9 @@ class MainGame(object):
 #        self.gameboard.add_bridge()
         self.gameboard.add_healthpack(3)
 
-        spawner = Spawner("../data/sexy-level.txt", self.gameboard)
+        full_level_path = os.path.join('..', 'data', self.gameboard.level_filename)
+
+        spawner = Spawner(full_level_path, self.gameboard)
         spawner.start()
         start_time = self.default_timer()
         #print start_time
