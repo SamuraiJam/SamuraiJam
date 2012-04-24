@@ -13,6 +13,7 @@ from samuraijam.player import Samurai
 from samuraijam.enemies.Mine import Mine
 from samuraijam.enemies.Enemy import Enemy
 from samuraijam.enemies.MaleGroupie import MaleGroupie
+from samuraijam.enemies.Lawyer import Lawyer
 from samuraijam.powerups.Healthpack import Healthpack
 from samuraijam.player.attacks import *
 
@@ -178,6 +179,10 @@ class Gameboard(object):
     def add_male_groupie(self, string_num):
         new_enemy = MaleGroupie(1111, PATH_HEIGHT * string_num + 15)
         self.enemy_group.add(new_enemy)
+        
+    def add_lawyer(self, string_num):
+        new_lawyer = Lawyer(1111, PATH_HEIGHT * string_num + 15)
+        self.enemy_group.add(new_lawyer)
         
     def remove_attack(self, attack):
         self.attack_group.remove(attack)
