@@ -72,7 +72,7 @@ class LevelSelectMenu:
             song_filename = os.path.join(song_dir, song)
             song_file_list.append(song_filename)
             song_file = open(song_filename)
-            song_title = song_file.readline().strip('\n')
+            song_title = song_file.readline().strip()
             i_state = i_state + 1
             menu_list.append( (song_title, i_state, None) )
             

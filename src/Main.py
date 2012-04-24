@@ -6,15 +6,17 @@ Created on Apr 4, 2012
 from samuraijam.game import *
 import os
 from samuraijam.game.IntroMovie import *
+import subprocess
 
 if __name__ == '__main__':
     #iM = IntroMovie()
     #iM.mainLoop()
     
-    '''
+    
     path = os.path.join('..','data','movie.mpg')
-    os.system("open -a vlc "+path)
-    '''
+    subprocess.check_call(['/Applications/VLC.app/Contents/MacOS/VLC',path,])
+    #os.system("open -a vlc "+path)
+    
     #pygame.time.wait(124*10000)
     #video is 2:02 long
     

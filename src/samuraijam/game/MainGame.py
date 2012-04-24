@@ -78,6 +78,8 @@ class MainGame(object):
         full_music_path = os.path.join('..', 'data', 'music', self.gameboard.music_filename)
         
         print "Trying to load " + os.path.abspath(full_music_path)
+        load_path = os.path.abspath(full_music_path.strip('\n'))
+        print load_path
         pygame.mixer.music.load(full_music_path)
         
         # Where are the sound effects?
