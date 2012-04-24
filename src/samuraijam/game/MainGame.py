@@ -89,7 +89,7 @@ class MainGame(object):
 #        self.gameboard.add_bridge()
         self.gameboard.add_healthpack(3)
 
-        spawner = Spawner("../data/midi-level2.txt", self.gameboard)
+        spawner = Spawner("../data/sexy-level.txt", self.gameboard)
         spawner.start()
         start_time = self.default_timer()
         #print start_time
@@ -163,6 +163,7 @@ class MainGame(object):
                 for m in healthpack_p_collisions:
                     self.gameboard.healthpack_group.remove(m)
                     self.health = self.health + 30
+                    self.health = min(self.health, 100)
                     self.statusBar.healthBar.update(30)
 
                         
