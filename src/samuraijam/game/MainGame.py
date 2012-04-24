@@ -100,6 +100,9 @@ class MainGame(object):
         spawner.start()
         start_time = self.default_timer()
         #print start_time
+        
+        start_music = Timer(1025.0 / self.gameboard.pixels_per_second, self.playSexy)
+        start_music.start()
         pre_apocalypse = True
         while pre_apocalypse:
             #cur_time = self.default_timer()
@@ -131,8 +134,8 @@ class MainGame(object):
                     guitarState = self.hal.parseButton(self.joy)
                     self.process_pause(guitarState)
                         
-            if self.is_playing == False and pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
-                self.playSexy()       
+#            if self.is_playing == False and pygame.sprite.spritecollideany(self.gameboard.samurai, self.gameboard.bridge_group) != None:
+#                self.playSexy()       
                 
                 
             # Process attacks before player impacts:

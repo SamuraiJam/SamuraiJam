@@ -1,3 +1,5 @@
 Firework by Katy Perry
 103
 firework-level.txt
+firework.ogg
+sexy_background.png
