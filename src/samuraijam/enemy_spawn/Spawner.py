@@ -45,4 +45,5 @@ class Spawner(threading.Thread):
                 if enemy == 1:
                     self.gameboard.add_mine(i)
                 elif enemy == 2:
-                    self.gameboard.add_enemy(i)
+                    #self.gameboard.add_enemy(i)
+                    self.gameboard.add_male_groupie(i)

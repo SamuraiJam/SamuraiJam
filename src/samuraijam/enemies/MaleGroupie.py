@@ -1,0 +1,56 @@
+'''
+Created on Apr 23, 2012
+
+@author: Dave
+'''
+
+from pygame.sprite import Sprite
+from pygame import RLEACCEL
+from samuraijam.util.Helpers import *
+from samuraijam.player.attacks import VerticalSlash
+
+class MaleGroupie(Sprite):
+    '''
+    classdocs
+    '''
+
+
+    def __init__(self, xPos, yPos):
+        '''
+        Constructor
+        '''
+        pygame.sprite.Sprite.__init__(self) 
+
+        self.image, self.rect = load_image_from_folder('groupie_male', 'groupie_male_1.png', -1)
+        
+        self.rect.topleft = (xPos,yPos)
+        
+        #self.images = (load_image_from_folder('groupie_male', 'groupie_male_1.png', -1), load_image_from_folder('groupie_male', 'groupie_male_2.png', -1), load_image_from_folder('groupie_male', 'groupie_male_3.png', -1), load_image_from_folder('groupie_male', 'groupie_male_4.png', -1), load_image_from_folder('groupie_male', 'groupie_male_5.png', -1), load_image_from_folder('groupie_male', 'groupie_male_6.png', -1))
+        self.images = (load_image_from_folder('groupie_female', 'groupie_female_1.png', -1), load_image_from_folder('groupie_female', 'groupie_female_2.png', -1), load_image_from_folder('groupie_female', 'groupie_female_3.png', -1), load_image_from_folder('groupie_female', 'groupie_female_4.png', -1), load_image_from_folder('groupie_female', 'groupie_female_5.png', -1), load_image_from_folder('groupie_female', 'groupie_female_6.png', -1))
+        self.current_frame = 0
+        self.frame_counter = 0
+        
+        self.hit_once = False
+        
+    def update(self, dist):
+        self.frame_counter = self.frame_counter + 1
+        if self.frame_counter >= 10:
+            self.frame_counter = 0
+            self.current_frame = self.current_frame + 1
+            if self.current_frame > (len(self.images) - 1):
+                self.current_frame = 0
+        self.image = self.images[self.current_frame][0]
+        print self.image.get_colorkey()
+        
+        self.rect.move_ip(-dist,0)
+        
+    def process_hit(self, attack_type, my_group, update_score_func):
+        if attack_type == VerticalSlash.TYPE_VERTICAL_SLASH:
+            update_score_func(10)
+            my_group.remove(self)
+        else:
+            if not self.hit_once:
+                self.hit_once = True
+            else:
+                update_score_func(5)
+                my_group.remove(self)

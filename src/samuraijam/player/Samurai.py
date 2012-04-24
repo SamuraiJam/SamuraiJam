@@ -20,7 +20,7 @@ class Samurai(pygame.sprite.Sprite):
     def __init__(self, guitarStrings):
         pygame.sprite.Sprite.__init__(self) 
         self.image, self.rect = load_samurai_image('chr06164.png', -1)
-        self.images = (load_samurai_image('chr06164.png', -1), load_samurai_image('chr06166.png', -1), load_samurai_image('chr06167.png', -1), load_samurai_image('chr06168.png', -1), load_samurai_image('chr06169.png', -1), load_samurai_image('chr06170.png', -1), load_samurai_image('chr06171.png', -1), load_samurai_image('chr06172.png', -1))
+        self.images = (load_image_from_folder('samurai_sprites', 'chr06164.png', -1), load_image_from_folder('samurai_sprites', 'chr06166.png', -1), load_image_from_folder('samurai_sprites', 'chr06167.png', -1), load_image_from_folder('samurai_sprites', 'chr06168.png', -1), load_image_from_folder('samurai_sprites', 'chr06169.png', -1), load_image_from_folder('samurai_sprites', 'chr06170.png', -1), load_image_from_folder('samurai_sprites', 'chr06171.png', -1), load_image_from_folder('samurai_sprites', 'chr06172.png', -1))
         self.current_frame = 0
         self.frame_counter = 0
         self.guitarStringPaths = guitarStrings
