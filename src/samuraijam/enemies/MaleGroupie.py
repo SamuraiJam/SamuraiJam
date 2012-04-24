@@ -27,7 +27,14 @@ class MaleGroupie(Sprite):
         
         #self.images = (load_image_from_folder('groupie_male', 'groupie_male_1.png', -1), load_image_from_folder('groupie_male', 'groupie_male_2.png', -1), load_image_from_folder('groupie_male', 'groupie_male_3.png', -1), load_image_from_folder('groupie_male', 'groupie_male_4.png', -1), load_image_from_folder('groupie_male', 'groupie_male_5.png', -1), load_image_from_folder('groupie_male', 'groupie_male_6.png', -1))
         #self.images = (load_image_from_folder('groupie_female', 'groupie_female_1.png', -1), load_image_from_folder('groupie_female', 'groupie_female_2.png', -1), load_image_from_folder('groupie_female', 'groupie_female_3.png', -1), load_image_from_folder('groupie_female', 'groupie_female_4.png', -1), load_image_from_folder('groupie_female', 'groupie_female_5.png', -1), load_image_from_folder('groupie_female', 'groupie_female_6.png', -1))
-        self.images = (load_image_from_folder('groupie', 'groupie_1.png', -1), load_image_from_folder('groupie', 'groupie_2.png', -1), load_image_from_folder('groupie', 'groupie_3.png', -1), load_image_from_folder('groupie', 'groupie_4.png', -1), load_image_from_folder('groupie', 'groupie_5.png', -1), load_image_from_folder('groupie', 'groupie_6.png', -1), load_image_from_folder('groupie', 'groupie_7.png', -1), load_image_from_folder('groupie', 'groupie_8.png', -1), load_image_from_folder('groupie', 'groupie_9.png', -1))
+        #self.images = (load_image_from_folder('groupie', 'groupie_1.png', -1), load_image_from_folder('groupie', 'groupie_2.png', -1), load_image_from_folder('groupie', 'groupie_3.png', -1), load_image_from_folder('groupie', 'groupie_4.png', -1), load_image_from_folder('groupie', 'groupie_5.png', -1), load_image_from_folder('groupie', 'groupie_6.png', -1), load_image_from_folder('groupie', 'groupie_7.png', -1), load_image_from_folder('groupie', 'groupie_8.png', -1), load_image_from_folder('groupie', 'groupie_9.png', -1))
+        
+        self.images = load_images_from_folder('groupie', -1)
+        
+        
+        self.images.extend(self.images[::-1])
+        
+        
         
         self.current_frame = 0
         self.frame_counter = 0
@@ -36,13 +43,14 @@ class MaleGroupie(Sprite):
         
     def update(self, dist):
         self.frame_counter = self.frame_counter + 1
-        if self.frame_counter >= 10:
+        if self.frame_counter >= 7:
             self.frame_counter = 0
             self.current_frame = self.current_frame + 1
             if self.current_frame > (len(self.images) - 1):
                 self.current_frame = 0
-        self.image = self.images[self.current_frame][0]
-        print self.image.get_colorkey()
+                
+        self.image, frame_rect = self.images[self.current_frame]
+
         
         self.rect.move_ip(-dist,0)
         
