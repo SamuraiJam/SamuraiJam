@@ -15,6 +15,7 @@ from samuraijam.control.HAL import *
 from menu import *
 from LevelSelectMenu import *
 from pygame.font import Font
+from HighScoreScreen import *
 
 
 class WinScreen:
@@ -40,8 +41,9 @@ class WinScreen:
                 new_high_score = True
         
         if new_high_score:
-            print 'new high score'
-            new_name = 'new_name'
+            m = HighScoreScreen(self.screen)
+            m.mainLoop()
+            new_name = m.name
             new_scores = []
             high_scores = open(high_score_file, 'w')
             for i in range(0, 4):
@@ -50,6 +52,9 @@ class WinScreen:
                     new_scores.append((new_name, str(score)))
                 high_scores.writelines(scores[i][0] + "\t" + scores[i][1])
                 new_scores.append(scores[i])
+            if new_score < scores[3][1]:
+                high_scores.writelines(new_name + "\t" + str(new_score))
+                new_scores.append((new_name, str(score)))
             high_scores.close()
             scores = new_scores
         
@@ -217,9 +222,6 @@ class WinScreen:
                 
         #return self.timeToQuit()
 
-    #returns true if it's time to quit the game (used to go back to the level select menu from a game)
-    def timeToQuit(self):
-        return not self.globalPauseSignal   
                 
 if __name__ == "__main__":
     WinScreen()
