@@ -7,7 +7,7 @@ Created on Apr 24, 2012
 from pygame.sprite import Sprite
 from pygame import RLEACCEL
 from samuraijam.util.Helpers import *
-from samuraijam.player.attacks import VerticalSlash
+from samuraijam.player.attacks import FaceMeltingSolo
 
 class Lawyer(Sprite):
     '''
@@ -60,7 +60,7 @@ class Lawyer(Sprite):
         self.rect.move_ip(-dist,0)
         
     def process_hit(self, attack_type, my_group, update_score_func):
-        if attack_type == VerticalSlash.TYPE_VERTICAL_SLASH:
+        if attack_type == FaceMeltingSolo.TYPE_FACE_MELTING_SOLO:
             update_score_func(10)
             my_group.remove(self)
         else:
