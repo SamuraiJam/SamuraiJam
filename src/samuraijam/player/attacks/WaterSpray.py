@@ -36,7 +36,7 @@ class WaterSpray(Sprite):
         if self.current_frame == (len(self.images) - 1):
             self.killFunction(self)
         
-        if self.frame_counter >= 7:
+        if self.frame_counter >= 5:
             self.frame_counter = 0
             self.current_frame = self.current_frame + 1
             
