@@ -8,6 +8,7 @@ from pygame.locals import *
 from samuraijam.util import *
 from menu import *
 from MainGame import *
+from InstructionsScreen import *
 #from menu import *
 #from MainMenu import *
 #from samuraijam.game import *
@@ -65,7 +66,7 @@ class LevelSelectMenu:
         song_dir = os.path.join('..', 'data', 'songs')
         list_of_songs = os.listdir(song_dir)
         song_file_list = []
-        menu_list = [('Tutorial', 1, None)]
+        menu_list = [('How To Play', 1, None)]
         i_state = 1
         
         for song in list_of_songs:
@@ -156,6 +157,9 @@ class LevelSelectMenu:
                 elif state == 1:
                     print 'Tutorial'
                     self.clashingSwords.play()
+                    m = InstructionsScreen(screen)
+                    m.mainLoop()
+                    screen.fill((255,255,255))
                     state = 0
                     
                 elif state > 1 and state < i_state:

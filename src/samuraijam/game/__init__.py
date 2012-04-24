@@ -4,3 +4,4 @@ from menu import *
 from LevelPauseMenu import *
 from WinScreen import *
 from HighScoreScreen import *
+from InstructionsScreen import *
