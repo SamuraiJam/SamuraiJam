@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/samuraijam/enemy_spawn/midi/EventDispatcher.py=ISO-8859-1
 encoding//src/samuraijam/enemy_spawn/midi/MidiFileParser.py=ISO-8859-1
 encoding//src/samuraijam/enemy_spawn/midi/MidiInFile.py=ISO-8859-1
 encoding//src/samuraijam/enemy_spawn/midi/MidiOutStream.py=ISO-8859-1

@@ -162,7 +162,7 @@ class MidiOutStream:
     #####################
     ## System Exclusive
 
-    def system_exclusive(self, data):
+    def sysex_event(self, data):
 
         """
         data: list of values in range(128)

@@ -6,6 +6,12 @@ Created on Apr 19, 2012
 from samuraijam.enemy_spawn.midi.MidiOutStream import MidiOutStream
 from samuraijam.enemy_spawn.midi.MidiInFile import MidiInFile
 
+INPUT = "kesha-tik_tok.mid"
+OUTPUT = "tiktok2-times.txt"
+#channel is one less than what anvil gives
+CHANNEL = 3
+BPM = 120
+
 class MidiToTimes(MidiOutStream):
     '''
     classdocs
@@ -16,28 +22,34 @@ class MidiToTimes(MidiOutStream):
         '''
         Constructor
         '''
-        self.output = open("../../../data/midi-times.txt", "w")
-        self.sum = 0.0
+        self.output = open("../../../data/" + OUTPUT, "w")
         self.output.writelines("{0}\n".format(str(0)))
         self.prev_time = 0
         
     def note_on(self, channel=0, note=0x40, velocity=0x40):
-        if channel == 0:
+        if channel == CHANNEL:
             time = self.abs_time()
             rel_time = time - self.prev_time
             self.prev_time = time
-            if time != 0:
-                self.sum = self.sum + rel_time
-                if self.sum > 0:
-                    self.output.writelines("{0}\n".format(self.sum/500.0))
-                    self.sum = 0.0
+            if rel_time != 0:
+                self.output.writelines("{0}\n".format(rel_time*self.SCALE))
+                
+                
+    def eof(self):
+        self.output.close()
+        
+    def header(self, format=0, nTracks=1, division=96):
+        if division > 0:
+            self.SCALE = ((60.0/BPM)/division)
+        else:
+            self.SCALE = (-1.0/division)
                 
                            
 if __name__ == '__main__':
     
     event_handler = MidiToTimes()
 
-    infile = "../../../data/lmfao-sexy_and_i_know_it_v2.mid"
+    infile = "../../../data/" + INPUT
     midi_in = MidiInFile(event_handler, infile)
     midi_in.read()
 

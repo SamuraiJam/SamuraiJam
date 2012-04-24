@@ -4,18 +4,17 @@ Created on Apr 4, 2012
 @author: Matt Halpern
 '''
 import random
-import math
 
 PROB_MINE = .05
 PROB_ENEMY = .07
 PROB_DOWN = .4
 PROB_UP = .4
 PROB_BRIDGE = .05
-BRIDGE_FREQ = 8
+MOVE_FREQ = 8
 START_STRING = 2
 
-INPUT_FILE = "midi-times.txt"
-OUTPUT_FILE = "midi-level2.txt"
+INPUT_FILE = "tiktok2-times.txt"
+OUTPUT_FILE = "tiktok-level.txt"
 
 input = open("../../../data/" + INPUT_FILE, "r")
 output = open("../../../data/" + OUTPUT_FILE, "w")
@@ -29,7 +28,7 @@ for line in input:
         output.write(str(0.0) + "\t")
     else:
         output.write(line + "\t")
-    if linenumber % BRIDGE_FREQ == 1:
+    if linenumber % MOVE_FREQ == 1:
         r = random.random()
         if r < PROB_DOWN:
             move = -1
