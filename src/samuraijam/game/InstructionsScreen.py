@@ -89,6 +89,8 @@ class InstructionsScreen:
 
             e = pygame.event.wait()
             
+            print e.type
+            
             if e.type == pygame.JOYBUTTONDOWN:
                 g_state = self.hal.parseButton(self.joy)
                 if (HAL.GREEN in g_state and g_state[HAL.GREEN] == True):
@@ -129,7 +131,7 @@ class InstructionsScreen:
                     screen.blit(text, (50,380))
                     text = font.render("This is a mine", 1, (255,255,255))
                     screen.blit(text, (50,430))
-                    image = load_image("mine_blin/mine_1.png", -1)[0]
+                    image = load_image("mine_blink/mine_1.png", -1)[0]
                     screen.blit(image, (250,430))
                     text = font.render("You want to avoid all mines.", 1, (255,255,255))
                     screen.blit(text, (50,460))
@@ -221,7 +223,7 @@ class InstructionsScreen:
                     prev_state = 3
                 else:
                     done = True
-                
+                pygame.display.flip() 
         
                 
 if __name__ == "__main__":

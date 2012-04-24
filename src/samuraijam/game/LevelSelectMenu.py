@@ -158,7 +158,9 @@ class LevelSelectMenu:
                     print 'Tutorial'
                     self.clashingSwords.play()
                     m = InstructionsScreen(screen)
+                    print m
                     m.mainLoop()
+                    print "MAIN LOOP IS DEAD"
                     screen.fill((255,255,255))
                     state = 0
                     
