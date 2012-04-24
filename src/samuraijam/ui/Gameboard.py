@@ -43,11 +43,11 @@ class Gameboard(object):
         self.gameSurface = Surface(board_size) # This will be drawn every frame to the window
         
         song_file = open(song_filename)
-        self.song_name = song_file.readline()
+        self.song_name = song_file.readline().strip('\n')
         self.pixels_per_second = float(song_file.readline())
-        self.level_filename = song_file.readline()
-        self.music_filename = song_file.readline()
-        self.background_filename = song_file.readline()
+        self.level_filename = song_file.readline().strip('\n')
+        self.music_filename = song_file.readline().strip('\n')
+        self.background_filename = song_file.readline().strip('\n')
         
         
         self.pixel_offset = 0
