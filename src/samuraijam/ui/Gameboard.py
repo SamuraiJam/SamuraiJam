@@ -56,6 +56,7 @@ class Gameboard(object):
         #self.backgroundSurface.set_alpha(100,pygame.RLEACCEL)
         
         self.mainScreenBackground,self.mainScreenBackgroundRect = load_image("sexy_background.png")
+        
         #self.backgroundSurface.blit(mainScreenBackground, (0,0))
         #self.__render_background()
         
