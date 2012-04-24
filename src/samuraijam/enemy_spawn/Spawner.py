@@ -54,4 +54,4 @@ class Spawner(threading.Thread):
                     # fasdfasdf
                     self.gameboard.add_bodyguard(i)
                 elif enemy == 5:
-                    self.gameboard.add_healthpack(i)
+                    self.gameboard.add_powerup(i)

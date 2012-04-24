@@ -17,6 +17,7 @@ from samuraijam.enemies.Lawyer import Lawyer
 from samuraijam.enemies.Bodyguard import Bodyguard
 from samuraijam.enemies.Explosion import Explosion
 from samuraijam.powerups.Healthpack import Healthpack
+from samuraijam.powerups.KiPotion import KiPotion
 from samuraijam.player.attacks import *
 
 PATH_HEIGHT = 72
@@ -33,8 +34,10 @@ class Gameboard(object):
         
         #progressively increase; must end with 1
         self.PROB_HEALTH = 0.4
-        self.PROB_SHIELD = 0.7
-        self.PROB_KI = 1.0
+        
+        self.PROB_KI = 0.7
+        
+        self.PROB_SHIELD = 1.0
         
         self.windowSurface = surface
         self.width = width
@@ -85,6 +88,7 @@ class Gameboard(object):
         self.enemy_group = OrderedUpdates()
         self.attack_group = OrderedUpdates()
         self.healthpack_group = OrderedUpdates()
+        self.ki_potion_group = OrderedUpdates()
         self.explosion_group = OrderedUpdates()
         
 #        tempSprite = self.samurai_sprite_group.sprites()
@@ -152,6 +156,9 @@ class Gameboard(object):
         self.healthpack_group.update(self.scroll_amount)
         self.healthpack_group.draw(self.gameSurface)
         
+        self.ki_potion_group.update(self.scroll_amount)
+        self.ki_potion_group.draw(self.gameSurface)
+        
         #self.testSword = VerticalSlash(400,400)
         #self.attack_group.add(self.testSword)
         self.attack_group.update()
@@ -189,10 +196,10 @@ class Gameboard(object):
         r = random.random()
         if r < self.PROB_HEALTH:
             self.add_healthpack(string_num)
-        elif r < self.PROB_SHIELD:
-            self.add_shield(string_num)
         elif r < self.PROB_KI:
             self.add_kiboost(string_num)
+        elif r < self.PROB_SHIELD:
+            self.add_shield(string_num)
 
     def add_healthpack(self, string_num):
 #        print "such a healthy young man!"
@@ -203,7 +210,8 @@ class Gameboard(object):
         print "shield"
         
     def add_kiboost(self, string_num):
-        print "ki boost"
+        new_ki_potion = KiPotion(1101, PATH_HEIGHT * string_num + 42)
+        self.ki_potion_group.add(new_ki_potion)
     
     def add_enemy(self, string_num):
         new_enemy = Enemy(1111, PATH_HEIGHT * string_num + 42)

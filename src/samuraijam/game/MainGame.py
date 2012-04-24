@@ -162,8 +162,7 @@ class MainGame(object):
                     for enemy in enemies:
                         enemy.process_hit(attack.attack_type, self.gameboard.enemy_group, self.statusBar)
                     self.gameboard.attack_group.remove(attack)
-                    
-#                    enemy.process_hit(attack.attack_type, self.gameboard.enemy_group)
+
                         
             mine_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.mine_group, False)
             if mine_p_collisions != None:
@@ -172,8 +171,6 @@ class MainGame(object):
                     self.sound_mine_explosion.play()
                     m.process_player_hit(self.statusBar)
                     self.gameboard.mine_group.remove(m)
-#                    self.health = self.health - 10
-#                    self.statusBar.healthBar.update(-10)
                     if self.statusBar.healthBar.curValue <= 0:
                         pre_apocalypse = False
             
@@ -182,9 +179,6 @@ class MainGame(object):
                 for e in enemy_p_collisions:
                     e.process_player_hit(self.statusBar, self.gameboard.samurai)
                     self.gameboard.enemy_group.remove(e)
-#                    self.health = self.health - 20
-#                    self.statusBar.healthBar.update(-20)
-        
                     if self.statusBar.healthBar.curValue <= 0:
                         pre_apocalypse = False
                         
@@ -193,10 +187,14 @@ class MainGame(object):
             if healthpack_p_collisions != None:
                 for m in healthpack_p_collisions:
                     self.gameboard.healthpack_group.remove(m)
-#                    self.health = self.health + 30
-#                    self.health = min(self.health, 100)
                     self.statusBar.healthBar.update(30)
-
+                    
+                    
+            ki_potion_p_collisions = pygame.sprite.spritecollide(self.gameboard.samurai, self.gameboard.ki_potion_group, False)
+            if ki_potion_p_collisions != None:
+                for m in ki_potion_p_collisions:
+                    self.gameboard.ki_potion_group.remove(m)
+                    self.statusBar.kiBar.update(30)
                         
             
                     #add score!
