@@ -215,7 +215,7 @@ class InstructionsScreen:
                     text = font.render("This is a special sword:", 1, (255,255,255))
                     screen.blit(text, (50,540))
                     image = load_image("powerups/sword_pickup.png", -1)[0]
-                    screen.blit(image, (240,540))
+                    screen.blit(image, (450,540))
                     text = font.render("It makes your basic slash more powerful for a period of time.", 1, (255,255,255))
                     screen.blit(text, (50,570))
                     prev_state = 3

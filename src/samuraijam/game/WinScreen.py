@@ -49,12 +49,12 @@ class WinScreen:
             new_scores = []
             high_scores = open(high_score_file, 'w')
             for i in range(0, 4):
-                if new_score > scores[i][1]:
+                if new_score > int(scores[i][1]):
                     high_scores.writelines(new_name + "\t" + str(new_score))
                     new_scores.append((new_name, str(new_score)))
                 high_scores.writelines(scores[i][0] + "\t" + scores[i][1])
                 new_scores.append(scores[i])
-            if new_score < scores[3][1]:
+            if new_score < int(scores[3][1]):
                 high_scores.writelines(new_name + "\t" + str(new_score))
                 new_scores.append((new_name, str(new_score)))
             high_scores.close()
