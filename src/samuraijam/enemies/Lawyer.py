@@ -39,16 +39,16 @@ class Lawyer(Sprite):
         self.hit_once = False
         
     def update(self, dist):
-        if self.rect.left < 300:
+        if self.rect.left < 500:
             self.frame_counter = self.frame_counter + 1
-            if self.current_frame < (len(self.images) - 1) and self.frame_counter >= 12:
+            if self.current_frame < (len(self.images) - 1) and self.frame_counter >= 10:
                 self.frame_counter = 0
                 self.current_frame = self.current_frame + 1
                     
             self.image, frame_rect = self.images[self.current_frame]
         else:
             self.frame_counter = self.frame_counter + 1
-            if self.frame_counter >= 12:
+            if self.frame_counter >= 10:
                 self.frame_counter = 0
                 self.current_frame = self.current_frame + 1
                 if self.current_frame > (len(self.walk_anim) - 1):

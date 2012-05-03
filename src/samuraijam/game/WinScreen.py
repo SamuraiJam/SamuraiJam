@@ -36,7 +36,8 @@ class WinScreen:
         scores = []
         new_high_score = False
         for line in high_scores:
-            scores.append(tuple(line.split('\t')))
+            if line != "":
+                scores.append(tuple(line.split('\t')))
         high_scores.close()
         for name, score in scores:
             if new_score > int(score):
@@ -48,15 +49,18 @@ class WinScreen:
             new_name = m.name
             new_scores = []
             high_scores = open(high_score_file, 'w')
+            added = False
             for i in range(0, 4):
-                if new_score > int(scores[i][1]):
-                    high_scores.writelines(new_name + "\t" + str(new_score))
+                if not added and new_score > int(scores[i][1]):
+                    high_scores.writelines(new_name + "\t" + str(new_score) + "\n")
                     new_scores.append((new_name, str(new_score)))
+                    added = True
                 high_scores.writelines(scores[i][0] + "\t" + scores[i][1])
                 new_scores.append(scores[i])
             if new_score < int(scores[3][1]):
                 high_scores.writelines(new_name + "\t" + str(new_score))
                 new_scores.append((new_name, str(new_score)))
+                added = True
             high_scores.close()
             scores = new_scores
         
